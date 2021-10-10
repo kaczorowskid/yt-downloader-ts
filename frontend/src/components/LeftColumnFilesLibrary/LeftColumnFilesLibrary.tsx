@@ -1,6 +1,7 @@
 import React from 'react';
 import * as styled from './LeftColumnFilesLibrary.styled';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
+import Card from '../Card/Card';
 
 const LeftColumnFilesLibrary: React.FC = () => {
 
@@ -9,50 +10,12 @@ const LeftColumnFilesLibrary: React.FC = () => {
     return (
         <>
             <styled.Container visible = {leftColumnVisible} >
-                <styled.ItemContainerWrapper>
-                    <styled.ItemContainer>
-                    {`${leftColumnVisible}`}
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-                    </styled.ItemContainer>
-                    <styled.ItemContainer>
-
-</styled.ItemContainer>
-<styled.ItemContainer>
-
-</styled.ItemContainer>
-<styled.ItemContainer>
-
-</styled.ItemContainer>
-<styled.ItemContainer>
-
-</styled.ItemContainer>
-<styled.ItemContainer>
-
-</styled.ItemContainer>
-<styled.ItemContainer>
-
-</styled.ItemContainer>
-                </styled.ItemContainerWrapper>
+                <styled.ItemContainer>
+                    <Card />
+                    <Card />
+                    <Card />
+                    <Card />
+                </styled.ItemContainer>
             </styled.Container>
             <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible((prev: boolean) => !prev)} >
                 {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}

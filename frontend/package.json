@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@styled-icons/bootstrap": "^10.34.0",
+    "@styled-icons/material-outlined": "^10.34.0",
+    "@styled-icons/material-rounded": "^10.34.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -20,6 +22,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+	"dev": "cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
