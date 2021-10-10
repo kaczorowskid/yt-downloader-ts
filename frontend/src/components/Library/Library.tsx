@@ -4,7 +4,7 @@ import Folder from '../Folder/Folder';
 
 const Library: React.FC = () => {
 
-    const isLogged = false;
+    const isLogged = true;
 
     return (
         <>
@@ -22,6 +22,9 @@ const Library: React.FC = () => {
                         <Folder />
                         <Folder />
                         <Folder />
+                        <Folder />
+       
+  
                     </styled.FoldersContainer>
                 </styled.Container> :
                 <styled.NoLoggedUserContainer>

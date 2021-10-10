@@ -4,7 +4,7 @@ export const Container = styled.div`
     position: relative;
     top: 150px;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const FoldersContainer = styled.div`
     width: 80%;
-    height: 100vh;
+    min-height: 100vh;
 
     display: grid;
     grid-template-columns: repeat(4, 25%);
@@ -20,6 +20,7 @@ export const FoldersContainer = styled.div`
     column-gap: 5px;
     row-gap: 5px;
     align-items: center;
+    margin-top: 100px;
 `; 
 
 export const NoLoggedUserContainer = styled.div`
