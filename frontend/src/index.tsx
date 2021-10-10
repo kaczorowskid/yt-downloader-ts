@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppContextProvider from './context/AppContext/AppContextProvider';
+import CurrentUserContextProvider from './context/CurrentUserContext/CurrentUserContextProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppContextProvider>
-      <App />
-    </AppContextProvider>
+    <CurrentUserContextProvider>
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
+    </CurrentUserContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
