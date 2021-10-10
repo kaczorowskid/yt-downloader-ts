@@ -1,14 +1,15 @@
 import React from 'react';
 import * as styled from './Library.styled';
 import Folder from '../Folder/Folder';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 
 const Library: React.FC = () => {
 
-    const isLogged = true;
+  const { state } = useCurrentUser();
 
     return (
         <>
-            {isLogged ?
+            {state.isLogged ?
                 <styled.Container>
                     <styled.FoldersContainer>
                         <Folder />
@@ -23,8 +24,6 @@ const Library: React.FC = () => {
                         <Folder />
                         <Folder />
                         <Folder />
-       
-  
                     </styled.FoldersContainer>
                 </styled.Container> :
                 <styled.NoLoggedUserContainer>

@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import dotenv from 'dotenv';
+import React from 'react';
 import GlobalStyle from './GlobalSStyle';
-import Navbar from './components/Navbar/Navbar';
-import InputLink from './components/InputLink/InputLink';
-import Library from './components/Library/Library';
-import Footer from './components/Footer/Footer';
-import LeftColumnFilesLibrary from './components/LeftColumnFilesLibrary/LeftColumnFilesLibrary';
+import Home from './views/Home/Home';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Login from './views/Login/Login';
+import Register from './views/Register/Register';
+import { config } from './config';
+import axios from 'axios';
+axios.defaults.withCredentials = true;
+dotenv.config();
 
 const App: React.FC = () => {
 
-  const [scrollValue, setScrollValue] = useState<number>(0);
-  const checkScroll = () => setScrollValue(window.scrollY);
-  
-  useEffect(() => {
-    window.addEventListener('scroll', checkScroll);
-    return () => window.removeEventListener('scroll', checkScroll);
-  })
+  const { home, login, register } = config.routerPath
 
   return (
     < >
       <GlobalStyle />
-      <LeftColumnFilesLibrary />
-      <Navbar scrollValue = {scrollValue} />
-      <InputLink />
-      <Library />
-      <Footer />
+      <Router>
+        <Switch>
+          <Route exact path={login} component={Login} />
+          <Route exact path={register} component={Register} />
+          <Route exact path={home} component={Home} />
+        </Switch>
+      </Router>
     </>
   );
 }

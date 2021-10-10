@@ -3,9 +3,13 @@ import { createContext } from 'react'
 interface IContextApp {
     leftColumnVisible: boolean
     setLeftColumnVisible: (val: any) => void 
+    scrollValue: number
+    setScrollValue: (val: any) => void
 }
 
 export const AppContext = createContext<IContextApp>({
     leftColumnVisible: false,
-    setLeftColumnVisible: () => {}
+    setLeftColumnVisible: () => {},
+    scrollValue: 0,
+    setScrollValue: () => {}
 })

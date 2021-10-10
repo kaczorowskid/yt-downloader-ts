@@ -49,6 +49,7 @@ export const Log = styled.div<{isTop?: boolean}>`
     align-items: center;
     margin: 0 5px;
     border-radius: 5px;
+    cursor: pointer;
     transition: all 1s ease;
 `;
 
