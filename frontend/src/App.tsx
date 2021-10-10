@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import GlobalStyle from './GlobalSStyle';
 import Navbar from './components/Navbar/Navbar';
 import InputLink from './components/InputLink/InputLink';
+import Library from './components/Library/Library';
 
 const App: React.FC = () => {
 
@@ -19,25 +20,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Navbar scrollValue = {scrollValue} />
       <InputLink />
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
-      <h1>test</h1>
+      <Library />
     </>
   );
 }
