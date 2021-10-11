@@ -3,15 +3,15 @@ import * as styled from './LeftColumnFilesLibrary.styled';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import Card from '../Card/Card';
 import { useYouTubeData } from '../../hooks/useYouTubeData';
+import { useLibraryData } from '../../hooks/useLibraryData';
 
-interface Props {
-    folders: Array<any>
-}
 
-const LeftColumnFilesLibrary: React.FC<Props> = ({folders}) => {
+
+const LeftColumnFilesLibrary: React.FC = () => {
 
     const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn();
     const { fetchYouTybeData } = useYouTubeData();
+    const { libraryFolders } = useLibraryData();
 
     return (
         <>
