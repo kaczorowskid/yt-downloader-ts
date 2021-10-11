@@ -15,5 +15,5 @@ export const AppContext = createContext<IContextApp>({
     scrollValue: 0,
     setScrollValue: () => {},
     fetchYouTybeData: [],
-    setFetchYouTubeData: () => {}
+    setFetchYouTubeData: () => {},
 })

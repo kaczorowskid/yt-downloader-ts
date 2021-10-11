@@ -9,8 +9,6 @@ const generateToken = (data: any, key: string, time: number) => jwt.sign(data, k
 export const register = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    console.log(email, ' ', password);
-
     const userExist: number = await User.count({ where: { email: email } });
     const hashPassword: string = await brypt.hash(password, 10);
 
@@ -60,7 +58,6 @@ export const logout = (req: Request, res: Response) => {
 
 export const refreshMe = async (req: Request, res: Response) => {
     const cookie = req.cookies.JWT
-    console.log('refresh ', cookie)
     try {
         if (!cookie) {
             res.status(403);

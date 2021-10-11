@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as styled from './Library.styled';
 import Folder from '../Folder/Folder';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import axios from 'axios';
 import { config } from '../../config';
+import { useLibraryData } from '../../hooks/useLibraryData';
 
 const Library: React.FC = () => {
 
-    const { addFolderPath, getAllFoldersPath, deleteFolderPath } = config.url.folder;
+    const { addFolderPath, deleteFolderPath } = config.url.folder;
 
     const { state } = useCurrentUser();
+    const { setLibraryChange, libraryFolders } = useLibraryData();
+
 
     const [isClicked, setIsClicked] = useState<boolean>(false);
     const [folderNameInput, setFolderNameInput] = useState<string>('');
-    const [folders, setFolders] = useState<Array<any>>([])
-    const [deleteFolder, setDeleteFolder] = useState<boolean>(false);
-    const [isAdded, setIsAdded] = useState<boolean>(false);
+
 
     const addFolder = () => {
         axios.post(addFolderPath, null, {
@@ -25,35 +26,23 @@ const Library: React.FC = () => {
             }
         })
             .then(() => setIsClicked(false))
-            .then(() => setIsAdded(prev => !prev))
+            .then(() => setLibraryChange((prev: boolean) => !prev))
             .catch(e => console.log(e))
     }
 
     const removeFolder = (val: any) => {
         axios.delete(deleteFolderPath, {
-            params: { id: state.userData.id, name: val }
-        }).then(() => setDeleteFolder(prev => !prev))
+            params: { id: state.userData.id, title: val }
+        }).then(() => setLibraryChange((prev: boolean) => !prev))
             .catch(e => console.log(e))
     }
-
-    useEffect(() => {
-        if (state.isLogged) {
-            axios.get(getAllFoldersPath, {
-                params: {
-                    id: state.userData.id
-                }
-            })
-                .then((res: any) => setFolders(res.data.data))
-        }
-    }, [state, deleteFolder, isAdded])
-
 
     return (
         <>
             {state.isLogged ?
                 <styled.Container>
                     <styled.FoldersContainer>
-                        {folders.map((folder, i) => <Folder key={i} removeFolder = {removeFolder} folderName={folder.title} />)}
+                        {libraryFolders.map((folder, i) => <Folder key={i} removeFolder = {removeFolder} folderName={folder.title} />)}
                         <styled.AddFolderContainer>
                             {!isClicked ? (
                                 <>

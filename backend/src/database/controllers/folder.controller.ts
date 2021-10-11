@@ -16,12 +16,10 @@ export const getFolders = async (req: Request, res: Response) => {
 }
 
 export const deleteFolder = async (req: Request, res: Response) => {
-    const { id, name } = req.query;
-
-    console.log('destroy name ', name)
+    const { id, title } = req.query;
 
     try {
-        const data = await Folders.destroy({where: {user_id: id, title: name}});
+        const data = await Folders.destroy({where: {user_id: id, title: title}});
         console.log('data: ', data)
         res.json({data: data})
     } catch(e) {
@@ -31,7 +29,7 @@ export const deleteFolder = async (req: Request, res: Response) => {
 
 export const addFolder = async (req: Request, res: Response) => {
     const { id, title } = req.query;
-    console.log('name: ', title)
+ 
     try {
         const data = await Folders.create({ //create przyjmuje tylko stringa
             title: title as string, 

@@ -4,12 +4,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppContextProvider from './context/AppContext/AppContextProvider';
 import CurrentUserContextProvider from './context/CurrentUserContext/CurrentUserContextProvider';
+import LibraryContentContextProvider from './context/LibraryContentContext/LibraryContentContextProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <CurrentUserContextProvider>
       <AppContextProvider>
-        <App />
+        <LibraryContentContextProvider>
+          <App />
+        </LibraryContentContextProvider>
       </AppContextProvider>
     </CurrentUserContextProvider>
   </React.StrictMode>,
