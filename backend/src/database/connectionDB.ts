@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('yt-downloader', 'root', '', {
+const sequelize = new Sequelize('yt-downloader-v2', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 })

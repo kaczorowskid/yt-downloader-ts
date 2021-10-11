@@ -12,6 +12,16 @@ export const config = {
             loginPath: `${node_env}/user/login`,
             logoutPath: `${node_env}/user/logout`,
             meRefresh: `${node_env}/user/me`
-        }
+        },
+        folder: {
+            getAllFoldersPath: `${node_env}/folder/get-all`,
+            deleteFolderPath: `${node_env}/folder/delete`,
+            addFolderPath: `${node_env}/folder/add`
+        },
+        download: {
+            getInfo: `${node_env}/download/get-info`,
+            downloadOne: `${node_env}/download/download-one`,
+            downloadZip: `${node_env}/download/download-zip`
+        },
     }
 }

@@ -2,19 +2,22 @@ import React from 'react';
 import * as styled from './LeftColumnFilesLibrary.styled';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import Card from '../Card/Card';
+import { useYouTubeData } from '../../hooks/useYouTubeData';
 
-const LeftColumnFilesLibrary: React.FC = () => {
+interface Props {
+    folders: Array<any>
+}
 
-    const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn()
+const LeftColumnFilesLibrary: React.FC<Props> = ({folders}) => {
+
+    const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn();
+    const { fetchYouTybeData } = useYouTubeData();
 
     return (
         <>
             <styled.Container visible = {leftColumnVisible} >
                 <styled.ItemContainer>
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    {fetchYouTybeData.map((data, i) => <Card key = {i} youtubeData = {data} />)}
                 </styled.ItemContainer>
             </styled.Container>
             <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible((prev: boolean) => !prev)} >

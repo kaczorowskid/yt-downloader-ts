@@ -9,6 +9,7 @@ const AppContextProvider: React.FC<Props> = ({children}) => {
 
     const [leftColumnVisible, setLeftColumnVisible] = useState<boolean>(false);
     const [scrollValue, setScrollValue] = useState<number>(0);
+    const [fetchYouTybeData, setFetchYouTubeData] = useState<Array<any>>([])
     
     const checkScroll = () => setScrollValue(window.scrollY);
     
@@ -21,7 +22,9 @@ const AppContextProvider: React.FC<Props> = ({children}) => {
         leftColumnVisible,
         setLeftColumnVisible,
         scrollValue,
-        setScrollValue
+        setScrollValue,
+        fetchYouTybeData,
+        setFetchYouTubeData
     }
 
     return (

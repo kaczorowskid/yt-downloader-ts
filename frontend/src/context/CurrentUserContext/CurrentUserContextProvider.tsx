@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react'
 import { CurrentUserContext } from './CurrentUserContext';
 import { loginReducer, initialState } from '../../reducers/loginReducer'
 import axios from 'axios';
+import { config } from '../../config' 
 
 interface Props {
     children: React.ReactNode
@@ -9,11 +10,13 @@ interface Props {
 
 const CurrentUserContextProvider: React.FC<Props> = ({children}) => {
 
+    const { meRefresh } = config.url.user;
+
     const [state, dispatch] = useReducer(loginReducer, initialState);
 
     useEffect(() => {
         const fetchDataCurrentUser = () => {
-            axios.get('http://localhost:4200/user/me')
+            axios.get(meRefresh)
             .then((res: any) => dispatch({type: 'REFRESH', id: res.data.id, email: res.data.email}))
             .catch(e => console.log(e))
         }

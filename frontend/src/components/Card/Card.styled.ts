@@ -10,6 +10,7 @@ export const Container = styled.div`
     margin: 10px 0;
     display: flex;
     overflow: hidden;
+    font-family: 'Roboto', sans-serif;
 `;
 
 export const ItemContainer = styled.div`

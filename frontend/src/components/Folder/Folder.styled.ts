@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { RemoveCircleOutline } from '@styled-icons/material-outlined';
+
 
 export const FolderContainer = styled.div`
     width: 95%;
@@ -38,4 +40,10 @@ export const ItemsCount = styled.div`
     align-items: center;
     color: white;
     font-weight: bold;
+`;
+
+export const RemoveIcon = styled(RemoveCircleOutline)`
+    color: white;
+    width: 30px;
+    height: 30px;
 `;
