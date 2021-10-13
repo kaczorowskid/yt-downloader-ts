@@ -11,7 +11,7 @@ const Library: React.FC = () => {
     const { addFolderPath, deleteFolderPath } = config.url.folder;
 
     const { state } = useCurrentUser();
-    const { setLibraryChange, libraryFolders } = useLibraryData();
+    const { libraryChange, setLibraryChange, libraryFolders } = useLibraryData();
 
 
     const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -26,14 +26,14 @@ const Library: React.FC = () => {
             }
         })
             .then(() => setIsClicked(false))
-            .then(() => setLibraryChange((prev: boolean) => !prev))
+            .then(() => setLibraryChange(!libraryChange))
             .catch(e => console.log(e))
     }
 
-    const removeFolder = (val: any) => {
+    const removeFolder = (val: string) => {
         axios.delete(deleteFolderPath, {
             params: { id: state.userData.id, title: val }
-        }).then(() => setLibraryChange((prev: boolean) => !prev))
+        }).then(() => setLibraryChange(!libraryChange))
             .catch(e => console.log(e))
     }
 
@@ -60,11 +60,6 @@ const Library: React.FC = () => {
                                     </styled.AddFolderFooterContainer>
                                 </>
                             )}
-                            {/* {addFolerInfo && (
-                                <styled.AddedFolder>
-                                    <styled.AddedIcon />
-                                </styled.AddedFolder>
-                            )} */}
                         </styled.AddFolderContainer>
                     </styled.FoldersContainer>
                 </styled.Container> :

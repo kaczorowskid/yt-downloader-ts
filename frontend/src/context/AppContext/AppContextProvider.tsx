@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AppContext } from './AppContext';
+import { IYoutubeData } from '../../types/IYoutubeData'
 
 interface Props {
     children: React.ReactNode
@@ -9,7 +10,7 @@ const AppContextProvider: React.FC<Props> = ({children}) => {
 
     const [leftColumnVisible, setLeftColumnVisible] = useState<boolean>(false);
     const [scrollValue, setScrollValue] = useState<number>(0);
-    const [fetchYouTybeData, setFetchYouTubeData] = useState<Array<any>>([])
+    const [fetchYouTubeData, setFetchYouTubeData] = useState<Array<IYoutubeData>>([])
     
     const checkScroll = () => setScrollValue(window.scrollY);
     
@@ -23,7 +24,7 @@ const AppContextProvider: React.FC<Props> = ({children}) => {
         setLeftColumnVisible,
         scrollValue,
         setScrollValue,
-        fetchYouTybeData,
+        fetchYouTubeData,
         setFetchYouTubeData
     }
 

@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import axios from 'axios';
 import { config } from '../../config';
+import { loginReducerAction } from '../../reducers/loginReducer';
 
 interface Props {
     scrollValue: number
@@ -21,7 +22,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     const handleLogout = () => {
         axios.get(logoutPath)
-        .then(() => dispatch({type: 'LOGOUT'}))
+        .then(() => dispatch({type: loginReducerAction.LOGOUT, id: 0, email: ''}))
         .finally(() => history.push('/'))
     }
 

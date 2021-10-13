@@ -4,22 +4,23 @@ import { useYouTubeData } from '../../hooks/useYouTubeData';
 import * as styled from './Card.styled';
 import { config } from '../../config';
 import { downloader } from '../../helper/downloader';
+import { IYoutubeData } from '../../types/IYoutubeData';
 
 interface Props {
-    youtubeData: any
+    youtubeData: IYoutubeData
 }
 
 const Card: React.FC<Props> = ({ youtubeData }) => {
 
     const { downloadOne } = config.url.download;
 
-    const { fetchYouTybeData, setFetchYouTubeData } = useYouTubeData();
+    const { fetchYouTubeData, setFetchYouTubeData } = useYouTubeData();
 
     const filterArray = (id: string) => {
-        setFetchYouTubeData(fetchYouTybeData.filter(i => i.id !== id))
+        setFetchYouTubeData(fetchYouTubeData.filter(i => i.id !== id))
     }
 
-    const downloadOneFile = (itemInfo: any) => {
+    const downloadOneFile = (itemInfo: IYoutubeData) => {
         axios.get(downloadOne, {
             params: {
                 url: itemInfo.url,

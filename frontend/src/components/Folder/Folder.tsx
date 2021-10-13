@@ -3,7 +3,7 @@ import * as styled from './Folder.styled';
 
 interface Props {
     folderName: string,
-    removeFolder: (val: any) => void
+    removeFolder: (val: string) => void
 }
 
 const Folder: React.FC<Props> = ({ folderName, removeFolder }) => {

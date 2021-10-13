@@ -1,12 +1,13 @@
 import { createContext } from 'react'
+import { IYoutubeData } from '../../types/IYoutubeData'
 
 interface IContextApp {
     leftColumnVisible: boolean
-    setLeftColumnVisible: (val: any) => void 
+    setLeftColumnVisible: (val: boolean) => void 
     scrollValue: number
-    setScrollValue: (val: any) => void
-    fetchYouTybeData: Array<any>
-    setFetchYouTubeData: (val: any) => void
+    setScrollValue: (val: number) => void
+    fetchYouTubeData: Array<IYoutubeData>
+    setFetchYouTubeData: (val: Array<IYoutubeData>) => void
 }
 
 export const AppContext = createContext<IContextApp>({
@@ -14,6 +15,6 @@ export const AppContext = createContext<IContextApp>({
     setLeftColumnVisible: () => {},
     scrollValue: 0,
     setScrollValue: () => {},
-    fetchYouTybeData: [],
+    fetchYouTubeData: [],
     setFetchYouTubeData: () => {},
 })

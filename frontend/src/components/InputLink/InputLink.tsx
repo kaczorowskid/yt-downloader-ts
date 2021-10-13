@@ -10,7 +10,7 @@ const InputLink: React.FC = () => {
     const { getInfo } = config.url.download
 
     const { setLeftColumnVisible } = useLeftColumn();
-    const { fetchYouTybeData, setFetchYouTubeData } = useYouTubeData();
+    const { fetchYouTubeData, setFetchYouTubeData } = useYouTubeData();
 
     const [inputValue, setInputValue] = useState<string>('');
 
@@ -20,7 +20,7 @@ const InputLink: React.FC = () => {
                 url: inputValue
             }
         })
-        .then(res => setFetchYouTubeData([...fetchYouTybeData, res.data]))
+        .then(res => setFetchYouTubeData([...fetchYouTubeData, res.data]))
         .then(() => setInputValue(''))
         .catch(e => console.log(e))
         .finally(() => setLeftColumnVisible(true))

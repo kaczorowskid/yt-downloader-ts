@@ -1,14 +1,7 @@
-interface IloginState {
-    isLoading: boolean
-    isLogged: boolean | null
-    userData: {
-        id: number
-        email: string
-    }
-}
+import { ILoginReducerState } from '../types/ILoginReducerState'
+import { ILoginAction } from '../types/ILoginAction'
 
-export const initialState: IloginState = {
-    isLoading: true,
+export const initialState: ILoginReducerState = {
     isLogged: false,
     userData: {
         id: 0,
@@ -23,12 +16,11 @@ export const loginReducerAction = {
 }
 
 
-export const loginReducer = (state: any, action: any) => {
+export const loginReducer = (state: ILoginReducerState, action: ILoginAction): ILoginReducerState => {
     switch (action.type) {
         case loginReducerAction.LOGIN:
             return {
                 ...state,
-                isLoading: false,
                 isLogged: true,
                 userData: {
                     id: action.id,
@@ -39,7 +31,6 @@ export const loginReducer = (state: any, action: any) => {
         case loginReducerAction.REFRESH:
             return {
                 ...state,
-                isLoading: false,
                 isLogged: true,
                 userData: {
                     id: action.id,
@@ -50,7 +41,10 @@ export const loginReducer = (state: any, action: any) => {
         case loginReducerAction.LOGOUT:
             return {
                 isLogged: false,
-                userData: {}
+                userData: {
+                    id: action.id,
+                    email: action.email
+                }
             }
 
         default:

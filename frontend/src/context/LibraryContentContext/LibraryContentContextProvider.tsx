@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { config } from '../../config';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { LibraryContentContext } from './LibraryContentContext';
+import { IFolder } from '../../types/IFolder'
 
 interface Props {
     children: React.ReactNode
@@ -14,7 +15,7 @@ const LibraryContentContextProvider: React.FC<Props> = ({ children }) => {
 
     const { state } = useCurrentUser();
 
-    const [ libraryFolders, setLibraryFolders ] = useState<Array<any>>([]);
+    const [ libraryFolders, setLibraryFolders ] = useState<Array<IFolder>>([]);
     const [ libraryChange, setLibraryChange ] = useState<boolean>(false)
 
     useEffect(() => {

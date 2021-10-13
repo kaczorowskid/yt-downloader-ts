@@ -10,17 +10,17 @@ import { useLibraryData } from '../../hooks/useLibraryData';
 const LeftColumnFilesLibrary: React.FC = () => {
 
     const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn();
-    const { fetchYouTybeData } = useYouTubeData();
+    const { fetchYouTubeData } = useYouTubeData();
     const { libraryFolders } = useLibraryData();
 
     return (
         <>
             <styled.Container visible = {leftColumnVisible} >
                 <styled.ItemContainer>
-                    {fetchYouTybeData.map((data, i) => <Card key = {i} youtubeData = {data} />)}
+                    {fetchYouTubeData.map((data, i) => <Card key = {i} youtubeData = {data} />)}
                 </styled.ItemContainer>
             </styled.Container>
-            <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible((prev: boolean) => !prev)} >
+            <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible(!leftColumnVisible)} >
                 {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
             </styled.ArrowIconContainer>
         </>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { config } from '../../config';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useHistory } from 'react-router-dom';
+import { loginReducerAction } from '../../reducers/loginReducer';
 
 const Login: React.FC = () => {
 
@@ -20,7 +21,7 @@ const Login: React.FC = () => {
             email: email,
             password: password
         })
-            .then((res: any) => dispatch({ type: 'LOGIN', id: res.data.id, email: res.data.email }))
+            .then((res: any) => dispatch({ type: loginReducerAction.LOGIN, id: res.data.id, email: res.data.email }))
             .catch(e => console.log(e.response.data.err))
             .finally(() => history.push('/'))
     }
