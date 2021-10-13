@@ -5,6 +5,8 @@ import { useCurrentUser } from '../../hooks/useCurrentUser';
 import axios from 'axios';
 import { config } from '../../config';
 import { loginReducerAction } from '../../reducers/loginReducer';
+import LoginPopup from '../LoginPopup/LoginPopup';
+import { useLoginPopup } from '../../hooks/useLoginPopup';
 
 interface Props {
     scrollValue: number
@@ -19,6 +21,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     const history = useHistory();
     const { state, dispatch } = useCurrentUser();
+    const { loginPopupVisible, setLoginPopupVisible } = useLoginPopup()
 
     const handleLogout = () => {
         axios.get(logoutPath)
@@ -33,6 +36,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     return (
         <>
+            {loginPopupVisible && <LoginPopup />}
             <styled.Container isTop={isTop} >
                 <styled.ItemNavbarContainer isTop={isTop} >
                     <styled.ItemNavbar>Home</styled.ItemNavbar>
@@ -50,7 +54,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
                     {state.isLogged ?
                         <styled.Log isTop={isTop} onClick={handleLogout} >Logout</styled.Log> :
                         <>
-                            <styled.Log isTop={!isTop} onClick={() => history.push('/login')} >Login</styled.Log>
+                            <styled.Log isTop={!isTop} onClick={() => setLoginPopupVisible(!loginPopupVisible)} >Login</styled.Log>
                             <styled.Log isTop={isTop} onClick={() => history.push('/register')} >Create</styled.Log>
                         </>
                     }

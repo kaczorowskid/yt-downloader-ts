@@ -8,6 +8,8 @@ interface IContextApp {
     setScrollValue: (val: number) => void
     fetchYouTubeData: Array<IYoutubeData>
     setFetchYouTubeData: (val: Array<IYoutubeData>) => void
+    loginPopupVisible: boolean
+    setLoginPopupVisible: (val: boolean) => void
 }
 
 export const AppContext = createContext<IContextApp>({
@@ -17,4 +19,6 @@ export const AppContext = createContext<IContextApp>({
     setScrollValue: () => {},
     fetchYouTubeData: [],
     setFetchYouTubeData: () => {},
+    loginPopupVisible: false,
+    setLoginPopupVisible: () => {}
 })
