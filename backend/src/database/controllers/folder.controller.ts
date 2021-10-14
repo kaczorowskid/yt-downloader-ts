@@ -7,8 +7,8 @@ export const getFolders = async (req: Request, res: Response) => {
     console.log(id, ' ', name)
     let data: any;
     try {
-        if(!name) data = await Folders.findAll({where: {user_id: id}, attributes: ['title']}); /// zmieniona
-        else data = await Folders.findAll({where: {user_id: id, title: name}, attributes: ['title']});
+        if(!name) data = await Folders.findAll({where: {user_id: id}, attributes: ['title', 'id']}); /// zmieniona
+        else data = await Folders.findAll({where: {user_id: id, title: name}, attributes: ['title', 'id']});
         res.json({data: data, length: data.length});
     } catch(e) {
         console.log('getFolders error')

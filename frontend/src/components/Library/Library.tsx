@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as styled from './Library.styled';
 import Folder from '../Folder/Folder';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
@@ -6,17 +6,19 @@ import axios from 'axios';
 import { config } from '../../config';
 import { useLibraryData } from '../../hooks/useLibraryData';
 
-const Library: React.FC = () => {
+interface Props {
+    id: string
+}
+
+const Library: React.FC<Props> = ({ id }) => {
 
     const { addFolderPath, deleteFolderPath } = config.url.folder;
 
     const { state } = useCurrentUser();
     const { libraryChange, setLibraryChange, libraryFolders } = useLibraryData();
 
-
     const [isClicked, setIsClicked] = useState<boolean>(false);
     const [folderNameInput, setFolderNameInput] = useState<string>('');
-
 
     const addFolder = () => {
         axios.post(addFolderPath, null, {
@@ -40,9 +42,10 @@ const Library: React.FC = () => {
     return (
         <>
             {state.isLogged ?
-                <styled.Container>
+                <styled.Container id = {id}>
+                                    
                     <styled.FoldersContainer>
-                        {libraryFolders.map((folder, i) => <Folder key={i} removeFolder = {removeFolder} folderName={folder.title} />)}
+                        {libraryFolders.map((folder, i) => <Folder key={i} param = {folder.id}  removeFolder = {removeFolder} folderName={folder.title} />)}
                         <styled.AddFolderContainer>
                             {!isClicked ? (
                                 <>

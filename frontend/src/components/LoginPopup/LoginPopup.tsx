@@ -7,7 +7,11 @@ import { loginReducerAction } from '../../reducers/loginReducer';
 import * as styled from './LoginPopup.styled';
 import { useLoginPopup } from '../../hooks/useLoginPopup' 
 
-const LoginPopup: React.FC = () => {
+interface Props {
+    changeTheme: boolean
+}
+
+const LoginPopup: React.FC<Props> = ({ changeTheme }) => {
 
     const { loginPath } = config.url.user;
 
@@ -32,14 +36,14 @@ const LoginPopup: React.FC = () => {
 
     return (
         <>
-            <styled.Container>
+            <styled.Container changeTheme = {changeTheme}>
                 <styled.InputContainer>
                     <styled.Input placeholder = 'email' onChange = {e => setEmail(e.target.value)} />
                     <styled.Input placeholder = 'password' onChange = {e => setPassword(e.target.value)} />
                 </styled.InputContainer>
                 <styled.ButtonLoginContainer>
-                    {/* <styled.RegisterLink>Click to register</styled.RegisterLink> */}
                     <styled.LoginButton onClick = {handleLoginButton} >Login</styled.LoginButton>
+                    <styled.RegisterLink>Forgot password?</styled.RegisterLink>
                 </styled.ButtonLoginContainer>
             </styled.Container>
         </>

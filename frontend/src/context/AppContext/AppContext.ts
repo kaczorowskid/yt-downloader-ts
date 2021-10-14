@@ -10,6 +10,8 @@ interface IContextApp {
     setFetchYouTubeData: (val: Array<IYoutubeData>) => void
     loginPopupVisible: boolean
     setLoginPopupVisible: (val: boolean) => void
+    currentlyFolderView: number;
+    setCurentlyFolderViev: (val: any) => void
 }
 
 export const AppContext = createContext<IContextApp>({
@@ -20,5 +22,7 @@ export const AppContext = createContext<IContextApp>({
     fetchYouTubeData: [],
     setFetchYouTubeData: () => {},
     loginPopupVisible: false,
-    setLoginPopupVisible: () => {}
+    setLoginPopupVisible: () => {},
+    currentlyFolderView: 0,
+    setCurentlyFolderViev: () => {}
 })

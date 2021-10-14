@@ -15,12 +15,16 @@ const LeftColumnFilesLibrary: React.FC = () => {
 
     return (
         <>
-            <styled.Container visible = {leftColumnVisible} >
+            <styled.Container visible={leftColumnVisible} >
                 <styled.ItemContainer>
-                    {fetchYouTubeData.map((data, i) => <Card key = {i} youtubeData = {data} />)}
+                    {fetchYouTubeData.map((data, i) => <Card key={i} youtubeData={data} />)}
                 </styled.ItemContainer>
+                <button onClick = {() => console.log(libraryFolders)} >test</button>
             </styled.Container>
-            <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible(!leftColumnVisible)} >
+            {/* {fetchYouTubeData.length !== 0 && <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible(!leftColumnVisible)} >
+                {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
+            </styled.ArrowIconContainer>} */}
+            <styled.ArrowIconContainer visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)} >
                 {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
             </styled.ArrowIconContainer>
         </>

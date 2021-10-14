@@ -18,6 +18,11 @@ export const config = {
             deleteFolderPath: `${node_env}/folder/delete`,
             addFolderPath: `${node_env}/folder/add`
         },
+        data: {
+            getAllDataPath: `${node_env}/data/get-all`,
+            deleteDataPath: `${node_env}/data/delete`,
+            addDataPath: `${node_env}/data/add`
+        },
         download: {
             getInfo: `${node_env}/download/get-info`,
             downloadOne: `${node_env}/download/download-one`,

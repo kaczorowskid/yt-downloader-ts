@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import userRouter from './routes/user.routes';
 import folderRouter from './routes/folder.routes';
 import downloaderRouter from './routes/downloader.routes';
+import dataRouter from './routes/data.routes';
 
 
 const app: Express = express();
@@ -24,7 +25,9 @@ app.use(cors({
 
 app.use('/user', userRouter);
 app.use('/folder', folderRouter);
+app.use('/data', dataRouter);
 app.use('/download', downloaderRouter)
+
 
 
 app.listen(PORT, () => console.log(`App listen on port ${PORT}`))

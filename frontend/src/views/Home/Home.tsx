@@ -5,17 +5,19 @@ import LeftColumnFilesLibrary from '../../components/LeftColumnFilesLibrary/Left
 import Library from '../../components/Library/Library';
 import Navbar from '../../components/Navbar/Navbar';
 import { useScrollValue } from '../../hooks/useScrollValue';
+import FolderInfo from '../FolderInfo/FolderInfo';
 
 const Home: React.FC = () => {
 
-    const { scrollValue } = useScrollValue(); 
+    const { scrollValue } = useScrollValue();
 
     return (
         <>
             <LeftColumnFilesLibrary />
             <Navbar scrollValue={scrollValue} />
-            <InputLink />
-            <Library />
+            <InputLink id='inputLink' />
+            <Library id='library' />
+            <FolderInfo />
             <Footer />
         </>
     )

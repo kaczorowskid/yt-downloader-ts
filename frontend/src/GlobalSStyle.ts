@@ -8,13 +8,7 @@ const GlobalStyle = createGlobalStyle<{wallpaper?: string}>`
         
     }
     html {
-        /* background-image: url(${props => props.wallpaper});
-        height: 100%;
-        width: 100%;
-        background-color: black;
-        background-position: center; 
-        background-repeat: no-repeat; 
-        background-size: cover;  */
+
     }
 `;
 

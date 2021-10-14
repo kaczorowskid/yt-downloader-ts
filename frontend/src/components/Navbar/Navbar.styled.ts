@@ -22,10 +22,18 @@ export const ItemNavbarContainer = styled.div<{isTop?: boolean}>`
     transition: all 1s ease;
 `;
 
-export const ItemNavbar = styled.div`
+export const ItemNavbar = styled.div<{isTop?: boolean}>`
     font-size: 15px;
     font-weight: bold;
     margin: 0 10px;
+    cursor: pointer;
+
+    &:hover {
+        border: ${props => props.isTop ? '3px solid white' : '3px solid black'};
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
 `;
 
 export const AccountContainer = styled.div<{isTop?: boolean}>`

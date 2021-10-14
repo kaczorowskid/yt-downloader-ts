@@ -12,6 +12,7 @@ const AppContextProvider: React.FC<Props> = ({children}) => {
     const [scrollValue, setScrollValue] = useState<number>(0);
     const [fetchYouTubeData, setFetchYouTubeData] = useState<Array<IYoutubeData>>([])
     const [loginPopupVisible, setLoginPopupVisible] = useState<boolean>(false)
+    const [currentlyFolderView, setCurentlyFolderViev] = useState<number>(0)
     
     const checkScroll = () => setScrollValue(window.scrollY);
     
@@ -28,7 +29,9 @@ const AppContextProvider: React.FC<Props> = ({children}) => {
         fetchYouTubeData,
         setFetchYouTubeData,
         loginPopupVisible,
-        setLoginPopupVisible
+        setLoginPopupVisible,
+        currentlyFolderView,
+        setCurentlyFolderViev
     }
 
     return (

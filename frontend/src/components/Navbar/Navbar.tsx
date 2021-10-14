@@ -8,6 +8,8 @@ import { loginReducerAction } from '../../reducers/loginReducer';
 import LoginPopup from '../LoginPopup/LoginPopup';
 import { useLoginPopup } from '../../hooks/useLoginPopup';
 
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 interface Props {
     scrollValue: number
 }
@@ -25,8 +27,8 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     const handleLogout = () => {
         axios.get(logoutPath)
-        .then(() => dispatch({type: loginReducerAction.LOGOUT, id: 0, email: ''}))
-        .finally(() => history.push('/'))
+            .then(() => dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '' }))
+            .finally(() => history.push('/'))
     }
 
     useEffect(() => {
@@ -36,11 +38,19 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     return (
         <>
-            {loginPopupVisible && <LoginPopup />}
+            {loginPopupVisible && <LoginPopup changeTheme={isTop} />}
             <styled.Container isTop={isTop} >
                 <styled.ItemNavbarContainer isTop={isTop} >
-                    <styled.ItemNavbar>Home</styled.ItemNavbar>
-                    <styled.ItemNavbar>Library</styled.ItemNavbar>
+                    <styled.ItemNavbar isTop={isTop}>
+                        <Link to="inputLink" spy={true} smooth={true} offset={-150} duration={500} >
+                            Home
+                        </Link>
+                    </styled.ItemNavbar>
+                    {state.isLogged && <styled.ItemNavbar isTop={isTop}>
+                        <Link to="library" spy={true} smooth={true} offset={-150} duration={500} >
+                            Library
+                        </Link>
+                    </styled.ItemNavbar>}
                 </styled.ItemNavbarContainer>
                 <styled.InputContainer isVisible={inputVisible} isTop={isTop} >
                     <styled.InputWrapper>
