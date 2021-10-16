@@ -5,7 +5,7 @@ export const Container = styled.div<{visible: boolean}>`
     position: fixed;
     top: 0;
     left: ${props => props.visible ? '0%' : '-40%'};
-    width: 40%;
+    width: 30%;
     height: 100%;
     background: #1E1E1E;
     z-index: 10;
@@ -15,7 +15,7 @@ export const Container = styled.div<{visible: boolean}>`
 
 export const ArrowIconContainer = styled.div<{visible: boolean}>`
     position: fixed;
-    left: ${props => props.visible ? '40%' : '0%'};
+    left: ${props => props.visible ? '30%' : '0%'};
     width: 50px;
     height: 50px;
     background: #1E1E1E;

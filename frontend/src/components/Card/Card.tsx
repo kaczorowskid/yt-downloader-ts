@@ -34,7 +34,7 @@ const Card: React.FC<Props> = ({ youtubeData }) => {
 
     return (
         <>
-            <styled.Container>
+            {/* <styled.Container>
                 <styled.ItemContainer>
                     <styled.ImageContainer>
                         <styled.Image src={youtubeData.thumbnail} alt="" />
@@ -47,6 +47,17 @@ const Card: React.FC<Props> = ({ youtubeData }) => {
                     <styled.RemoveIcon onClick={() => filterArray(youtubeData.id)} />
                     <styled.DownloadIcon onClick = {() => downloadOneFile(youtubeData)} />
                     <styled.SaveIcon />
+                </styled.IconContainer>
+            </styled.Container> */}
+            <styled.Container>
+                <styled.ImageContainer>
+                    <styled.Image src={youtubeData.thumbnail} alt="" />
+                </styled.ImageContainer>
+                <styled.Title>{youtubeData.title}</styled.Title>
+                <styled.IconContainer>
+                    <styled.DownloadIcon />
+                    <styled.SaveIcon />
+                    <styled.RemoveIcon />
                 </styled.IconContainer>
             </styled.Container>
         </>

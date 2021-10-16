@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import * as styled from './Library.styled';
 import Folder from '../Folder/Folder';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
@@ -43,7 +43,6 @@ const Library: React.FC<Props> = ({ id }) => {
         <>
             {state.isLogged ?
                 <styled.Container id = {id}>
-                                    
                     <styled.FoldersContainer>
                         {libraryFolders.map((folder, i) => <Folder key={i} param = {folder.id}  removeFolder = {removeFolder} folderName={folder.title} />)}
                         <styled.AddFolderContainer>

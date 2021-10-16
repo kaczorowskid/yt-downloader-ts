@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import Login from './views/Login/Login';
 import Register from './views/Register/Register';
-import FolderInfo from './views/FolderInfo/FolderInfo';
 import { config } from './config';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
@@ -26,7 +25,6 @@ const App: React.FC = () => {
         <Switch>
           <Route exact path={login} component={Login} />
           <Route exact path={register} component={Register} />
-          <Route exact path={'/folder/:id'} component={FolderInfo} />
           <Route exact path={home} component={Home} />
         </Switch>
       </Router>
