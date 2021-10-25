@@ -4,6 +4,7 @@ import { config } from '../../config';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { LibraryContentContext } from './LibraryContentContext';
 import { IFolder } from '../../types/IFolder'
+import { callApi } from '../../helper/callApi';
 
 interface Props {
     children: React.ReactNode
@@ -15,20 +16,21 @@ const LibraryContentContextProvider: React.FC<Props> = ({ children }) => {
 
     const { state } = useCurrentUser();
 
-    const [ libraryFolders, setLibraryFolders ] = useState<Array<IFolder>>([]);
-    const [ libraryChange, setLibraryChange ] = useState<boolean>(false)
+    const [libraryFolders, setLibraryFolders] = useState<Array<IFolder>>([]);
+    const [libraryChange, setLibraryChange] = useState<boolean>(false)
 
     useEffect(() => {
-        if (state.isLogged) {
-            axios.get(getAllFoldersPath, {
-                params: {
-                    id: state.userData.id
+        (async () => {
+            try {
+                if (state.isLogged) {
+                    const response = await callApi(getAllFoldersPath, 'GET', { id: state.userData.id })
+                    response.data && setLibraryFolders(response.data.data)
                 }
-            })
-                .then((res: any) => setLibraryFolders(res.data.data))
-        }
+            } catch (e) {
+                console.log(e)
+            }
+        })()
     }, [state, libraryChange])
-
 
     const value = {
         libraryFolders,
@@ -38,7 +40,7 @@ const LibraryContentContextProvider: React.FC<Props> = ({ children }) => {
     }
 
     return (
-        <LibraryContentContext.Provider value = {value}>
+        <LibraryContentContext.Provider value={value}>
             {children}
         </LibraryContentContext.Provider>
     )

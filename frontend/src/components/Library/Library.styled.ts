@@ -1,115 +1,128 @@
-import styled from 'styled-components';
-import { AddToQueue } from '@styled-icons/boxicons-regular';
-import { CheckCircleOutline } from '@styled-icons/material-rounded';
+import { RemoveCircleOutline } from '@styled-icons/material-outlined';
+import styled, { css } from 'styled-components';
+import { AddCircle } from '@styled-icons/fluentui-system-filled'
+
+const iconStyle = css`
+    position: absolute;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    color: white;
+    cursor: pointer;
+`;
+
+export const RemoveIcon = styled(RemoveCircleOutline)`${iconStyle}`;
 
 export const Container = styled.div`
     position: relative;
     top: 150px;
     width: 100%;
-    min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
+    height: calc(100vh - 150px);
     display: flex;
-    justify-content: center;
+    font-family: 'Roboto', sans-serif;
 `;
 
-export const FoldersContainer = styled.div`
-    width: 80%;
-    min-height: 100vh;
+export const FolderListWrapper = styled.div`
+    width: 25%;
+    height: 100%;
+    background: #16161d;
+    overflow-y: auto;
+    border-right: 2px solid white;
+`;
 
-    display: grid;
-    grid-template-columns: repeat(4, 25%);
-    grid-template-rows: repeat(4, 25%);
-    column-gap: 5px;
-    row-gap: 5px;
-    align-items: center;
-    margin-top: 100px;
-`; 
-
-export const NoLoggedUserContainer = styled.div`
-    position: relative;
-    top: 150px;
+export const FolderListContainer = styled.div`
     width: 100%;
-    height: 50vh;
-    border: 1px solid green;
+    min-height: 100%;
+    overflow: hidden;
+`;
+
+export const InputContainer = styled.div`
+    width: 100%;
+    height: 15vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
 `;
 
-export const NoUserLoggedWarning = styled.div`
-    font-size: 40px;
+export const Input = styled.input`
+    width: 90%;
+    height: 50px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+`;
+
+export const ItemListContainer = styled.div<{currentClick: number}>`
+    width: 100%;
+
+    & :nth-child(${props => props.currentClick}):not(${RemoveIcon}) {
+        background: black;
+    }
+`;
+
+export const FolderItem = styled.div<{folderTitle: string}>`
+    width: 100%;
+    height: 7vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    font-size: 17px;
+    position: relative;
+
+    &:hover {
+        background: #575757;
+    }
+
+    &::before {
+        content: '${props => props.folderTitle}';
+    }
+`;
+
+export const AllItemsWrapper = styled.div`
+    width: 75%;
+    height: 100%;
+    background: #16161d;
+    overflow: scroll;
+`;
+
+export const AllItemsContainer = styled.div`
+    width: 100%;
+    min-height: 50vh;
+`;
+
+export const ItemContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
 `;
 
 export const AddFolderContainer = styled.div`
-    width: 95%;
-    height: 95%;
-    background: #141414;
-    position: relative;
-`;
-
-export const AddFolderFooterContainer = styled.div`
-    height: 20%;
     width: 100%;
-    background: red;
-    position: absolute;
-    bottom: 0;
+    height: 10vh;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 `;
 
-export const AddFolderInput = styled.input`
-    width: 90%;
-    height: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-`;
-
-export const Button = styled.button<{bgColor: string}>`
-    width: 50%;
-    height: 100%;
-    background: none;
-    border: none;
-    background: ${props => props.bgColor};
-    color: white;
-    font-weight: bold;
-`;
-
-export const AddFolderTitle = styled.div`
-    color: white;
-    font-weight: bold;
-    padding-left: 10px;
-`;
-
-export const AddFolderIcon = styled(AddToQueue)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70px;
-    height: 70px;
-    color: white;
-    cursor: pointer;
-`;
-
-export const AddedFolder = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
+export const ButtonContainer = styled.div`
     width: 100%;
-    height: 100%;
-    background: green;
-    z-index: 1;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-around;
 `;
 
-export const AddedIcon = styled(CheckCircleOutline)`
-    width: 70px;
-    height: 70px;
+export const Button = styled.button`
+    width: 40%;
+    height: 30px;
+    background: none;
+    border: 2px solid white;
     color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+`;
+
+export const AddFolderIcon = styled(AddCircle)`
+    width: 50px;
+    height: 50px;
+    color: white;
 `;

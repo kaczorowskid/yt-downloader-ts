@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import * as styled from './Navbar.styled';
 import { useHistory } from "react-router-dom";
 import { useCurrentUser } from '../../hooks/useCurrentUser';
-import axios from 'axios';
 import { config } from '../../config';
 import { loginReducerAction } from '../../reducers/loginReducer';
 import LoginPopup from '../LoginPopup/LoginPopup';
 import { useLoginPopup } from '../../hooks/useLoginPopup';
-
-import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import { Link, animateScroll as scroll } from 'react-scroll'
+import { callApi } from '../../helper/callApi';
 
 interface Props {
     scrollValue: number
@@ -25,10 +24,16 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
     const { state, dispatch } = useCurrentUser();
     const { loginPopupVisible, setLoginPopupVisible } = useLoginPopup()
 
-    const handleLogout = () => {
-        axios.get(logoutPath)
-            .then(() => dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '' }))
-            .finally(() => history.push('/'))
+    const handleLogout = async () => {
+        try {
+            const response = await callApi(logoutPath, 'GET', {});
+            if (response) {
+                dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '' })
+                history.push('/')
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     useEffect(() => {

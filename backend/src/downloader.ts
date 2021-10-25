@@ -22,10 +22,6 @@ export default class Downloader {
                 filter: 'audioonly',
                 quality: 'highestaudio'
             })
-                .on('progress', (_, totalDownloaded, total) => {
-                    let percentage: number = +((totalDownloaded / total) * 100).toFixed(2);
-                    console.log(percentage);
-                })
             resolve(stream);
         })
     }

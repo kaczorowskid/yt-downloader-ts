@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IYoutubeData } from '../../types/IYoutubeData';
-import * as styled from './Card1.styled';
+import * as styled from './LibraryCard.styled';
 
 interface Props {
     data: IYoutubeData
+    removeItem: (val: any) => void
 }
 
-const Card1: React.FC<Props> = ({ data }) => {
+const LibraryCard: React.FC<Props> = ({ data, removeItem }) => {
+
     return (
         <styled.Container>
             <styled.ImageContainer>
                 <styled.DownloadIcon />
-                <styled.RemoveIcon />
+                <styled.RemoveIcon onClick = {removeItem} />
                 <styled.Image src={data.thumbnail} />
             </styled.ImageContainer>
             <styled.Title>{data.title}</styled.Title>
@@ -19,4 +21,4 @@ const Card1: React.FC<Props> = ({ data }) => {
     )
 }
 
-export default Card1;
+export default LibraryCard;

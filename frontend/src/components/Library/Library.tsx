@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as styled from './Library.styled';
-import Folder from '../Folder/Folder';
-import { useCurrentUser } from '../../hooks/useCurrentUser';
-import axios from 'axios';
-import { config } from '../../config';
+import LibraryCard from '../LibraryCard/LibraryCard';
 import { useLibraryData } from '../../hooks/useLibraryData';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { config } from '../../config';
+import { useCurrentFolder } from '../../hooks/useCurrentFolder';
+import { IYoutubeData } from '../../types/IYoutubeData';
+import { callApi } from '../../helper/callApi';
 
 interface Props {
     id: string
@@ -12,63 +14,109 @@ interface Props {
 
 const Library: React.FC<Props> = ({ id }) => {
 
-    const { addFolderPath, deleteFolderPath } = config.url.folder;
+    const { deleteFolderPath, addFolderPath } = config.url.folder
+    const { getAllDataPath, deleteDataPath } = config.url.data
 
+    const { setLibraryChange, libraryFolders } = useLibraryData();
     const { state } = useCurrentUser();
-    const { libraryChange, setLibraryChange, libraryFolders } = useLibraryData();
+    const { currentlyFolderView, setCurentlyFolderViev } = useCurrentFolder();
 
-    const [isClicked, setIsClicked] = useState<boolean>(false);
+    const [addFolderVisible, setAddFolderVisible] = useState<boolean>(false);
     const [folderNameInput, setFolderNameInput] = useState<string>('');
+    const [dataInFolder, setDataInFolder] = useState<Array<IYoutubeData>>([])
+    const [currentFolderCheck, setCurrentFolderCheck] = useState<number>(0);
 
-    const addFolder = () => {
-        axios.post(addFolderPath, null, {
-            params: {
-                id: state.userData.id,
-                title: folderNameInput
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await callApi(getAllDataPath, 'GET', { id: currentlyFolderView })
+                response && setDataInFolder(response.data);
+            } catch (e) {
+                console.log(e)
             }
-        })
-            .then(() => setIsClicked(false))
-            .then(() => setLibraryChange(!libraryChange))
-            .catch(e => console.log(e))
+        }
+
+        fetchData();
+    }, [currentlyFolderView, libraryFolders])
+
+    const removeFolder = async (folderTitle: string) => {
+        try {
+            const response = await callApi(deleteFolderPath, 'DELETE', {
+                id: state.userData.id,
+                title: folderTitle
+            })
+
+            response && setLibraryChange(libraryFolders.filter(folder => folder.title !== folderTitle))
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    const removeFolder = (val: string) => {
-        axios.delete(deleteFolderPath, {
-            params: { id: state.userData.id, title: val }
-        }).then(() => setLibraryChange(!libraryChange))
-            .catch(e => console.log(e))
+    const addFolder = async () => {
+        try {
+            const response = await callApi(addFolderPath, 'POST', {
+                id: state.userData.id,
+                title: folderNameInput
+            })
+
+            response && setLibraryChange([...libraryFolders, response.data])
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const removeItemFromFolder = async (id: number) => {
+        try {
+            const response = await callApi(deleteDataPath, 'DELETE', { id })
+            response && setDataInFolder(dataInFolder.filter(data => data.id !== id));
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const handleClickFolderItem = (id: number, index: number) => {
+        setCurentlyFolderViev(id)
+        setCurrentFolderCheck(index + 1)
     }
 
     return (
         <>
-            {state.isLogged ?
-                <styled.Container id = {id}>
-                    <styled.FoldersContainer>
-                        {libraryFolders.map((folder, i) => <Folder key={i} param = {folder.id}  removeFolder = {removeFolder} folderName={folder.title} />)}
+            <styled.Container id={id}>
+                <styled.FolderListWrapper>
+                    <styled.FolderListContainer>
+                        <styled.InputContainer>
+                            <styled.Input />
+                        </styled.InputContainer>
                         <styled.AddFolderContainer>
-                            {!isClicked ? (
+                            {addFolderVisible ? (
                                 <>
-                                    <styled.AddFolderIcon onClick={() => setIsClicked(true)} />
-                                    <styled.AddFolderFooterContainer>
-                                        <styled.AddFolderTitle>Add folder</styled.AddFolderTitle>
-                                    </styled.AddFolderFooterContainer>
+                                    <styled.Input placeholder='Folder name' onChange={e => setFolderNameInput(e.target.value)} value={folderNameInput} />
+                                    <styled.ButtonContainer>
+                                        <styled.Button onClick={addFolder} >Add</styled.Button>
+                                        <styled.Button onClick={() => setAddFolderVisible(false)} >Cancel</styled.Button>
+                                    </styled.ButtonContainer>
                                 </>
                             ) : (
-                                <>
-                                    <styled.AddFolderInput onChange={e => setFolderNameInput(e.target.value)} />
-                                    <styled.AddFolderFooterContainer>
-                                        <styled.Button bgColor={'red'} onClick={addFolder} >Add folder</styled.Button>
-                                        <styled.Button bgColor={'#512bd4'} onClick={() => setIsClicked(false)} >Cancel</styled.Button>
-                                    </styled.AddFolderFooterContainer>
-                                </>
+                                <styled.AddFolderIcon onClick={() => setAddFolderVisible(true)} />
                             )}
                         </styled.AddFolderContainer>
-                    </styled.FoldersContainer>
-                </styled.Container> :
-                <styled.NoLoggedUserContainer>
-                    <styled.NoUserLoggedWarning>Library is not not available. You must be logged!</styled.NoUserLoggedWarning>
-                </styled.NoLoggedUserContainer>
-            }
+                        <styled.ItemListContainer currentClick={currentFolderCheck}>
+                            {libraryFolders && libraryFolders.map((folder, i) => (
+                                <styled.FolderItem key={i} folderTitle={folder.title} onClick={() => handleClickFolderItem(folder.id, i)} >
+                                    <styled.RemoveIcon onClick={() => removeFolder(folder.title)} />
+                                </styled.FolderItem>
+                            ))}
+                        </styled.ItemListContainer>
+                    </styled.FolderListContainer>
+                </styled.FolderListWrapper>
+                <styled.AllItemsWrapper>
+                    <styled.AllItemsContainer>
+                        <styled.ItemContainer>
+                            {dataInFolder.map((data, i) => <LibraryCard key={i} data={data} removeItem={() => removeItemFromFolder(data.id)} />)}
+                        </styled.ItemContainer>
+                    </styled.AllItemsContainer>
+                </styled.AllItemsWrapper>
+            </styled.Container>
         </>
     )
 }

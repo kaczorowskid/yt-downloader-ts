@@ -3,9 +3,9 @@ import { IFolder } from '../../types/IFolder'
 
 interface ILibraryContentContext {
     libraryFolders: Array<IFolder>,
-    setLibraryFolders: (val: Array<IFolder>) => void
+    setLibraryFolders: (val: Array<any>) => void
     libraryChange: boolean
-    setLibraryChange: (val: boolean) => void
+    setLibraryChange: (val: any) => void
 }
 
 export const LibraryContentContext = createContext<ILibraryContentContext>({

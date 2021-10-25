@@ -1,5 +1,5 @@
 export interface IYoutubeData {
-    id: string;
+    id: number;
     title: string;
     thumbnail: string;
     duration: number;

@@ -7,7 +7,7 @@ interface IContextApp {
     scrollValue: number
     setScrollValue: (val: number) => void
     fetchYouTubeData: Array<IYoutubeData>
-    setFetchYouTubeData: (val: Array<IYoutubeData>) => void
+    setFetchYouTubeData: (val: Array<IYoutubeData> | any) => void
     loginPopupVisible: boolean
     setLoginPopupVisible: (val: boolean) => void
     currentlyFolderView: number;

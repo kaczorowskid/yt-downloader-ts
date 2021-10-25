@@ -58,6 +58,8 @@ export const logout = (req: Request, res: Response) => {
 
 export const refreshMe = async (req: Request, res: Response) => {
     const cookie = req.cookies.JWT
+
+    console.log(cookie)
     try {
         if (!cookie) {
             res.status(403);

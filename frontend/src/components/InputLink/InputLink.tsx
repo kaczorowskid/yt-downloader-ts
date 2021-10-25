@@ -5,6 +5,9 @@ import { config } from '../../config';
 import { useYouTubeData } from '../../hooks/useYouTubeData';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import Loading from '../Loading/Loading';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { callApi } from '../../helper/callApi';
+import { IYoutubeData } from '../../types/IYoutubeData';
 
 interface Props {
     id: string
@@ -26,31 +29,30 @@ const InputLink: React.FC<Props> = ({ id }) => {
         setLeftColumnVisible(true)
     }
 
-    const getYouTubeData = () => {
+    const getYouTubeData = async () => {
         setLoading(true)
-        axios.get(getInfo, {
-            params: {
-                url: inputValue
+        try {
+            const response = await callApi(getInfo, 'GET', { url: inputValue })
+            if(response) {
+                setFetchYouTubeData([...fetchYouTubeData, response.data])
+                endFetch()
             }
-        })
-        .then(res => setFetchYouTubeData([...fetchYouTubeData, res.data]))
-        .catch(e => console.log(e))
-        .finally(endFetch)
+        } catch(e) {
+            console.log(e)
+        }
     }
-
-
 
     return (
         <>
-        { loading && <Loading /> } 
-        <styled.Container id = {id}>
-            <styled.InputWrapper>
-                <styled.Input placeholder = 'YouTube link' onChange = {e => setInputValue(e.target.value)} value = {inputValue} />
-                <styled.SearchIconContainer>
-                    <styled.SearchIcon onClick = {getYouTubeData} />
-                </styled.SearchIconContainer>
-            </styled.InputWrapper>
-        </styled.Container>
+            {loading && <Loading />}
+            <styled.Container id={id}>
+                <styled.InputWrapper>
+                    <styled.Input placeholder='YouTube link' onChange={e => setInputValue(e.target.value)} value={inputValue} />
+                    <styled.SearchIconContainer>
+                        <styled.SearchIcon onClick={getYouTubeData} />
+                    </styled.SearchIconContainer>
+                </styled.InputWrapper>
+            </styled.Container>
         </>
     )
 }

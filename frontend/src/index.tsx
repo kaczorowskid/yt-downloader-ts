@@ -5,9 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import AppContextProvider from './context/AppContext/AppContextProvider';
 import CurrentUserContextProvider from './context/CurrentUserContext/CurrentUserContextProvider';
 import LibraryContentContextProvider from './context/LibraryContentContext/LibraryContentContextProvider';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+
+const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
+    <QueryClientProvider client = {queryClient} >
     <CurrentUserContextProvider>
       <AppContextProvider>
         <LibraryContentContextProvider>
@@ -15,6 +19,7 @@ ReactDOM.render(
         </LibraryContentContextProvider>
       </AppContextProvider>
     </CurrentUserContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

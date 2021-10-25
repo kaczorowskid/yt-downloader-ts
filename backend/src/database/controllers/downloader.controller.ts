@@ -2,16 +2,17 @@ import { Request, Response } from 'express';
 import Downloader from '../../downloader'
 import path from 'path'
 import fs from 'fs'
+import pusher from '../../pusher';
 
 const downloader = new Downloader();
 
 const createFolder = () => {
     const dir = path.join(__dirname, `../../music`);
-    if(!fs.existsSync(dir)) fs.mkdirSync(dir);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
 }
 
 const removeFolder = () => {
-    fs.rmdirSync(path.join(__dirname, `../../music`), {recursive: true})
+    fs.rmdirSync(path.join(__dirname, `../../music`), { recursive: true })
 }
 
 export const getInfo = async (req: Request, res: Response) => {
@@ -19,31 +20,32 @@ export const getInfo = async (req: Request, res: Response) => {
     console.log('url ', url)
 
     downloader.getVideoInfo(url as string)
-    .then((info: any) => {
-        res.json({
-            id: info.id,
-            title: info.title,
-            thumbnail: info.thumbnail,
-            duration: info.duration,
-            url: url
+        .then((info: any) => {
+            res.json({
+                id: info.id,
+                title: info.title,
+                thumbnail: info.thumbnail,
+                duration: info.duration,
+                url: url
+            })
         })
-    })
-    .catch(e => console.log(e))
+        .catch(e => console.log(e))
 }
+
+let downloadPercentage = 0;
 
 export const downloadOne = async (req: Request, res: Response) => {
     const { url, title } = req.query;
 
     createFolder();
 
-    const filePath = path.join(__dirname, `../../music/${title as string}.mp3`)
-
-    console.log(filePath)
+    const filePath = path.join(__dirname, `../../music/${title}.mp3`)
 
     const stream = await downloader.getStream(url as string);
     stream.on('progress', (_, totalDownloaded, total) => {
-        let percentage: number = +((totalDownloaded / total) * 100).toFixed(2);
-        console.log(percentage);
+        let percentage: number = Math.trunc((totalDownloaded / total) * 100);
+        console.log(percentage)
+        // downloadPercentage = percentage
     })
     await downloader.getMusic(stream, title as string)
     res.sendFile(filePath);
@@ -56,35 +58,19 @@ export const downloadOne = async (req: Request, res: Response) => {
     })
 }
 
-export const getZip = async (req: Request<{}, {}, {}, { data: any }>, res: Response) => {
-    const { data } = req.query;
-    createFolder();
-    const filePath = path.join(__dirname, '../../files.zip')
+export const startCount = (req: Request, res: Response) => {
+    let percent = 0;
+    const interval = setInterval(() => {
+        downloadPercentage = percent;
+        percent += 5;
 
-    const queue: Array<any> = [];
+        if(percent > 100) clearInterval(interval);
+    }, 400);
 
-    data.forEach((response: any) => {
-        queue.push((async () => {
-            const resObject = JSON.parse(response);
-            const stream = await downloader.getStream(resObject.url);
-            stream.on('progress', (_, totalDownloaded, total) => {
-                let percentage: number = +((totalDownloaded / total) * 100).toFixed(2);
-                console.log(percentage);
-            })
-            await downloader.getMusic(stream, resObject.title)
-        })())
-    })
 
-    await Promise.all(queue)
+    res.json({count: 'start'})
+}
 
-    downloader.makeZip('files');
-    res.sendFile(filePath)
-    res.on('finish', () => {
-        try {
-            removeFolder();
-            fs.unlinkSync(path.join(__dirname, `../../files.zip`))
-        } catch (e) {
-            console.log(e)
-        }
-    })
+export const percent = (req: Request, res: Response) => {
+    res.json({percent: downloadPercentage});
 }

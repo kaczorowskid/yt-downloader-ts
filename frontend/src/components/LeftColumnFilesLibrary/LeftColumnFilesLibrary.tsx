@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as styled from './LeftColumnFilesLibrary.styled';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
-import Card from '../Card/Card';
+import SearchCard from '../SearchCard/SearchCard';
+import FoldersCard from '../FoldersCard/FoldersCard';
 import { useYouTubeData } from '../../hooks/useYouTubeData';
-import { useLibraryData } from '../../hooks/useLibraryData';
 
 
 
@@ -11,22 +11,20 @@ const LeftColumnFilesLibrary: React.FC = () => {
 
     const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn();
     const { fetchYouTubeData } = useYouTubeData();
-    const { libraryFolders } = useLibraryData();
+
+    const [whichCard, setWhichCard] = useState<number>(1000);
+
 
     return (
         <>
             <styled.Container visible={leftColumnVisible} >
                 <styled.ItemContainer>
-                    {fetchYouTubeData.map((data, i) => <Card key={i} youtubeData={data} />)}
+                    {fetchYouTubeData.map((data, i) => whichCard == i ? <FoldersCard youtubeData={data} close = {() => setWhichCard(100)} /> : <SearchCard key={i} youtubeData={data} onClick = {() => setWhichCard(i)} />)}
                 </styled.ItemContainer>
-                <button onClick = {() => console.log(libraryFolders)} >test</button>
             </styled.Container>
-            {/* {fetchYouTubeData.length !== 0 && <styled.ArrowIconContainer visible = {leftColumnVisible} onClick = {() => setLeftColumnVisible(!leftColumnVisible)} >
+            {fetchYouTubeData.length !== 0 && <styled.ArrowIconContainer visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)} >
                 {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
-            </styled.ArrowIconContainer>} */}
-            <styled.ArrowIconContainer visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)} >
-                {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
-            </styled.ArrowIconContainer>
+            </styled.ArrowIconContainer>}
         </>
     )
 }

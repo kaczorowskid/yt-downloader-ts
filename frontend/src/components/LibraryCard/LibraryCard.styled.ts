@@ -7,7 +7,10 @@ export const Container = styled.div`
     margin: 20px 10px;
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
-    background: #353535;
+    
+    &:hover {
+        background: #353535;
+    }
 `;
 
 export const ImageContainer = styled.div`
