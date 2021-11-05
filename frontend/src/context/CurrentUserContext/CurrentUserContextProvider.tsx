@@ -1,10 +1,8 @@
 import React, { useEffect, useReducer } from 'react'
 import { CurrentUserContext } from './CurrentUserContext';
 import { loginReducer, initialState } from '../../reducers/loginReducer'
-import axios from 'axios';
 import { config } from '../../config'
 import { loginReducerAction } from '../../reducers/loginReducer';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { callApi } from '../../helper/callApi';
 
 interface Props {

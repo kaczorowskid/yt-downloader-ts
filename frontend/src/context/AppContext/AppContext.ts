@@ -8,8 +8,6 @@ interface IContextApp {
     setScrollValue: (val: number) => void
     fetchYouTubeData: Array<IYoutubeData>
     setFetchYouTubeData: (val: Array<IYoutubeData> | any) => void
-    loginPopupVisible: boolean
-    setLoginPopupVisible: (val: boolean) => void
     currentlyFolderView: number;
     setCurentlyFolderViev: (val: any) => void
 }
@@ -21,8 +19,6 @@ export const AppContext = createContext<IContextApp>({
     setScrollValue: () => {},
     fetchYouTubeData: [],
     setFetchYouTubeData: () => {},
-    loginPopupVisible: false,
-    setLoginPopupVisible: () => {},
     currentlyFolderView: 0,
     setCurentlyFolderViev: () => {}
 })

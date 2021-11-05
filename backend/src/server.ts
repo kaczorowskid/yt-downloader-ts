@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+dotenv.config();
 
 import express, { Express } from 'express';
 import cors from 'cors';
@@ -8,8 +9,6 @@ import userRouter from './routes/user.routes';
 import folderRouter from './routes/folder.routes';
 import downloaderRouter from './routes/downloader.routes';
 import dataRouter from './routes/data.routes';
-
-dotenv.config();
 
 const app: Express = express();
 const PORT: number = Number(process.env.PORT) || 4200;
@@ -30,4 +29,3 @@ app.use('/download', downloaderRouter)
 
 
 app.listen(PORT, () => console.log(`App listen on port ${PORT}`))
-

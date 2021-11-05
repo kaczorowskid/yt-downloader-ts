@@ -3,7 +3,7 @@ import sequelize from '../connectionDB';
 
 interface IDataDBModel {
     id: number;
-    link_to_yt: string;
+    url: string;
     thumbnail: string;
     title: string;
     duration: number;
@@ -11,10 +11,9 @@ interface IDataDBModel {
 }
 
 interface IData {
-    link_to_yt: string;
+    url: string;
     thumbnail: string;
     title: string;
-    // duration: number;
     folder_id: number;
 }
 
@@ -26,7 +25,7 @@ export const Data = sequelize.define<DataInstance>('data', {
         autoIncrement: true,
         primaryKey: true
     },
-    link_to_yt: Sequelize.STRING,
+    url: Sequelize.STRING,
     thumbnail: Sequelize.STRING,
     title: Sequelize.STRING,
     duration: Sequelize.NUMBER,

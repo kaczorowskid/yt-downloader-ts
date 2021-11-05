@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { config } from '../../config';
 import { useLibraryData } from '../../hooks/useLibraryData';
 import * as styled from './FoldersCard.styled';
 import { callApi } from '../../helper/callApi';
 
 interface Props {
-    close: (val: any) => void,
+    close: () => void,
     youtubeData: any
 }
 
@@ -15,7 +15,11 @@ const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
     const { addDataPath } = config.url.data;
     const { libraryFolders } = useLibraryData();
 
+    const [isAdded, setIsAdded] = useState<boolean>(false);
+
     const saveInFolder = (folderData: any) => {
+        setIsAdded(true)
+        console.log(folderData)
         try {
             callApi(addDataPath, 'POST', {
                 folder_id: folderData.id,
@@ -26,13 +30,32 @@ const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
         } catch (e) {
             console.log(e);
         }
+
+        const timeout = setTimeout(() => {
+            setIsAdded(false)
+            close()
+        }, 2000)
+
+        return () => clearTimeout(timeout)
     }
 
     return (
         <>
             <styled.Container>
-                {libraryFolders.map((folder, i) => <styled.Item key={i} onClick={() => saveInFolder(folder)} >{folder.title}</styled.Item>)}
-                <button onClick={close} >close</button>
+                {isAdded ? (
+                    <styled.AddedIcon></styled.AddedIcon>
+                ) : (
+                    <>
+                        <styled.Title>Add music to folder</styled.Title>
+                        <styled.ItemsContainerWrapper>
+                            <styled.ItemsContainer>
+                                {libraryFolders.map((folder, i) => <styled.Item key={i} onClick={() => saveInFolder(folder)} >{folder.title}</styled.Item>)}
+                            </styled.ItemsContainer>
+                        </styled.ItemsContainerWrapper>
+                        <styled.ButtonContainer>
+                            <styled.Button onClick={close} >Close</styled.Button>
+                        </styled.ButtonContainer>
+                    </>)}
             </styled.Container>
         </>
     )

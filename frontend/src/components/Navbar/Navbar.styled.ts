@@ -29,7 +29,7 @@ export const ItemNavbar = styled.div<{isTop?: boolean}>`
     cursor: pointer;
 
     &:hover {
-        border: ${props => props.isTop ? '3px solid white' : '3px solid black'};
+        border: ${props => props.isTop ? '3px solid orange' : '3px solid black'};
         border-top: none;
         border-left: none;
         border-right: none;

@@ -9,7 +9,7 @@ export const getAllData = async (req: Request, res: Response) => {
             where: {
                 folder_id: id
             },
-            attributes: ['id', 'link_to_yt', 'thumbnail', 'title', 'duration'],
+            attributes: ['id', 'url', 'thumbnail', 'title', 'duration'],
         });
         res.send(data);
     } catch(e) {
@@ -31,12 +31,14 @@ export const deleteItem = async (req: Request, res: Response) => {
 export const addItem = async (req: Request, res: Response) => {
     const { folder_id, title, imageSrc, url } = req.query;
 
+    console.log(folder_id, ' ', title)
+
     try {
         const data = await Data.create({
             folder_id: Number(folder_id),
             title: title as string,
             thumbnail: imageSrc as string,
-            link_to_yt: url as string
+            url: url as string
         })
         res.json({data: data})
     } catch(e) {

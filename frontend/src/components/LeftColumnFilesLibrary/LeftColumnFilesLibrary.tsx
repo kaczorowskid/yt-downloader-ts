@@ -19,12 +19,12 @@ const LeftColumnFilesLibrary: React.FC = () => {
         <>
             <styled.Container visible={leftColumnVisible} >
                 <styled.ItemContainer>
-                    {fetchYouTubeData.map((data, i) => whichCard == i ? <FoldersCard youtubeData={data} close = {() => setWhichCard(100)} /> : <SearchCard key={i} youtubeData={data} onClick = {() => setWhichCard(i)} />)}
+                    {fetchYouTubeData.map((data, i) => whichCard == i ? <FoldersCard key = {i} youtubeData={data} close = {() => setWhichCard(100)} /> : <SearchCard key={i} youtubeData={data} onClick = {() => setWhichCard(i)} />)}
                 </styled.ItemContainer>
             </styled.Container>
-            {fetchYouTubeData.length !== 0 && <styled.ArrowIconContainer visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)} >
+            <styled.ArrowIconContainer visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)}>
                 {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
-            </styled.ArrowIconContainer>}
+            </styled.ArrowIconContainer>
         </>
     )
 }

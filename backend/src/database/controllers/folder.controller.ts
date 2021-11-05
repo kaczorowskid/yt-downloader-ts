@@ -31,7 +31,7 @@ export const addFolder = async (req: Request, res: Response) => {
     const { id, title } = req.query;
  
     try {
-        const data = await Folders.create({ //create przyjmuje tylko stringa
+        const data = await Folders.create({
             title: title as string, 
             user_id: id as string
         })

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDownloadFile } from '../../hooks/useDownloadFile';
 import { IYoutubeData } from '../../types/IYoutubeData';
 import * as styled from './LibraryCard.styled';
 
@@ -9,10 +10,13 @@ interface Props {
 
 const LibraryCard: React.FC<Props> = ({ data, removeItem }) => {
 
+    const { Tiles, download } = useDownloadFile();
+
     return (
         <styled.Container>
+            {Tiles()}
             <styled.ImageContainer>
-                <styled.DownloadIcon />
+                <styled.DownloadIcon onClick = {() => download(data.url, data.title)} />
                 <styled.RemoveIcon onClick = {removeItem} />
                 <styled.Image src={data.thumbnail} />
             </styled.ImageContainer>

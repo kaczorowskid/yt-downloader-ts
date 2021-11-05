@@ -11,6 +11,7 @@ import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import { config } from './config';
 import axios from 'axios';
+import PrivateRoute from './privateRoutes/PrivateRoutes'
 axios.defaults.withCredentials = true;
 dotenv.config();
 
@@ -23,8 +24,8 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Router>
         <Switch>
-          <Route exact path={login} component={Login} />
-          <Route exact path={register} component={Register} />
+          <PrivateRoute path={login} component={Login} />
+          <PrivateRoute path={register} component={Register} />
           <Route exact path={home} component={Home} />
         </Switch>
       </Router>

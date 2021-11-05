@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import brypt from 'bcrypt';
 import { User } from '../models/User';
@@ -7,7 +7,7 @@ const generateToken = (data: any, key: string, time: number) => jwt.sign(data, k
 
 
 export const register = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, password }: any = req.query;
 
     const userExist: number = await User.count({ where: { email: email } });
     const hashPassword: string = await brypt.hash(password, 10);
@@ -27,18 +27,18 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, password }: any = req.query;
 
     console.log(email, ' ', password);
     const user: any = await User.findOne({ where: { email: email } });
     if (user === null) res.status(401).json({ err: true });
     const isFine = await brypt.compare(password, user.password)
-    console.log(isFine)
+    console.log('isFine ', isFine)
     if (isFine) {
         const accessToken = generateToken({ id: user.id }, process.env.ACCESS_TOKEN as string, 86400);
 
         res.status(200).cookie('JWT', accessToken, {
-            maxAge: 8640000,
+            maxAge: 86400000,
             httpOnly: true
         }).json({
             id: user.id,
@@ -53,13 +53,12 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = (req: Request, res: Response) => {
     res.clearCookie('JWT').json({ msg: 'logout' })
-
 }
 
 export const refreshMe = async (req: Request, res: Response) => {
     const cookie = req.cookies.JWT
 
-    console.log(cookie)
+    console.log('coockie ', cookie)
     try {
         if (!cookie) {
             res.status(403);

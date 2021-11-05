@@ -8,7 +8,6 @@ interface IFoldersDBModel {
 }
 
 interface IFolders {
-    // id: number
     title: string;
     user_id: string;
 }

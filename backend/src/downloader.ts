@@ -34,12 +34,6 @@ export default class Downloader {
                 })
         })
     }
-
-    makeZip = (zipFileName: string): void => {
-        const zip: AdmZip = new AdmZip();
-        zip.addLocalFolder('./music');
-        zip.writeZip(`./${zipFileName}.zip`);
-    }
 }
 
 

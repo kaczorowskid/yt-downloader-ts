@@ -25,6 +25,7 @@ const Library: React.FC<Props> = ({ id }) => {
     const [folderNameInput, setFolderNameInput] = useState<string>('');
     const [dataInFolder, setDataInFolder] = useState<Array<IYoutubeData>>([])
     const [currentFolderCheck, setCurrentFolderCheck] = useState<number>(0);
+    const [filterFolders, setFilterFolders] = useState(libraryFolders)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,9 +38,18 @@ const Library: React.FC<Props> = ({ id }) => {
         }
 
         fetchData();
+        setFilterFolders(libraryFolders)
     }, [currentlyFolderView, libraryFolders])
 
+
+    const handleFilterFolders = (val: string) => {
+        const result = libraryFolders.filter((data) => data.title.search(val) != -1)
+        setFilterFolders(result);
+    }
+
+
     const removeFolder = async (folderTitle: string) => {
+
         try {
             const response = await callApi(deleteFolderPath, 'DELETE', {
                 id: state.userData.id,
@@ -47,6 +57,14 @@ const Library: React.FC<Props> = ({ id }) => {
             })
 
             response && setLibraryChange(libraryFolders.filter(folder => folder.title !== folderTitle))
+        } catch (e) {
+            console.log(e)
+        }
+        
+        try {
+            await callApi(deleteDataPath, 'DELETE', {
+                id: dataInFolder.map(i => i.id)
+            })
         } catch (e) {
             console.log(e)
         }
@@ -85,7 +103,7 @@ const Library: React.FC<Props> = ({ id }) => {
                 <styled.FolderListWrapper>
                     <styled.FolderListContainer>
                         <styled.InputContainer>
-                            <styled.Input />
+                            <styled.Input onChange = {e => handleFilterFolders(e.target.value)} />
                         </styled.InputContainer>
                         <styled.AddFolderContainer>
                             {addFolderVisible ? (
@@ -101,7 +119,7 @@ const Library: React.FC<Props> = ({ id }) => {
                             )}
                         </styled.AddFolderContainer>
                         <styled.ItemListContainer currentClick={currentFolderCheck}>
-                            {libraryFolders && libraryFolders.map((folder, i) => (
+                            {filterFolders.map((folder, i) => (
                                 <styled.FolderItem key={i} folderTitle={folder.title} onClick={() => handleClickFolderItem(folder.id, i)} >
                                     <styled.RemoveIcon onClick={() => removeFolder(folder.title)} />
                                 </styled.FolderItem>

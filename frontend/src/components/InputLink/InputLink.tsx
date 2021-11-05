@@ -46,6 +46,7 @@ const InputLink: React.FC<Props> = ({ id }) => {
         <>
             {loading && <Loading />}
             <styled.Container id={id}>
+            <styled.Header>Music from <span style = {{color: 'orange'}} >YouTube</span></styled.Header>
                 <styled.InputWrapper>
                     <styled.Input placeholder='YouTube link' onChange={e => setInputValue(e.target.value)} value={inputValue} />
                     <styled.SearchIconContainer>

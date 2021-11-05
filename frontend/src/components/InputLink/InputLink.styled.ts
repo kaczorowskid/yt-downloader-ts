@@ -10,6 +10,16 @@ export const Container = styled.div`
     font-family: 'Roboto', sans-serif;
 `;
 
+export const Header = styled.div`
+    font-size: 45px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+`;
+
 export const InputWrapper = styled.div`
     position: absolute;
     top: 43%;
@@ -17,10 +27,10 @@ export const InputWrapper = styled.div`
     transform: translate(-50%, -50%);
     width: 800px;
     height: 70px;
-    border: 1px solid white;
+    border: 1px solid orange;
     display: flex;
 
-    &::before {
+    /* &::before {
         content: 'Music from YouTube';
         color: white;
         position: absolute;
@@ -28,7 +38,7 @@ export const InputWrapper = styled.div`
         left: 25%;
         font-size: 45px;
         font-weight: bold;
-    }
+    } */
 `;
 
 export const Title = styled.div`
@@ -51,7 +61,7 @@ export const SearchIconContainer = styled.div`
 `;
 
 export const SearchIcon = styled(Search)`
-    color: white;
+    color: orange;
     width: 35px;
     height: 35px;
 `;

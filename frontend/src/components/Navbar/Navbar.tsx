@@ -4,10 +4,11 @@ import { useHistory } from "react-router-dom";
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { config } from '../../config';
 import { loginReducerAction } from '../../reducers/loginReducer';
-import LoginPopup from '../LoginPopup/LoginPopup';
-import { useLoginPopup } from '../../hooks/useLoginPopup';
 import { Link, animateScroll as scroll } from 'react-scroll'
 import { callApi } from '../../helper/callApi';
+import { useLeftColumn } from '../../hooks/useLeftColumn';
+import { useYouTubeData } from '../../hooks/useYouTubeData';
+import Loading from '../Loading/Loading';
 
 interface Props {
     scrollValue: number
@@ -15,21 +16,26 @@ interface Props {
 
 const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
+    const { getInfo } = config.url.download
     const { logoutPath } = config.url.user;
+    const { login, register } = config.routerPath;
 
     const [isTop, setIsTop] = useState<boolean>(true)
     const [inputVisible, setInputVisible] = useState<boolean>(false)
+    const [inputValue, setInputValue] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false)
 
     const history = useHistory();
     const { state, dispatch } = useCurrentUser();
-    const { loginPopupVisible, setLoginPopupVisible } = useLoginPopup()
+    const { setLeftColumnVisible } = useLeftColumn();
+    const { fetchYouTubeData, setFetchYouTubeData } = useYouTubeData();
 
     const handleLogout = async () => {
         try {
             const response = await callApi(logoutPath, 'GET', {});
             if (response) {
+                history.go(0);
                 dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '' })
-                history.push('/')
             }
         } catch (e) {
             console.log(e)
@@ -41,9 +47,28 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
         setInputVisible(() => scrollValue > 400 ? false : true)
     }, [scrollValue])
 
+    const endFetch = () => {
+        setInputValue('')
+        setLoading(false)
+        setLeftColumnVisible(true)
+    }
+
+    const getYouTubeData = async () => {
+        setLoading(true)
+        try {
+            const response = await callApi(getInfo, 'GET', { url: inputValue })
+            if(response) {
+                setFetchYouTubeData([...fetchYouTubeData, response.data])
+                endFetch()
+            }
+        } catch(e) {
+            console.log(e)
+        }
+    }
+
     return (
         <>
-            {loginPopupVisible && <LoginPopup changeTheme={isTop} />}
+        {loading && <Loading />}
             <styled.Container isTop={isTop} >
                 <styled.ItemNavbarContainer isTop={isTop} >
                     <styled.ItemNavbar isTop={isTop}>
@@ -59,8 +84,8 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
                 </styled.ItemNavbarContainer>
                 <styled.InputContainer isVisible={inputVisible} isTop={isTop} >
                     <styled.InputWrapper>
-                        <styled.Input />
-                        <styled.SearchgIconContainer>
+                        <styled.Input onChange = {e => setInputValue(e.target.value)} value = {inputValue} />
+                        <styled.SearchgIconContainer onClick = {getYouTubeData} >
                             <styled.SearchIcon />
                         </styled.SearchgIconContainer>
                     </styled.InputWrapper>
@@ -69,8 +94,8 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
                     {state.isLogged ?
                         <styled.Log isTop={isTop} onClick={handleLogout} >Logout</styled.Log> :
                         <>
-                            <styled.Log isTop={!isTop} onClick={() => setLoginPopupVisible(!loginPopupVisible)} >Login</styled.Log>
-                            <styled.Log isTop={isTop} onClick={() => history.push('/register')} >Create</styled.Log>
+                            <styled.Log isTop={!isTop} onClick={() => history.push(login)} >Login</styled.Log>
+                            <styled.Log isTop={isTop} onClick={() => history.push(register)} >Create</styled.Log>
                         </>
                     }
                 </styled.AccountContainer>

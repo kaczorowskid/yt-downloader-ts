@@ -9,6 +9,7 @@ interface ICurrentUserContext {
 
 export const CurrentUserContext = createContext<ICurrentUserContext>({
     state: {
+        isLoading: true,
         isLogged: false,
         userData: {
             id: 0,

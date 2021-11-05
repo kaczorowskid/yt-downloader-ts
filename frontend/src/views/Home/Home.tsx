@@ -5,7 +5,6 @@ import Library from '../../components/Library/Library';
 import Navbar from '../../components/Navbar/Navbar';
 import { useScrollValue } from '../../hooks/useScrollValue';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
-import Test from '../../components/Test/Test';
 
 const Home: React.FC = () => {
 
@@ -14,7 +13,6 @@ const Home: React.FC = () => {
 
     return (
         <>
-               <Test />
             <LeftColumnFilesLibrary />
             <Navbar scrollValue={scrollValue} />
             <InputLink id='inputLink' />

@@ -13,7 +13,6 @@ interface IUser {
     email: string;
     password: string;
     active: boolean;
-    // folder_id: number
 }
 
 export interface UserInstance extends Sequelize.Model<IUserDBModel, IUser> {};
