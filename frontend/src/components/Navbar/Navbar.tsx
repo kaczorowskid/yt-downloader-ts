@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { config } from '../../config';
 import { loginReducerAction } from '../../reducers/loginReducer';
-import { Link, animateScroll as scroll } from 'react-scroll'
+import { Link } from 'react-scroll'
 import { callApi } from '../../helper/callApi';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import { useYouTubeData } from '../../hooks/useYouTubeData';

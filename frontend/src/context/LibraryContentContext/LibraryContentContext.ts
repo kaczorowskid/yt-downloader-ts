@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import { createContext } from 'react'
 import { IFolder } from '../../types/IFolder'
 
 interface ILibraryContentContext {

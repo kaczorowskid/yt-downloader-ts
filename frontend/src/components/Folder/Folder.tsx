@@ -5,7 +5,7 @@ import { useCurrentFolder } from '../../hooks/useCurrentFolder'
 interface Props {
     folderName: string,
     removeFolder: (val: string) => void,
-    param: number | undefined
+    param: number
 
 }
 

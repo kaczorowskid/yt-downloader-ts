@@ -43,7 +43,7 @@ const Library: React.FC<Props> = ({ id }) => {
 
 
     const handleFilterFolders = (val: string) => {
-        const result = libraryFolders.filter((data) => data.title.search(val) != -1)
+        const result = libraryFolders.filter((data) => data.title.search(val) !== -1)
         setFilterFolders(result);
     }
 

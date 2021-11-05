@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDownloadFile } from '../../hooks/useDownloadFile';
 import { IYoutubeData } from '../../types/IYoutubeData';
 import * as styled from './LibraryCard.styled';

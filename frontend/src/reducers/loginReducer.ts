@@ -16,8 +16,7 @@ export const loginReducerAction = {
     REFRESH: 'REFRESH'
 }
 
-
-export const loginReducer = (state: any, action: any) => {
+export const loginReducer = (state: any, action: ILoginAction) => {
     switch (action.type) {
         case loginReducerAction.LOGIN:
             return {

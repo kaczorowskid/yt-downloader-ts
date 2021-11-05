@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as styled from './InputLink.styled';
-import axios from 'axios';
 import { config } from '../../config';
 import { useYouTubeData } from '../../hooks/useYouTubeData';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import Loading from '../Loading/Loading';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { callApi } from '../../helper/callApi';
-import { IYoutubeData } from '../../types/IYoutubeData';
 
 interface Props {
     id: string

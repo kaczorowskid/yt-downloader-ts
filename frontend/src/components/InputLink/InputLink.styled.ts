@@ -29,16 +29,6 @@ export const InputWrapper = styled.div`
     height: 70px;
     border: 1px solid orange;
     display: flex;
-
-    /* &::before {
-        content: 'Music from YouTube';
-        color: white;
-        position: absolute;
-        top: -80px;
-        left: 25%;
-        font-size: 45px;
-        font-weight: bold;
-    } */
 `;
 
 export const Title = styled.div`

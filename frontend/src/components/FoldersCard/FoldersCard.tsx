@@ -1,9 +1,9 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { config } from '../../config';
 import { useLibraryData } from '../../hooks/useLibraryData';
 import * as styled from './FoldersCard.styled';
 import { callApi } from '../../helper/callApi';
+import { IFolder } from '../../types/IFolder';
 
 interface Props {
     close: () => void,
@@ -17,7 +17,7 @@ const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
 
     const [isAdded, setIsAdded] = useState<boolean>(false);
 
-    const saveInFolder = (folderData: any) => {
+    const saveInFolder = (folderData: IFolder) => {
         setIsAdded(true)
         console.log(folderData)
         try {
