@@ -2,13 +2,10 @@ import { Request, Response } from 'express';
 import { Folders } from '../models/Folder';
 
 export const getFolders = async (req: Request, res: Response) => {
-    const { id, name } = req.query
+    const { id } = req.query
 
-    console.log(id, ' ', name)
-    let data: any;
     try {
-        if(!name) data = await Folders.findAll({where: {user_id: id}, attributes: ['title', 'id']}); /// zmieniona
-        else data = await Folders.findAll({where: {user_id: id, title: name}, attributes: ['title', 'id']});
+        const data = await Folders.findAll({where: {user_id: id}, attributes: ['title', 'id']});
         res.json({data: data, length: data.length});
     } catch(e) {
         console.log('getFolders error')
@@ -20,7 +17,6 @@ export const deleteFolder = async (req: Request, res: Response) => {
 
     try {
         const data = await Folders.destroy({where: {user_id: id, title: title}});
-        console.log('data: ', data)
         res.json({data: data})
     } catch(e) {
         console.log(e)

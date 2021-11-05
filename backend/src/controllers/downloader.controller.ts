@@ -42,7 +42,7 @@ export const downloadOne = async (req: Request, res: Response) => {
     const stream = await downloader.getStream(url as string);
     stream.on('progress', (_, totalDownloaded, total) => {
         let percentage: number = Math.trunc((totalDownloaded / total) * 100);
-        console.log(percentage)
+
         pusher.trigger('download', 'progress', {
             percentage,
         });

@@ -27,13 +27,13 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password }: any = req.query;
+    const { email, password } = req.query;
 
-    console.log(email, ' ', password);
     const user: any = await User.findOne({ where: { email: email } });
     if (user === null) res.status(401).json({ err: true });
-    const isFine = await brypt.compare(password, user.password)
-    console.log('isFine ', isFine)
+
+    const isFine = await brypt.compare(password as string, user.password)
+
     if (isFine) {
         const accessToken = generateToken({ id: user.id }, process.env.ACCESS_TOKEN as string, 86400);
 
@@ -58,7 +58,6 @@ export const logout = (req: Request, res: Response) => {
 export const refreshMe = async (req: Request, res: Response) => {
     const cookie = req.cookies.JWT
 
-    console.log('coockie ', cookie)
     try {
         if (!cookie) {
             res.status(403);

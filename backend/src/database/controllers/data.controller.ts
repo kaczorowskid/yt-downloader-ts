@@ -19,7 +19,7 @@ export const getAllData = async (req: Request, res: Response) => {
 
 export const deleteItem = async (req: Request, res: Response) => {
     const { id } = req.query;
-    console.log('id ', id)
+
     try {
         const data = await Data.destroy({where: {id: id}});
         res.json({data: data})
@@ -30,8 +30,6 @@ export const deleteItem = async (req: Request, res: Response) => {
 
 export const addItem = async (req: Request, res: Response) => {
     const { folder_id, title, imageSrc, url } = req.query;
-
-    console.log(folder_id, ' ', title)
 
     try {
         const data = await Data.create({
