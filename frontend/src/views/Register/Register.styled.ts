@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { device } from '../../helper/deviceSize';
 
 export const Container = styled.div`
     width: 100%;
@@ -6,6 +7,11 @@ export const Container = styled.div`
     background: #16161d;
     display: flex;
     font-family: 'Roboto', sans-serif;
+
+    @media only screen and (${device.laptop}) {
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 
 export const Column = styled.div`
@@ -14,6 +20,10 @@ export const Column = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media only screen and (${device.laptop}) {
+        width: 90%;
+    }
 `;
 
 export const LeftSideContainer = styled.div`
@@ -55,6 +65,12 @@ export const RegisterWindowContainer = styled.div`
     justify-content: space-evenly;
     border: 1px solid #414141;
     overflow: hidden;
+
+    @media only screen and (${device.laptop}) {
+        width: 100%;
+        height: 80%;
+        margin-bottom: 150px;
+    }
 `;
 
 export const InputContainer = styled.div`

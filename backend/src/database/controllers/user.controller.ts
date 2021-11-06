@@ -27,27 +27,33 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.query;
+    const { email, password }: any = req.query;
 
-    const user: any = await User.findOne({ where: { email: email } });
-    if (user === null) res.status(401).json({ err: true });
+    try {
+        const user: any = await User.findOne({ where: { email: email } });
 
-    const isFine = await brypt.compare(password as string, user.password)
+        if (user === null) res.status(401).json({ err: 'no trudno' });
 
-    if (isFine) {
-        const accessToken = generateToken({ id: user.id }, process.env.ACCESS_TOKEN as string, 86400);
+        const isFine = await brypt.compare(password, user.password)
 
-        res.status(200).cookie('JWT', accessToken, {
-            maxAge: 86400000,
-            httpOnly: true
-        }).json({
-            id: user.id,
-            email: user.email,
-            active: user.active
-        })
-    }
-    else {
-        res.status(403).json({ err: 'error' })
+
+        if (isFine) {
+            const accessToken = generateToken({ id: user.id }, process.env.ACCESS_TOKEN as string, 86400);
+
+            res.status(200).cookie('JWT', accessToken, {
+                maxAge: 86400000,
+                httpOnly: true
+            }).json({
+                id: user.id,
+                email: user.email,
+                active: user.active
+            })
+        }
+        else {
+            res.status(403).json({ err: 'error' })
+        }
+    } catch (e) {
+        console.log(e)
     }
 }
 

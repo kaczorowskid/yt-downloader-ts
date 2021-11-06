@@ -24,7 +24,7 @@ export const ArrowIconContainer = styled.div<{visible: boolean}>`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    top: 50%;
+    top: 5%;
     transform: translate(0, -50%);
     transition: all .5s ease;
     cursor: pointer;

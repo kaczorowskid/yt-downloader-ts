@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { MusicNoteBeamed, Search } from '@styled-icons/bootstrap'
+import { device } from '../../helper/deviceSize'
 
 export const Container = styled.div<{isTop?: boolean}>`
     background: ${props => props.isTop ? '#16161d' : 'white'};
@@ -20,6 +21,11 @@ export const ItemNavbarContainer = styled.div<{isTop?: boolean}>`
     position: absolute;
     left: 250px;
     transition: all 1s ease;
+
+    @media only screen and (${device.laptop}) {
+        left: 50px;
+    }
+
 `;
 
 export const ItemNavbar = styled.div<{isTop?: boolean}>`
@@ -43,6 +49,10 @@ export const AccountContainer = styled.div<{isTop?: boolean}>`
     position: absolute;
     right: 250px;
     transition: all 1s ease;
+
+    @media only screen and (${device.laptop}) {
+        right: 50px;
+    }
 `;
 
 export const Log = styled.div<{isTop?: boolean}>`

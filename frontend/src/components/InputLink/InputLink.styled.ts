@@ -1,5 +1,6 @@
 import { Search } from '@styled-icons/bootstrap';
 import styled from 'styled-components'
+import { device } from '../../helper/deviceSize';
 
 export const Container = styled.div`
     position: relative;
@@ -11,13 +12,15 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.div`
-    font-size: 45px;
+    font-size: 40px;
     font-weight: bold;
     color: white;
     position: absolute;
-    top: 30%;
+    top: 28%;
     left: 50%;
     transform: translate(-50%, 0%);
+    width: 100%;
+    text-align: center;
 `;
 
 export const InputWrapper = styled.div`
@@ -29,6 +32,10 @@ export const InputWrapper = styled.div`
     height: 70px;
     border: 1px solid orange;
     display: flex;
+
+    @media only screen and (${device.laptop}) {
+        width: 90%;
+    }
 `;
 
 export const Title = styled.div`
@@ -48,6 +55,10 @@ export const SearchIconContainer = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    @media only screen and (${device.laptop}) {
+        width: 15%;
+    }
 `;
 
 export const SearchIcon = styled(Search)`
