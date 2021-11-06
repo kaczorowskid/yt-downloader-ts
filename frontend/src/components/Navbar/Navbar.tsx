@@ -27,7 +27,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     const history = useHistory();
     const { state, dispatch } = useCurrentUser();
-    const { setLeftColumnVisible } = useLeftColumn();
+    const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn();
     const { fetchYouTubeData, setFetchYouTubeData } = useYouTubeData();
 
     const handleLogout = async () => {
@@ -57,19 +57,22 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
         setLoading(true)
         try {
             const response = await callApi(getInfo, 'GET', { url: inputValue })
-            if(response) {
+            if (response) {
                 setFetchYouTubeData([...fetchYouTubeData, response.data])
                 endFetch()
             }
-        } catch(e) {
+        } catch (e) {
             console.log(e)
         }
     }
 
     return (
         <>
-        {loading && <Loading />}
+            {loading && <Loading />}
             <styled.Container isTop={isTop} >
+                <styled.ArrowIconContainer isTop = {isTop} visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)}>
+                    {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
+                </styled.ArrowIconContainer>
                 <styled.ItemNavbarContainer isTop={isTop} >
                     <styled.ItemNavbar isTop={isTop}>
                         <Link to="inputLink" spy={true} smooth={true} offset={-150} duration={500} >
@@ -84,8 +87,8 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
                 </styled.ItemNavbarContainer>
                 <styled.InputContainer isVisible={inputVisible} isTop={isTop} >
                     <styled.InputWrapper>
-                        <styled.Input onChange = {e => setInputValue(e.target.value)} value = {inputValue} />
-                        <styled.SearchgIconContainer onClick = {getYouTubeData} >
+                        <styled.Input placeholder='YouTube link' onChange={e => setInputValue(e.target.value)} value={inputValue} />
+                        <styled.SearchgIconContainer onClick={getYouTubeData} >
                             <styled.SearchIcon />
                         </styled.SearchgIconContainer>
                     </styled.InputWrapper>

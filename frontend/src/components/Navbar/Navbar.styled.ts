@@ -1,6 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { MusicNoteBeamed, Search } from '@styled-icons/bootstrap'
 import { device } from '../../helper/deviceSize'
+import { ArrowLeft, ArrowRight } from '@styled-icons/bootstrap'
 
 export const Container = styled.div<{isTop?: boolean}>`
     background: ${props => props.isTop ? '#16161d' : 'white'};
@@ -122,3 +123,32 @@ export const SearchIcon = styled(Search)`
     width: 30px;
     height: 30px;
 `;
+
+export const ArrowIconContainer = styled.div<{visible: boolean, isTop: boolean}>`
+    position: fixed;
+    left: ${props => props.visible ? '30%' : '0%'};
+    width: 50px;
+    height: 50px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: ${props => props.isTop ? '5%' : '8%'};
+    transform: translate(0, -50%);
+    transition: all 1s ease;
+    cursor: pointer;
+    color: ${props => props.isTop ? 'white' : 'black'};
+
+    @media only screen and (${device.laptop}) {
+        left: ${props => props.visible ? '85%' : '0%'};
+    }
+`;
+
+
+const iconStyle = css`
+    width: 30px;
+    height: 30px;
+`;
+
+export const ArrowLeftIcon = styled(ArrowLeft)`${iconStyle}`;
+export const ArrowRightIcon = styled(ArrowRight)`${iconStyle}`;

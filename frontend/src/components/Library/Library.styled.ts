@@ -110,7 +110,10 @@ export const AllItemsContainer = styled.div`
 export const ItemContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    
+    @media only screen and (${device.laptop}) {
+        justify-content: center;
+    }
 `;
 
 export const AddFolderContainer = styled.div`

@@ -9,7 +9,7 @@ import { useYouTubeData } from '../../hooks/useYouTubeData';
 
 const LeftColumnFilesLibrary: React.FC = () => {
 
-    const { leftColumnVisible, setLeftColumnVisible } = useLeftColumn();
+    const { leftColumnVisible } = useLeftColumn();
     const { fetchYouTubeData } = useYouTubeData();
 
     const [whichCard, setWhichCard] = useState<number>(1000);
@@ -22,9 +22,6 @@ const LeftColumnFilesLibrary: React.FC = () => {
                     {fetchYouTubeData.map((data, i) => whichCard === i ? <FoldersCard key = {i} youtubeData={data} close = {() => setWhichCard(100)} /> : <SearchCard key={i} youtubeData={data} onClick = {() => setWhichCard(i)} />)}
                 </styled.ItemContainer>
             </styled.Container>
-            <styled.ArrowIconContainer visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)}>
-                {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
-            </styled.ArrowIconContainer>
         </>
     )
 }

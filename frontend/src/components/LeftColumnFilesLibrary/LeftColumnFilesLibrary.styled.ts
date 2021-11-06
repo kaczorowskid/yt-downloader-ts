@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ArrowLeft, ArrowRight } from '@styled-icons/bootstrap'
+import { device } from '../../helper/deviceSize';
 
 export const Container = styled.div<{visible: boolean}>`
     position: fixed;
@@ -10,7 +11,12 @@ export const Container = styled.div<{visible: boolean}>`
     background: #1E1E1E;
     z-index: 10;
     overflow: auto;
-    transition: all .5s ease;
+    transition: all 1s ease;
+
+    @media only screen and (${device.laptop}) {
+        width: 85%;
+        left: ${props => props.visible ? '0%' : '-85%'};
+    }
 `;
 
 export const ArrowIconContainer = styled.div<{visible: boolean}>`
