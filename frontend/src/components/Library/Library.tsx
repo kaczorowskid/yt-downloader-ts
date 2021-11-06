@@ -7,7 +7,7 @@ import { config } from '../../config';
 import { useCurrentFolder } from '../../hooks/useCurrentFolder';
 import { IYoutubeData } from '../../types/IYoutubeData';
 import { callApi } from '../../helper/callApi';
-import ActiveAccount from '../ActiveAccount/ActiveAccount'
+import NoActiveAccount from '../NoActiveAccount/NoActiveAccount'
 
 interface Props {
     id: string
@@ -100,7 +100,7 @@ const Library: React.FC<Props> = ({ id }) => {
 
     return (
         <>
-            {!state.userData.active ? <ActiveAccount /> : <styled.Container id={id}>
+            {!state.userData.active ? <NoActiveAccount /> : <styled.Container id={id}>
                 <styled.FolderListWrapper>
                     <styled.FolderListContainer>
                         <styled.InputContainer>

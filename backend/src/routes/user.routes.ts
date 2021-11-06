@@ -7,6 +7,6 @@ userRouter.post('/register', userController.register);
 userRouter.post('/login', userController.login);
 userRouter.get('/logout', userController.logout);
 userRouter.get('/me', userController.refreshMe);
-userRouter.get('/confirm/:token', userController.confirmAccount);
+userRouter.get('/confirm', userController.confirmAccount);
 
 export default userRouter;

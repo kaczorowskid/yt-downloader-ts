@@ -1,8 +1,8 @@
 import React from 'react';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
-import * as styled from './ActiveAccount.styled';
+import * as styled from './NoActiveAccount.styled';
 
-const ActiveAccount: React.FC = () => {
+const NoActiveAccount: React.FC = () => {
 
     const { state } = useCurrentUser()
 
@@ -14,4 +14,4 @@ const ActiveAccount: React.FC = () => {
     )
 }
 
-export default ActiveAccount;
+export default NoActiveAccount;

@@ -6,13 +6,14 @@ import { User } from '../models/User';
 const generateToken = (data: any, key: string, time: number | string) => jwt.sign(data, key, { expiresIn: time });
 
 export const confirmAccount = async (req: Request, res: Response) => {
-    const token = req.params.token
+    const { token }: any = req.query;
+    console.log(token)
     try {
         const { id }: any = jwt.verify(token, process.env.EMAIL_TOKEN! as string)
         await User.update({ active: true }, { where: { id } })
-        res.send('user aktywowany')
+        res.json({confirm: true})
     } catch (e) {
-        res.send('nie pojedziesz tom windom')
+        res.json({confirm: false})
     }
 }
 
