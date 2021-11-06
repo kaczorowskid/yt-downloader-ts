@@ -23,7 +23,7 @@ const Login: React.FC = () => {
         try {
             const response = await callApi(loginPath, 'POST', { email, password })
             if (response) {
-                dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email })
+                dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
                 history.push('/')
             }
         } catch (e) {

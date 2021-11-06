@@ -4,6 +4,7 @@ export const config = {
     routerPath: {
         login: '/login',
         register: '/register',
+        registerDone: '/register-done',
         home: '/'
     },
     url: {

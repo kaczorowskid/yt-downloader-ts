@@ -13,6 +13,7 @@ const Register: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>('')
 
     const [error, setError] = useState<boolean>(false);
+    const [isCreated, setIsCreated] = useState<boolean>(false);
 
     const history = useHistory();
 
@@ -23,9 +24,7 @@ const Register: React.FC = () => {
         } else {
             try {
                 const response = await callApi(registerPath, 'POST', { email, password })
-                if (response) {
-                    history.push('/')
-                }
+                if (response) setIsCreated(true)
             } catch (e) {
                 setError(true)
             }
@@ -59,6 +58,7 @@ const Register: React.FC = () => {
                     </styled.InputContainer>
                     <styled.Button onClick={registerUser} >Create account</styled.Button>
                     {error && <styled.Error>Enter the data correctly</styled.Error>}
+                    {isCreated && <styled.Info>Your account is <span style = {{color: 'orange'}}> created</span>. You must click in activation link. Go to your e-mail.</styled.Info>}
                 </styled.RegisterWindowContainer>
             </styled.Column>
         </styled.Container>

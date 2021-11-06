@@ -3,7 +3,6 @@ import InputLink from '../../components/InputLink/InputLink';
 import LeftColumnFilesLibrary from '../../components/LeftColumnFilesLibrary/LeftColumnFilesLibrary';
 import Library from '../../components/Library/Library';
 import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer/Footer';
 import { useScrollValue } from '../../hooks/useScrollValue';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 
@@ -18,7 +17,6 @@ const Home: React.FC = () => {
             <Navbar scrollValue={scrollValue} />
             <InputLink id='inputLink' />
             {state.isLogged && <Library id = 'library' />}
-            {/* <Footer /> */}
         </>
     )
 }

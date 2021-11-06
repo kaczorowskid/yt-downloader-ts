@@ -19,7 +19,7 @@ const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
         const fetchUser = async () => {
             try {
                 const response = await callApi(meRefresh, 'GET', {});
-                response && dispatch({ type: loginReducerAction.REFRESH, id: response.data.id, email: response.data.email })
+                response && dispatch({ type: loginReducerAction.REFRESH, id: response.data.id, email: response.data.email, active: response.data.active })
             } catch (e) {
                 console.log(e)
             }

@@ -123,3 +123,11 @@ export const ForgotPasswordLink = styled.div`
 export const Error = styled.span`
     color: red;
 `;
+
+export const Info = styled.span`
+    width: 90%;
+    border: 1px solid orange;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+`;

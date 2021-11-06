@@ -3,8 +3,18 @@ import jwt from 'jsonwebtoken';
 import brypt from 'bcrypt';
 import { User } from '../models/User';
 
-const generateToken = (data: any, key: string, time: number) => jwt.sign(data, key, { expiresIn: time });
+const generateToken = (data: any, key: string, time: number | string) => jwt.sign(data, key, { expiresIn: time });
 
+export const confirmAccount = async (req: Request, res: Response) => {
+    const token = req.params.token
+    try {
+        const { id }: any = jwt.verify(token, process.env.EMAIL_TOKEN! as string)
+        await User.update({ active: true }, { where: { id } })
+        res.send('user aktywowany')
+    } catch (e) {
+        res.send('nie pojedziesz tom windom')
+    }
+}
 
 export const register = async (req: Request, res: Response) => {
     const { email, password }: any = req.query;
@@ -18,6 +28,9 @@ export const register = async (req: Request, res: Response) => {
             password: hashPassword,
             active: false
         })
+
+        const emailToken = generateToken({ id: user.id }, process.env.EMAIL_TOKEN! as string, '1d');
+        console.log('emailToken ', emailToken)
 
         res.status(200).send({ msg: 'utworzony' })
     }

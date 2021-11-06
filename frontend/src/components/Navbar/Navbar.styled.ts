@@ -133,11 +133,11 @@ export const ArrowIconContainer = styled.div<{visible: boolean, isTop: boolean}>
     display: flex;
     justify-content: center;
     align-items: center;
-    top: ${props => props.isTop ? '5%' : '8%'};
+    top: ${props => props.isTop ? '45px' : '75px'};
     transform: translate(0, -50%);
     transition: all 1s ease;
     cursor: pointer;
-    color: ${props => props.isTop ? 'white' : 'black'};
+    color: ${props => props.isTop ? 'orange' : 'black'};
 
     @media only screen and (${device.laptop}) {
         left: ${props => props.visible ? '85%' : '0%'};

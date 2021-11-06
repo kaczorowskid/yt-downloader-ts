@@ -35,7 +35,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
             const response = await callApi(logoutPath, 'GET', {});
             if (response) {
                 history.go(0);
-                dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '' })
+                dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '', active: false })
             }
         } catch (e) {
             console.log(e)

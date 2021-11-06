@@ -6,7 +6,8 @@ export const initialState: ILoginReducerState = {
     isLogged: false,
     userData: {
         id: 0,
-        email: ''
+        email: '',
+        active: false
     }
 }
 
@@ -25,7 +26,8 @@ export const loginReducer = (state: any, action: ILoginAction) => {
                 isLogged: true,
                 userData: {
                     id: action.id,
-                    email: action.email
+                    email: action.email,
+                    active: action.active
                 }
             }
 
@@ -36,7 +38,8 @@ export const loginReducer = (state: any, action: ILoginAction) => {
                 isLogged: true,
                 userData: {
                     id: action.id,
-                    email: action.email
+                    email: action.email,
+                    active: action.active
                 }
             }
 

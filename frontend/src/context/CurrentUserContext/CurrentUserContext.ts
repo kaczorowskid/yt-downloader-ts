@@ -13,7 +13,8 @@ export const CurrentUserContext = createContext<ICurrentUserContext>({
         isLogged: false,
         userData: {
             id: 0,
-            email: ''
+            email: '',
+            active: false
         }
     },
     dispatch: () => {}

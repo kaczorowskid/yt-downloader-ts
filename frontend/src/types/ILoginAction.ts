@@ -1,6 +1,7 @@
 export interface ILoginAction {
     type: string, 
     id: number, 
-    email: string
+    email: string,
+    active: boolean
 }
 

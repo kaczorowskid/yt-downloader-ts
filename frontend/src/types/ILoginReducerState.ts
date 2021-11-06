@@ -3,6 +3,7 @@ export interface ILoginReducerState {
     isLogged: boolean
     userData: {
         id: number
-        email: string
+        email: string,
+        active: boolean
     }
 }
