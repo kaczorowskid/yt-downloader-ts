@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import brypt from 'bcrypt';
 import { User } from '../models/User';
+import { sendMail } from '../../helper/mailer';
 
 const generateToken = (data: any, key: string, time: number | string) => jwt.sign(data, key, { expiresIn: time });
 
@@ -30,8 +31,9 @@ export const register = async (req: Request, res: Response) => {
             active: false
         })
 
-        const emailToken = generateToken({ id: user.id }, process.env.EMAIL_TOKEN! as string, '1d');
+        const emailToken = generateToken({ id: user.id }, process.env.EMAIL_TOKEN as string, '1d');
         console.log('emailToken ', emailToken)
+        sendMail(emailToken, email)
 
         res.status(200).send({ msg: 'utworzony' })
     }
