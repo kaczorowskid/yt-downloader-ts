@@ -128,11 +128,11 @@ const Library: React.FC<Props> = ({ id }) => {
                     </styled.FolderListContainer>
                 </styled.FolderListWrapper>
                 <styled.AllItemsWrapper>
-                    <styled.AllItemsContainer>
+                {dataInFolder.length !== 0 && <styled.AllItemsContainer>
                         <styled.ItemContainer>
                             {dataInFolder.map((data, i) => <LibraryCard key={i} data={data} removeItem={() => removeItemFromFolder(data.id)} />)}
                         </styled.ItemContainer>
-                    </styled.AllItemsContainer>
+                    </styled.AllItemsContainer>}
                 </styled.AllItemsWrapper>
             </styled.Container>
         </>
