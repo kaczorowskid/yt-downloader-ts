@@ -103,7 +103,7 @@ const Library: React.FC<Props> = ({ id }) => {
                 <styled.FolderListWrapper>
                     <styled.FolderListContainer>
                         <styled.InputContainer>
-                            <styled.Input onChange = {e => handleFilterFolders(e.target.value)} />
+                            <styled.Input placeholder = 'Search folder' onChange = {e => handleFilterFolders(e.target.value)} />
                         </styled.InputContainer>
                         <styled.AddFolderContainer>
                             {addFolderVisible ? (

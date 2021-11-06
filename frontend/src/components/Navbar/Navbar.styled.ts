@@ -88,7 +88,6 @@ export const InputContainer = styled.div<{isTop: boolean, isVisible: boolean}>`
     transform: translate(-50%, 0);
     width: 500px;
     height: ${props => props.isTop ? '60%' : '100%'};
-    /* border: 1px solid yellow; */
     transition: all 1s ease;
     display: ${props => props.isVisible ? 'none' : 'flex'};
     align-items: center;
@@ -97,8 +96,11 @@ export const InputContainer = styled.div<{isTop: boolean, isVisible: boolean}>`
 export const InputWrapper = styled.div`
     width: 500px;
     height: 45px;
-    /* border: 1px solid red; */
     display: flex;
+
+    @media only screen and (${device.laptop}) {
+        display: none;
+    }
 `;
 
 export const Input = styled.input`

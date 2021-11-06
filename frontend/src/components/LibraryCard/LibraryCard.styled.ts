@@ -1,5 +1,6 @@
 import { DownloadForOffline, RemoveCircleOutline } from '@styled-icons/material-outlined';
 import styled, { css } from 'styled-components';
+import { device } from '../../helper/deviceSize'
 
 export const Container = styled.div`
     width: 31%;
@@ -10,6 +11,10 @@ export const Container = styled.div`
     
     &:hover {
         background: #353535;
+    }
+
+    @media only screen and (${device.laptop}) {
+        width: 90%;
     }
 `;
 

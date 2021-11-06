@@ -1,6 +1,7 @@
 import { RemoveCircleOutline } from '@styled-icons/material-outlined';
 import styled, { css } from 'styled-components';
 import { AddCircle } from '@styled-icons/fluentui-system-filled'
+import { device } from '../../helper/deviceSize';
 
 const iconStyle = css`
     position: absolute;
@@ -20,6 +21,10 @@ export const Container = styled.div`
     height: calc(100vh - 150px);
     display: flex;
     font-family: 'Roboto', sans-serif;
+
+    @media only screen and (${device.laptop}) {
+        flex-direction: column;
+    }
 `;
 
 export const FolderListWrapper = styled.div`
@@ -28,6 +33,11 @@ export const FolderListWrapper = styled.div`
     background: #16161d;
     overflow-y: auto;
     border-right: 2px solid white;
+
+    @media only screen and (${device.laptop}) {
+        width: 100%;
+        min-height: 100%;
+    }
 `;
 
 export const FolderListContainer = styled.div`
@@ -85,16 +95,22 @@ export const AllItemsWrapper = styled.div`
     height: 100%;
     background: #16161d;
     overflow: scroll;
+
+    @media only screen and (${device.laptop}) {
+        width: 100%;
+        min-height: 100%;
+    }
 `;
 
 export const AllItemsContainer = styled.div`
     width: 100%;
-    min-height: 50vh;
+    height: 50vh;
 `;
 
 export const ItemContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 `;
 
 export const AddFolderContainer = styled.div`
