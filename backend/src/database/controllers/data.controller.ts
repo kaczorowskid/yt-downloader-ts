@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { Data } from '../models/Data';
 import { getAllDataService, deleteItemService, addItemService } from '../services/data.service';
 
 export const getAllData = async (req: Request, res: Response) => {
