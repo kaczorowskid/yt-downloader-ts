@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import { tokenGenerator } from '../../helper/tokenGenerator';
 import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService, resetPasswordService } from '../services/user.service';
-import { sendMail } from '../../helper/mailer';
-import { User } from '../models/User';
-import jwt from 'jsonwebtoken'
 
 export const confirmAccount = async (req: Request, res: Response) => {
     const { token }: any = req.query;
@@ -68,12 +65,12 @@ export const generateResetPasswordLink = async (req: Request, res: Response) => 
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
-    const { password, token }: any = req.query;
+    const { password, oldPassword,  token }: any = req.query;
 
-    const data = await resetPasswordService(token, password);
+    const data = await resetPasswordService(token, password, oldPassword);
 
     if (data) {
-        if (data.err!) res.json(data.e)
+        if (data.err!) res.status(data.errStatus!).json(data.msg!)
         else res.status(200).json(data.err!)
     }
 }

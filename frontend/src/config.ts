@@ -6,6 +6,7 @@ export const config = {
         register: '/register',
         registerDone: '/register-done',
         confirm: '/confirm/:token',
+        resetPassword: '/reset-password/:token',
         home: '/'
     },
     url: {
@@ -15,7 +16,8 @@ export const config = {
             logoutPath: `${node_env}/user/logout`,
             meRefresh: `${node_env}/user/me`,
             confirm: `${node_env}/user/confirm`,
-            generateResetLink: `${node_env}/user/generate-password`
+            generateResetLink: `${node_env}/user/generate-password`,
+            resetPassword: `${node_env}/user/reset-password`
         },
         folder: {
             getAllFoldersPath: `${node_env}/folder/get-all`,

@@ -60,7 +60,11 @@ export const loginService = async (email: string, password: string) => {
         }
 
     } catch (e) {
-        console.log(e)
+        return {
+            err: true,
+            errStatus: e.response.status,
+            msg: e.response.data
+        }
     }
 }
 
@@ -82,7 +86,8 @@ export const refreshMeService = async (cookie: string) => {
     } catch (e) {
         return {
             err: true,
-            e
+            errStatus: e.response.status,
+            msg: e.response.data
         }
     }
 }
@@ -108,23 +113,45 @@ export const generateResetPasswordLinkService = async (email: string) => {
     } catch (e) {
         return {
             err: true,
-            e
+            errStatus: e.response.status,
+            msg: e.response.data
         }
     }
 }
 
-export const resetPasswordService = async (token: string, password: string) => {
+export const resetPasswordService = async (token: string, password: string, oldPassword: string) => {
     try {
         const { id }: any = jwt.verify(token, process.env.RESET_PASSWORD_TOKEN! as string)
-        const hashPassword: string = await brypt.hash(password, 10);
-        await User.update({ password: hashPassword }, { where: { id } })
-        return {
-            err: false
+
+        const user: any = await User.findOne({ where: { id: id } });
+        if (user === null) return {
+            err: true,
+            errStatus: 401,
+            msg: 'No user in database'
+        }
+
+        const isFine = await brypt.compare(oldPassword, user.password)
+
+        console.log(isFine)
+
+        if (isFine) {
+            const hashPassword: string = await brypt.hash(password, 10);
+            await User.update({ password: hashPassword }, { where: { id } })
+            return {
+                err: false
+            }
+        } else {
+            return {
+                err: true,
+                errStatus: 401,
+                msg: 'Wrong old password'
+            }
         }
     } catch (e) {
         return {
             err: true,
-            e
+            errStatus: e.response.status,
+            msg: e.response.data
         }
     }
 }

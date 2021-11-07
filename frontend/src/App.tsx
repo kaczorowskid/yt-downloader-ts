@@ -12,14 +12,15 @@ import Register from './views/Register/Register';
 import { config } from './config';
 import axios from 'axios';
 import PrivateRoute from './privateRoutes/PrivateRoutes'
-import RegisterDone from './components/RegisterDone/RegisterDone';
-import Confirm from './components/Confirm/Confirm';
+import RegisterDone from './views/RegisterDone/RegisterDone';
+import Confirm from './views/Confirm/Confirm';
+import ResetPassword from './views/ResetPassword/ResetPassword';
 axios.defaults.withCredentials = true;
 dotenv.config();
 
 const App: React.FC = () => {
 
-  const { home, login, register, registerDone, confirm } = config.routerPath
+  const { home, login, register, registerDone, confirm, resetPassword } = config.routerPath
 
   return (
     < >
@@ -28,8 +29,9 @@ const App: React.FC = () => {
         <Switch>
           <PrivateRoute path={login} component={Login} />
           <PrivateRoute path={register} component={Register} />
-          <Route path = {confirm} component = {Confirm} />
-          <Route path = {registerDone} component = {RegisterDone} />
+          <Route exact path = {resetPassword} component = {ResetPassword} />
+          <Route exact path = {confirm} component = {Confirm} />
+          <Route exact path = {registerDone} component = {RegisterDone} />
           <Route exact path={home} component={Home} />
         </Switch>
       </Router>

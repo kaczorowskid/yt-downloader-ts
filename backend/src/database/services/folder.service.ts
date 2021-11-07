@@ -11,7 +11,8 @@ export const getFoldersService = async (id: string) => {
     } catch(e) {
         return {
             err: true,
-            e
+            errStatus: e.response.status,
+            msg: e.response.data
         }
     }
 }
@@ -26,7 +27,8 @@ export const deleteFolderService = async (id: string, title: string) => {
     } catch(e) {
         return {
             err: true,
-            e
+            errStatus: e.response.status,
+            msg: e.response.data
         }
     }
 }
@@ -44,7 +46,8 @@ export const addFolderService = async (id: string, title: string) => {
     } catch(e) {
         return {
             err: true,
-            e
+            errStatus: e.response.status,
+            msg: e.response.data
         }
     }
 }
