@@ -8,5 +8,6 @@ userRouter.post('/login', userController.login);
 userRouter.get('/logout', userController.logout);
 userRouter.get('/me', userController.refreshMe);
 userRouter.get('/confirm', userController.confirmAccount);
+userRouter.get('/reset-password', userController.generateResetPasswordLink);
 
 export default userRouter;

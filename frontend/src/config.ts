@@ -14,7 +14,8 @@ export const config = {
             loginPath: `${node_env}/user/login`,
             logoutPath: `${node_env}/user/logout`,
             meRefresh: `${node_env}/user/me`,
-            confirm: `${node_env}/user/confirm`
+            confirm: `${node_env}/user/confirm`,
+            resetPassword: `${node_env}/user/reset-password`
         },
         folder: {
             getAllFoldersPath: `${node_env}/folder/get-all`,

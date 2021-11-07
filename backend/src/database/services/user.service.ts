@@ -46,7 +46,7 @@ export const loginService = async (email: string, password: string) => {
         }
         const isFine = await brypt.compare(password, user.password)
 
-        if(isFine) {
+        if (isFine) {
             return {
                 err: false,
                 user: user
@@ -69,7 +69,7 @@ export const refreshMeService = async (cookie: string) => {
         if (!cookie) return {
             err: true,
             errStatus: 403,
-            msg: 'No cockie' 
+            msg: 'No cockie'
         }
         else {
             const { id }: any = jwt.verify(cookie, process.env.ACCESS_TOKEN as string)
@@ -77,6 +77,32 @@ export const refreshMeService = async (cookie: string) => {
             return {
                 err: false,
                 user: user
+            }
+        }
+    } catch (e) {
+        return {
+            err: true,
+            e
+        }
+    }
+}
+
+export const generateResetPasswordLinkService = async (email: string) => {
+    try {
+        const user: any = await User.findOne({ where: { email: email } });
+
+        if (user) {
+            const passwordResetToken = tokenGenerator({ id: user.id! }, process.env.RESET_PASSWORD_TOKEN as string, 86400);
+            sendMail(passwordResetToken, email)
+            console.log(email, ' ', passwordResetToken)
+            return {
+                err: false,
+            }
+        } else {
+            return {
+                err: true,
+                errStatus: 403,
+                msg: 'No email in database'
             }
         }
     } catch (e) {

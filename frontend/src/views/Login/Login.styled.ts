@@ -106,21 +106,66 @@ export const Button = styled.button`
 
 export const ForgotPasswordContainer = styled.div`
     width: 100%;
-    height: 60px;
+    height: 70px;
     border-top: 1px solid #414141;
     position: relative;
     bottom: -10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 `;
 
 export const ForgotPasswordLink = styled.div`
     text-decoration: underline;
     font-size: 15px;
     color: orange;
+    cursor: pointer;
 `;
 
 export const Error = styled.span`
     color: red;
+`;
+
+export const ResetPasswordInputContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+`;
+
+export const ResetPasswordInput = styled.input`
+    height: 25px;
+    width: 100%;
+    border-radius: 5px;
+    background: #313131;
+    color: white;
+    border: 1px solid orange;
+    padding-left: 10px;
+`;
+
+export const ResetButtonsContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const ResetPassword = styled.button`
+    height: 25px;   
+    width: 49%;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    background: orange;
+    margin-top: 3px;
+    cursor: pointer;
+`;
+
+export const ResetPasswordInfo = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #101010;
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
 `;

@@ -8,7 +8,7 @@ import { callApi } from '../../helper/callApi';
 
 const Login: React.FC = () => {
 
-    const { loginPath } = config.url.user;
+    const { loginPath, resetPassword } = config.url.user;
     const { register } = config.routerPath;
 
     const { dispatch } = useCurrentUser();
@@ -16,8 +16,10 @@ const Login: React.FC = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-
     const [error, setError] = useState<boolean>(false);
+    const [resetPasswordEmail, setResetPasswordEmail] = useState<string>('');
+    const [resetPasswordVisible, setResetPasswordVisible] = useState<boolean>(false);
+    const [resetInfo, setResetInfo] = useState<boolean>(false);
 
     const handleLoginButton = async () => {
         try {
@@ -31,6 +33,15 @@ const Login: React.FC = () => {
         }
     }
 
+    const handleResetPassword = async () => {
+        try {
+            const response = await callApi(resetPassword, 'GET', { email: resetPasswordEmail })
+            response && setResetInfo(true);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     return (
         <styled.Container>
             <styled.Column>
@@ -38,7 +49,7 @@ const Login: React.FC = () => {
                     <styled.Title>Youtube Music <span style={{ color: 'orange' }} >Downloader</span></styled.Title>
                     <styled.Description>Download your favorite music from YouTube, and store in library!</styled.Description>
                     <styled.RegisterLinkContainer >
-                        <styled.RegisterLink onClick = {() => history.push(register)}> You have no account? Create! </styled.RegisterLink>
+                        <styled.RegisterLink onClick={() => history.push(register)}> You have no account? Create! </styled.RegisterLink>
                     </styled.RegisterLinkContainer>
                 </styled.LeftSideContainer>
             </styled.Column>
@@ -55,7 +66,15 @@ const Login: React.FC = () => {
                     <styled.Button onClick={handleLoginButton} >Log in</styled.Button>
                     {error && <styled.Error>Wrong login or password</styled.Error>}
                     <styled.ForgotPasswordContainer>
-                        <styled.ForgotPasswordLink>Forgot password?</styled.ForgotPasswordLink>
+                        {resetInfo && <styled.ResetPasswordInfo>A password reset link was sent. Click the link in the email to create a new password.</styled.ResetPasswordInfo>}
+                        {!resetPasswordVisible ? <styled.ForgotPasswordLink onClick = {() => setResetPasswordVisible(true)} >Forgot password?</styled.ForgotPasswordLink> :
+                        <styled.ResetPasswordInputContainer>
+                            <styled.ResetPasswordInput onChange = {e => setResetPasswordEmail(e.target.value)} />
+                            <styled.ResetButtonsContainer>
+                                <styled.ResetPassword onClick = {handleResetPassword} >Reset Password</styled.ResetPassword>
+                                <styled.ResetPassword onClick = {() => setResetPasswordVisible(false)} >Cancel</styled.ResetPassword>
+                            </styled.ResetButtonsContainer>
+                        </styled.ResetPasswordInputContainer>}
                     </styled.ForgotPasswordContainer>
                 </styled.LoginWindowContainer>
             </styled.Column>

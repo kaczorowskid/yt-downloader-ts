@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import { tokenGenerator } from '../../helper/tokenGenerator';
-import { confirmAccountService, registerService, loginService, refreshMeService } from '../services/user.service';
+import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService } from '../services/user.service';
+import { sendMail } from '../../helper/mailer';
+import { User } from '../models/User';
 
 export const confirmAccount = async (req: Request, res: Response) => {
     const { token }: any = req.query;
     console.log(token)
     const data = await confirmAccountService(token);
 
-    data ? res.json({confirm: true}) : res.json({confirm: false})
+    data ? res.json({ confirm: true }) : res.json({ confirm: false })
 }
 
 export const register = async (req: Request, res: Response) => {
@@ -42,12 +44,23 @@ export const refreshMe = async (req: Request, res: Response) => {
 
     const data = await refreshMeService(cookie);
 
-    if(data) {
-        if(data.err!) res.status(data.errStatus!).json(data.msg!)
+    if (data) {
+        if (data.err!) res.status(data.errStatus!).json(data.msg!)
         else res.status(200).json(data.user!)
     }
 }
 
 export const logout = (req: Request, res: Response) => {
     res.clearCookie('JWT').json({ msg: 'logout' })
+}
+
+export const generateResetPasswordLink = async (req: Request, res: Response) => {
+    const { email }: any = req.query;
+
+    const data = await generateResetPasswordLinkService(email);
+
+    if (data) {
+        if (data.err!) res.status(data.errStatus!).json(data.msg!)
+        else res.status(200).json(data.err!)
+    }
 }
