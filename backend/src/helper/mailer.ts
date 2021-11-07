@@ -12,11 +12,10 @@ export const sendMail = async (token: string, email: string) => {
 
 
     let info = await transport.sendMail({
-        from: '"YT-DOWNLOADER" <test>', // sender address
-        to: email, // list of receivers
-        subject: "Confirm account", // Subject line
-        text: "Hello world", // plain text body
-        html: `<a href = "http://localhost:3000/confirm/${token}" >Confirm account<a>`, // html body
+        from: '"YT-DOWNLOADER" <rubikson0204@gmail.com>',
+        to: email, 
+        subject: "Confirm account in YT-DOWNLOADER", 
+        html: `<a href = "http://localhost:3000/confirm/${token}" >Confirm account<a>`,
     });
 
     console.log("Message sent: %s", info.messageId);

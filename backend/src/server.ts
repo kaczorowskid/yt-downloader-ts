@@ -21,11 +21,9 @@ app.use(cors({
     credentials: true
 }));
 
-
 app.use('/user', userRouter);
 app.use('/folder', folderRouter);
 app.use('/data', dataRouter);
 app.use('/download', downloaderRouter)
-
 
 app.listen(PORT, () => console.log(`App listen on port ${PORT}`))
