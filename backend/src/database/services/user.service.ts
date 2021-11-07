@@ -27,7 +27,7 @@ export const registerService = async (email: string, password: string) => {
 
         const emailToken = tokenGenerator({ id: user.id }, process.env.EMAIL_TOKEN as string, '1d');
         console.log('emailToken ', emailToken)
-        sendMail(emailToken, email)
+        sendMail(emailToken, email, 'confirm');
 
         return true;
     }
@@ -93,7 +93,7 @@ export const generateResetPasswordLinkService = async (email: string) => {
 
         if (user) {
             const passwordResetToken = tokenGenerator({ id: user.id! }, process.env.RESET_PASSWORD_TOKEN as string, 86400);
-            sendMail(passwordResetToken, email)
+            sendMail(passwordResetToken, email, 'reset');
             console.log(email, ' ', passwordResetToken)
             return {
                 err: false,
@@ -104,6 +104,22 @@ export const generateResetPasswordLinkService = async (email: string) => {
                 errStatus: 403,
                 msg: 'No email in database'
             }
+        }
+    } catch (e) {
+        return {
+            err: true,
+            e
+        }
+    }
+}
+
+export const resetPasswordService = async (token: string, password: string) => {
+    try {
+        const { id }: any = jwt.verify(token, process.env.RESET_PASSWORD_TOKEN! as string)
+        const hashPassword: string = await brypt.hash(password, 10);
+        await User.update({ password: hashPassword }, { where: { id } })
+        return {
+            err: false
         }
     } catch (e) {
         return {

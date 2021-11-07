@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { tokenGenerator } from '../../helper/tokenGenerator';
-import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService } from '../services/user.service';
+import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService, resetPasswordService } from '../services/user.service';
 import { sendMail } from '../../helper/mailer';
 import { User } from '../models/User';
+import jwt from 'jsonwebtoken'
 
 export const confirmAccount = async (req: Request, res: Response) => {
     const { token }: any = req.query;
@@ -28,13 +29,14 @@ export const login = async (req: Request, res: Response) => {
     const data = await loginService(email, password);
 
     if (data) {
-        const accessToken = tokenGenerator({ id: data.user.id! }, process.env.ACCESS_TOKEN as string, 86400);
-
         if (data.err!) res.status(data.errStatus!).json(data.msg!)
-        else res.status(200).cookie('JWT', accessToken, {
-            maxAge: 86400000,
-            httpOnly: true
-        }).json(data.user!)
+        else {
+            const accessToken = tokenGenerator({ id: data.user.id! }, process.env.ACCESS_TOKEN as string, 86400);
+            res.status(200).cookie('JWT', accessToken, {
+                maxAge: 86400000,
+                httpOnly: true
+            }).json(data.user!)
+        }
     }
 
 }
@@ -61,6 +63,17 @@ export const generateResetPasswordLink = async (req: Request, res: Response) => 
 
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data.msg!)
+        else res.status(200).json(data.err!)
+    }
+}
+
+export const resetPassword = async (req: Request, res: Response) => {
+    const { password, token }: any = req.query;
+
+    const data = await resetPasswordService(token, password);
+
+    if (data) {
+        if (data.err!) res.json(data.e)
         else res.status(200).json(data.err!)
     }
 }

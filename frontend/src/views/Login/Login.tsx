@@ -8,7 +8,7 @@ import { callApi } from '../../helper/callApi';
 
 const Login: React.FC = () => {
 
-    const { loginPath, resetPassword } = config.url.user;
+    const { loginPath, generateResetLink } = config.url.user;
     const { register } = config.routerPath;
 
     const { dispatch } = useCurrentUser();
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
 
     const handleResetPassword = async () => {
         try {
-            const response = await callApi(resetPassword, 'GET', { email: resetPasswordEmail })
+            const response = await callApi(generateResetLink, 'GET', { email: resetPasswordEmail })
             response && setResetInfo(true);
         } catch (e) {
             console.log(e);

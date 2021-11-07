@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-export const sendMail = async (token: string, email: string) => {
+export const sendMail = async (token: string, email: string, type: string) => {
 
     const transport = nodemailer.createTransport({
         service: 'Gmail',
@@ -10,13 +10,20 @@ export const sendMail = async (token: string, email: string) => {
         }
     })
 
-
-    let info = await transport.sendMail({
+    const typeMail = type === 'confirm' ? {
         from: '"YT-DOWNLOADER" <rubikson0204@gmail.com>',
         to: email, 
-        subject: "Confirm account in YT-DOWNLOADER", 
-        html: `<a href = "http://localhost:3000/confirm/${token}" >Confirm account<a>`,
-    });
+        subject: "Confirm account YT-DOWNLOADER", 
+        html: `<a href = "http://localhost:3000/confirm/${token}" >Click this link to confirm account!<a>`,
+    } : {
+        from: '"YT-DOWNLOADER" <rubikson0204@gmail.com>',
+        to: email, 
+        subject: "Reset password YT-DOWNLOADER", 
+        html: `<a href = "http://localhost:3000/reset-password/${token}" >Click this link to reset password!<a>`,
+    }
+
+
+    let info = await transport.sendMail(typeMail);
 
     console.log("Message sent: %s", info.messageId);
 }
