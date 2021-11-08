@@ -44,7 +44,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     useEffect(() => {
         setIsTop(() => scrollValue > 100 ? false : true)
-        setInputVisible(() => scrollValue > 400 ? false : true)
+        setInputVisible(() => scrollValue > window.outerHeight / 3 ? false : true)
     }, [scrollValue])
 
     const endFetch = () => {
