@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as styled from './Register.styled';
 import { config } from '../../config';
-import { callApi } from '../../helper/callApi';
+import { callApi, IErrorFetch } from '../../helper/callApi';
 import { useHistory } from 'react-router';
 
 const Register: React.FC = () => {
@@ -12,21 +12,24 @@ const Register: React.FC = () => {
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
 
-    const [error, setError] = useState<boolean>(false);
+    const [error, setError] = useState<IErrorFetch>();
     const [isCreated, setIsCreated] = useState<boolean>(false);
 
     const history = useHistory();
 
     const registerUser = async () => {
-
         if (!(password === confirmPassword) || password === '' || confirmPassword === '' || email === '') {
-            setError(true)
+            setError({
+                err: true,
+                errData: 'Wrong pass'
+            })
         } else {
-            try {
-                const response = await callApi(registerPath, 'POST', { email, password })
-                if (response) setIsCreated(true)
-            } catch (e) {
-                setError(true)
+            const { response, err } = await callApi(registerPath, 'POST', { email, password })
+            if (response) {
+                setIsCreated(true)
+            }
+            if (err) {
+                setError(err.response.data)
             }
         }
     }
@@ -57,8 +60,8 @@ const Register: React.FC = () => {
                         <styled.Input onChange={e => setConfirmPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.Button onClick={registerUser} >Create account</styled.Button>
-                    {error && <styled.Error>Enter the data correctly</styled.Error>}
-                    {isCreated && <styled.Info>Your account is <span style = {{color: 'orange'}}> created</span>. You must click in activation link. Go to your e-mail.</styled.Info>}
+                    {error && error.err && <styled.Error>{error.errData}</styled.Error>}
+                    {isCreated && <styled.Info>Your account is <span style={{ color: 'orange' }}> created</span>. You must click in activation link. Go to your e-mail.</styled.Info>}
                 </styled.RegisterWindowContainer>
             </styled.Column>
         </styled.Container>

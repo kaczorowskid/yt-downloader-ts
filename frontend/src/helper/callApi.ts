@@ -1,12 +1,24 @@
 import axios, { AxiosResponse, Method } from 'axios';
 
-export const callApi = async (url: string, method: Method, data: any) => {
+export interface IErrorFetch {
+    err: boolean,
+    succesStatus?: number,
+    succesData?: string,
+    errStatus?: number,
+    errData?: string
+}
 
-    const response: AxiosResponse<any> = await axios({
+export const callApi = async (url: string, method: Method, data: any) => {
+    let response: any, err: any;
+
+    response = await axios({
         url: url,
         method: method,
         params: data
     })
+    .catch(e => {
+        err = e;
+    })
 
-    return response
+    return { response, err }
 }

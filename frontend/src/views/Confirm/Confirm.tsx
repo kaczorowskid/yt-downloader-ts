@@ -16,11 +16,10 @@ const Confirm: React.FC = () => {
 
     useEffect(() => {
         const fetchActivation = async () => {
-            try {
-                const response = await callApi(confirm, 'GET', { token: token })
-                response.data.confirm ? setIsActivated(true) : setIsActivated(false)
-            } catch (e) {
-                console.log(e);
+            const { response, err } = await callApi(confirm, 'GET', { token: token })
+            response.data.confirm ? setIsActivated(true) : setIsActivated(false)
+            if(err) {
+                console.log(err)
             }
         }
 
@@ -42,12 +41,12 @@ const Confirm: React.FC = () => {
         <>
             <styled.Container>
                 <styled.InfoContainer>
-                    {isActivated ? 
-                    <styled.Info fontSize={25}>Your account is activation</styled.Info> : 
-                    <styled.Info fontSize={25}>Your account is not activation</styled.Info>}
-                    {isActivated ? 
-                    <styled.Info fontSize={15} >Page redirect in homepage after 5 seconds</styled.Info> : 
-                    <styled.Info fontSize={15} >Check activation link, probably is broken</styled.Info>}
+                    {isActivated ?
+                        <styled.Info fontSize={25}>Your account is activation</styled.Info> :
+                        <styled.Info fontSize={25}>Your account is not activation</styled.Info>}
+                    {isActivated ?
+                        <styled.Info fontSize={15} >Page redirect in homepage after 5 seconds</styled.Info> :
+                        <styled.Info fontSize={15} >Check activation link, probably is broken</styled.Info>}
                 </styled.InfoContainer>
             </styled.Container>
         </>

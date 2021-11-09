@@ -106,7 +106,7 @@ export const Button = styled.button`
 
 export const ForgotPasswordContainer = styled.div`
     width: 100%;
-    height: 70px;
+    height: 100px;
     border-top: 1px solid #414141;
     position: relative;
     bottom: -10px;
@@ -131,6 +131,7 @@ export const ResetPasswordInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 90%;
+    align-items: center;
 `;
 
 export const ResetPasswordInput = styled.input`
@@ -144,6 +145,7 @@ export const ResetPasswordInput = styled.input`
 `;
 
 export const ResetButtonsContainer = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
 `;

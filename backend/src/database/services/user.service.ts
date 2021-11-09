@@ -26,13 +26,21 @@ export const registerService = async (email: string, password: string) => {
         })
 
         const emailToken = tokenGenerator({ id: user.id }, process.env.EMAIL_TOKEN as string, '1d');
-        console.log('emailToken ', emailToken)
+
         sendMail(emailToken, email, 'confirm');
 
-        return true;
+        return {
+            err: false,
+            succesStatus: 201,
+            succesData: 'Created'
+        }
     }
     else {
-        return false
+        return {
+            err: true,
+            errStatus: 409,
+            errData: 'User exist in database'
+        }
     }
 }
 
@@ -42,7 +50,7 @@ export const loginService = async (email: string, password: string) => {
         if (user === null) return {
             err: true,
             errStatus: 401,
-            msg: 'No user in database'
+            errData: 'No user in database'
         }
         const isFine = await brypt.compare(password, user.password)
 
@@ -54,8 +62,8 @@ export const loginService = async (email: string, password: string) => {
         } else {
             return {
                 err: true,
-                errStatus: 403,
-                msg: 'Wrong pass'
+                errStatus: 400,
+                errData: 'Wrong pass'
             }
         }
 
@@ -63,7 +71,7 @@ export const loginService = async (email: string, password: string) => {
         return {
             err: true,
             errStatus: e.response.status,
-            msg: e.response.data
+            errData: e.response.data
         }
     }
 }
@@ -73,7 +81,7 @@ export const refreshMeService = async (cookie: string) => {
         if (!cookie) return {
             err: true,
             errStatus: 403,
-            msg: 'No cockie'
+            errData: 'No cockie'
         }
         else {
             const { id }: any = jwt.verify(cookie, process.env.ACCESS_TOKEN as string)
@@ -87,7 +95,7 @@ export const refreshMeService = async (cookie: string) => {
         return {
             err: true,
             errStatus: e.response.status,
-            msg: e.response.data
+            errData: e.response.data
         }
     }
 }
@@ -107,14 +115,14 @@ export const generateResetPasswordLinkService = async (email: string) => {
             return {
                 err: true,
                 errStatus: 403,
-                msg: 'No email in database'
+                errData: 'No email in database'
             }
         }
     } catch (e) {
         return {
             err: true,
             errStatus: e.response.status,
-            msg: e.response.data
+            errData: e.response.data
         }
     }
 }

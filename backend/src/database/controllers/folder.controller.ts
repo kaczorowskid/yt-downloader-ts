@@ -7,7 +7,7 @@ export const getFolders = async (req: Request, res: Response) => {
     const data = await getFoldersService(id as string)
 
     if (data) {
-        if (data.err!) res.status(data.errStatus!).json(data.msg!)
+        if (data.err!) res.status(data.errStatus!).json(data!)
         else res.status(200).json({ data: data.data!, length: data.length! })
     }
 }
@@ -18,7 +18,7 @@ export const deleteFolder = async (req: Request, res: Response) => {
     const data = await deleteFolderService(id as string, title as string)
 
     if (data) {
-        if (data.err!) res.status(data.errStatus!).json(data.msg!)
+        if (data.err!) res.status(data.errStatus!).json(data!)
         else res.status(200).json(data.data!)
     }
 }
@@ -29,7 +29,7 @@ export const addFolder = async (req: Request, res: Response) => {
     const data = await addFolderService(id as string, title as string)
 
     if (data) {
-        if (data.err!) res.status(data.errStatus!).json(data.msg!)
+        if (data.err!) res.status(data.errStatus!).json(data!)
         else res.status(200).json(data.data!)
     }
 }

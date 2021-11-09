@@ -31,7 +31,7 @@ const InputLink: React.FC<Props> = ({ id }) => {
         try {
             const response = await callApi(getInfo, 'GET', { url: inputValue })
             if(response) {
-                setFetchYouTubeData([...fetchYouTubeData, response.data])
+                setFetchYouTubeData([...fetchYouTubeData, response.response.data])
                 endFetch()
             }
         } catch(e) {

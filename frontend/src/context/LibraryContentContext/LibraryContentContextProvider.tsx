@@ -23,7 +23,7 @@ const LibraryContentContextProvider: React.FC<Props> = ({ children }) => {
             try {
                 if (state.isLogged) {
                     const response = await callApi(getAllFoldersPath, 'GET', { id: state.userData.id })
-                    response.data && setLibraryFolders(response.data.data)
+                    response && setLibraryFolders(response.response.data.data)
                 }
             } catch (e) {
                 console.log(e)

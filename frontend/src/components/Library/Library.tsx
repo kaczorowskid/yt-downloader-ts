@@ -32,7 +32,7 @@ const Library: React.FC<Props> = ({ id }) => {
         const fetchData = async () => {
             try {
                 const response = await callApi(getAllDataPath, 'GET', { id: currentlyFolderView })
-                response && setDataInFolder(response.data);
+                response && setDataInFolder(response.response.data);
             } catch (e) {
                 console.log(e)
             }
@@ -78,7 +78,7 @@ const Library: React.FC<Props> = ({ id }) => {
                 title: folderNameInput
             })
 
-            response && setLibraryChange([...libraryFolders, response.data])
+            response && setLibraryChange([...libraryFolders, response.response.data])
         } catch (e) {
             console.log(e)
         }

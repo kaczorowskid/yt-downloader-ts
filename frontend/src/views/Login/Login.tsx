@@ -4,7 +4,7 @@ import { config } from '../../config';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useHistory } from 'react-router-dom';
 import { loginReducerAction } from '../../reducers/loginReducer';
-import { callApi } from '../../helper/callApi';
+import { callApi, IErrorFetch } from '../../helper/callApi';
 
 const Login: React.FC = () => {
 
@@ -16,29 +16,30 @@ const Login: React.FC = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [error, setError] = useState<boolean>(false);
+    const [error, setError] = useState<IErrorFetch>();
     const [resetPasswordEmail, setResetPasswordEmail] = useState<string>('');
     const [resetPasswordVisible, setResetPasswordVisible] = useState<boolean>(false);
     const [resetInfo, setResetInfo] = useState<boolean>(false);
+    const [errorResetPassword, setErrorResetPassword] = useState<IErrorFetch>();
 
     const handleLoginButton = async () => {
-        try {
-            const response = await callApi(loginPath, 'POST', { email, password })
-            if (response) {
-                dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
-                history.push('/')
-            }
-        } catch (e) {
-            setError(true)
+        const { response, err } = await callApi(loginPath, 'POST', { email, password })
+        if (response) {
+            dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
+            history.push('/')
+        }
+        if (err) {
+            setError(err.response.data)
         }
     }
 
     const handleResetPassword = async () => {
-        try {
-            const response = await callApi(generateResetLink, 'GET', { email: resetPasswordEmail })
-            response && setResetInfo(true);
-        } catch (e) {
-            console.log(e);
+        const { response, err } = await callApi(generateResetLink, 'GET', { email: resetPasswordEmail })
+        if (response) {
+            setResetInfo(true);
+        }
+        if (err) {
+            setErrorResetPassword(err.response.data)
         }
     }
 
@@ -64,17 +65,18 @@ const Login: React.FC = () => {
                         <styled.Input onChange={e => setPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.Button onClick={handleLoginButton} >Log in</styled.Button>
-                    {error && <styled.Error>Wrong login or password</styled.Error>}
+                    {(error && error.err) && <styled.Error>{error.errData}</styled.Error>}
                     <styled.ForgotPasswordContainer>
                         {resetInfo && <styled.ResetPasswordInfo>A password reset link was sent. Click the link in the email to create a new password.</styled.ResetPasswordInfo>}
-                        {!resetPasswordVisible ? <styled.ForgotPasswordLink onClick = {() => setResetPasswordVisible(true)} >Forgot password?</styled.ForgotPasswordLink> :
-                        <styled.ResetPasswordInputContainer>
-                            <styled.ResetPasswordInput onChange = {e => setResetPasswordEmail(e.target.value)} />
-                            <styled.ResetButtonsContainer>
-                                <styled.ResetPassword onClick = {handleResetPassword} >Reset Password</styled.ResetPassword>
-                                <styled.ResetPassword onClick = {() => setResetPasswordVisible(false)} >Cancel</styled.ResetPassword>
-                            </styled.ResetButtonsContainer>
-                        </styled.ResetPasswordInputContainer>}
+                        {!resetPasswordVisible ? <styled.ForgotPasswordLink onClick={() => setResetPasswordVisible(true)} >Forgot password?</styled.ForgotPasswordLink> :
+                            <styled.ResetPasswordInputContainer>
+                                <styled.ResetPasswordInput onChange={e => setResetPasswordEmail(e.target.value)} />
+                                <styled.ResetButtonsContainer>
+                                    <styled.ResetPassword onClick={handleResetPassword} >Reset Password</styled.ResetPassword>
+                                    <styled.ResetPassword onClick={() => setResetPasswordVisible(false)} >Cancel</styled.ResetPassword>
+                                </styled.ResetButtonsContainer>
+                                {(errorResetPassword && errorResetPassword.err) && <styled.Error>{errorResetPassword.errData}</styled.Error>}
+                            </styled.ResetPasswordInputContainer>}
                     </styled.ForgotPasswordContainer>
                 </styled.LoginWindowContainer>
             </styled.Column>

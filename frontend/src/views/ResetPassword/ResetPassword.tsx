@@ -17,17 +17,18 @@ const ResetPassword: React.FC = () => {
     const [isReset, setIsReset] = useState<boolean>(false);
 
     const handleResetPassword = async () => {
-        if(password === '' || confirmPassword === '' || password !== confirmPassword) setError(true);
+        if (password === '' || confirmPassword === '' || password !== confirmPassword) setError(true);
         else {
-            try {
-                const response = await callApi(resetPassword, 'POST', {oldPassword, password, token})
-                if(response) setIsReset(true)
-            } catch (e) {
-                console.log(e)
+            const { response, err } = await callApi(resetPassword, 'POST', { oldPassword, password, token })
+            if (response) {
+                setIsReset(true)
+            }
+            if (err) {
+                console.log(err.response.data)
             }
         }
     }
-    
+
 
     return (
         <styled.Container>
@@ -51,7 +52,7 @@ const ResetPassword: React.FC = () => {
                         <styled.InputLabel>Confirm password</styled.InputLabel>
                         <styled.Input onChange={e => setConfirmPassword(e.target.value)} />
                     </styled.InputContainer>
-                    <styled.Button onClick = {handleResetPassword} >Reset password</styled.Button>
+                    <styled.Button onClick={handleResetPassword} >Reset password</styled.Button>
                     {error && <styled.Error>Enter the data correctly</styled.Error>}
                     {isReset && <styled.Info>Password is reset. You can logged in</styled.Info>}
                 </styled.RegisterWindowContainer>

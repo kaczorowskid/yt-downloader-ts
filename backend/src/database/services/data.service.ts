@@ -16,7 +16,7 @@ export const getAllDataService = async (id: string) => {
         return {
             err: true,
             errStatus: e.response.status,
-            msg: e.response.data
+            errData: e.response.data
         }
     }
 }
@@ -32,7 +32,7 @@ export const deleteItemService = async (id: string) => {
         return {
             err: true,
             errStatus: e.response.status,
-            msg: e.response.data
+            errData: e.response.data
         }
     }
 }
@@ -54,7 +54,7 @@ export const addItemService = async (folder_id: string, title: string, imageSrc:
         return {
             err: true,
             errStatus: e.response.status,
-            msg: e.response.data
+            errData: e.response.data
         }
     }
 }
