@@ -31,15 +31,12 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
     const { fetchYouTubeData, setFetchYouTubeData } = useYouTubeData();
 
     const handleLogout = async () => {
-        try {
-            const response = await callApi(logoutPath, 'GET', {});
-            if (response) {
-                history.go(0);
-                dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '', active: false })
-            }
-        } catch (e) {
-            console.log(e)
+        const { response, err } = await callApi(logoutPath, 'GET', {});
+        if (response) {
+            history.go(0);
+            dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '', active: false })
         }
+        if (err) console.log(err.response.data)
     }
 
     useEffect(() => {
@@ -55,22 +52,19 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
 
     const getYouTubeData = async () => {
         setLoading(true)
-        try {
-            const response = await callApi(getInfo, 'GET', { url: inputValue })
-            if (response) {
-                setFetchYouTubeData([...fetchYouTubeData, response.response.data])
-                endFetch()
-            }
-        } catch (e) {
-            console.log(e)
+        const { response, err } = await callApi(getInfo, 'GET', { url: inputValue })
+        if (response) {
+            setFetchYouTubeData([...fetchYouTubeData, response.data])
+            endFetch()
         }
+        if(err) console.log(err.response.data);
     }
 
     return (
         <>
             {loading && <Loading />}
             <styled.Container isTop={isTop} >
-                <styled.ArrowIconContainer isTop = {isTop} visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)}>
+                <styled.ArrowIconContainer isTop={isTop} visible={leftColumnVisible} onClick={() => setLeftColumnVisible(!leftColumnVisible)}>
                     {leftColumnVisible ? <styled.ArrowLeftIcon /> : <styled.ArrowRightIcon />}
                 </styled.ArrowIconContainer>
                 <styled.ItemNavbarContainer isTop={isTop} >

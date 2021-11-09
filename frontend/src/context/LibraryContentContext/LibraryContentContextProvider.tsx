@@ -20,13 +20,10 @@ const LibraryContentContextProvider: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            try {
-                if (state.isLogged) {
-                    const response = await callApi(getAllFoldersPath, 'GET', { id: state.userData.id })
-                    response && setLibraryFolders(response.response.data.data)
-                }
-            } catch (e) {
-                console.log(e)
+            if (state.isLogged) {
+                const { response, err } = await callApi(getAllFoldersPath, 'GET', { id: state.userData.id })
+                if (response) setLibraryFolders(response.data.data)
+                if (err) console.log(err.response.data)
             }
         })()
     }, [state, libraryChange])

@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { config } from '../../config';
 import { useLibraryData } from '../../hooks/useLibraryData';
 import * as styled from './FoldersCard.styled';
@@ -17,19 +17,17 @@ const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
 
     const [isAdded, setIsAdded] = useState<boolean>(false);
 
-    const saveInFolder = (folderData: IFolder) => {
+    const saveInFolder = async (folderData: IFolder) => {
         setIsAdded(true)
-        console.log(folderData)
-        try {
-            callApi(addDataPath, 'POST', {
-                folder_id: folderData.id,
-                title: youtubeData.title,
-                imageSrc: youtubeData.thumbnail,
-                url: youtubeData.url
-            })
-        } catch (e) {
-            console.log(e);
-        }
+
+        const { err } = await callApi(addDataPath, 'POST', {
+            folder_id: folderData.id,
+            title: youtubeData.title,
+            imageSrc: youtubeData.thumbnail,
+            url: youtubeData.url
+        })
+
+        if(err) console.log(err.response.data);
 
         const timeout = setTimeout(() => {
             setIsAdded(false)

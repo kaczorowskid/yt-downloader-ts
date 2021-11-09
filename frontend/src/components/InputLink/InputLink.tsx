@@ -28,22 +28,20 @@ const InputLink: React.FC<Props> = ({ id }) => {
 
     const getYouTubeData = async () => {
         setLoading(true)
-        try {
-            const response = await callApi(getInfo, 'GET', { url: inputValue })
-            if(response) {
-                setFetchYouTubeData([...fetchYouTubeData, response.response.data])
-                endFetch()
-            }
-        } catch(e) {
-            console.log(e)
+        const { response, err } = await callApi(getInfo, 'GET', { url: inputValue })
+        
+        if (response) {
+            setFetchYouTubeData([...fetchYouTubeData, response.data])
+            endFetch()
         }
+        if(err) console.log(err.response.data);
     }
 
     return (
         <>
             {loading && <Loading />}
             <styled.Container id={id}>
-            <styled.Header>Music from <span style = {{color: 'orange'}} >YouTube</span></styled.Header>
+                <styled.Header>Music from <span style={{ color: 'orange' }} >YouTube</span></styled.Header>
                 <styled.InputWrapper>
                     <styled.Input placeholder='YouTube link' onChange={e => setInputValue(e.target.value)} value={inputValue} />
                     <styled.SearchIconContainer>

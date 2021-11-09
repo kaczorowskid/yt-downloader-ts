@@ -30,12 +30,10 @@ const Library: React.FC<Props> = ({ id }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await callApi(getAllDataPath, 'GET', { id: currentlyFolderView })
-                response && setDataInFolder(response.response.data);
-            } catch (e) {
-                console.log(e)
-            }
+            const { response, err } = await callApi(getAllDataPath, 'GET', { id: currentlyFolderView })
+
+            if (response) setDataInFolder(response.data);
+            if (err) console.log(err.response.data)
         }
 
         fetchData();
@@ -50,47 +48,36 @@ const Library: React.FC<Props> = ({ id }) => {
 
 
     const removeFolder = async (folderTitle: string) => {
+        const { response, err } = await callApi(deleteFolderPath, 'DELETE', {
+            id: state.userData.id,
+            title: folderTitle
+        })
 
-        try {
-            const response = await callApi(deleteFolderPath, 'DELETE', {
-                id: state.userData.id,
-                title: folderTitle
-            })
+        if (response) setLibraryChange(libraryFolders.filter(folder => folder.title !== folderTitle))
+        if (err) console.log(err.response.data);
 
-            response && setLibraryChange(libraryFolders.filter(folder => folder.title !== folderTitle))
-        } catch (e) {
-            console.log(e)
-        }
-        
-        try {
-            await callApi(deleteDataPath, 'DELETE', {
-                id: dataInFolder.map(i => i.id)
-            })
-        } catch (e) {
-            console.log(e)
-        }
+        const { err: errDelete } = await callApi(deleteDataPath, 'DELETE', {
+            id: dataInFolder.map(i => i.id)
+        })
+
+        if (errDelete) console.log(errDelete.response.data);
     }
 
     const addFolder = async () => {
-        try {
-            const response = await callApi(addFolderPath, 'POST', {
-                id: state.userData.id,
-                title: folderNameInput
-            })
+        const { response, err } = await callApi(addFolderPath, 'POST', {
+            id: state.userData.id,
+            title: folderNameInput
+        })
 
-            response && setLibraryChange([...libraryFolders, response.response.data])
-        } catch (e) {
-            console.log(e)
-        }
+        if (response) setLibraryChange([...libraryFolders, response.data])
+        if (err) console.log(err.response.data)
     }
 
     const removeItemFromFolder = async (id: number) => {
-        try {
-            const response = await callApi(deleteDataPath, 'DELETE', { id })
-            response && setDataInFolder(dataInFolder.filter(data => data.id !== id));
-        } catch (e) {
-            console.log(e)
-        }
+        const { response, err } = await callApi(deleteDataPath, 'DELETE', { id })
+
+        if (response) setDataInFolder(dataInFolder.filter(data => data.id !== id));
+        if (err) console.log(err.response.data);
     }
 
     const handleClickFolderItem = (id: number, index: number) => {
@@ -104,7 +91,7 @@ const Library: React.FC<Props> = ({ id }) => {
                 <styled.FolderListWrapper>
                     <styled.FolderListContainer>
                         <styled.InputContainer>
-                            <styled.Input placeholder = 'Search folder' onChange = {e => handleFilterFolders(e.target.value)} />
+                            <styled.Input placeholder='Search folder' onChange={e => handleFilterFolders(e.target.value)} />
                         </styled.InputContainer>
                         <styled.AddFolderContainer>
                             {addFolderVisible ? (
@@ -129,7 +116,7 @@ const Library: React.FC<Props> = ({ id }) => {
                     </styled.FolderListContainer>
                 </styled.FolderListWrapper>
                 <styled.AllItemsWrapper>
-                {dataInFolder.length !== 0 && <styled.AllItemsContainer>
+                    {dataInFolder.length !== 0 && <styled.AllItemsContainer>
                         <styled.ItemContainer>
                             {dataInFolder.map((data, i) => <LibraryCard key={i} data={data} removeItem={() => removeItemFromFolder(data.id)} />)}
                         </styled.ItemContainer>
