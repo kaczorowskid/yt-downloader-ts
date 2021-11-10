@@ -36,7 +36,7 @@ export const Title= styled.div`
 export const IconContainer = styled.div`
     width: 100%;
     height: 10%;
-    background: #ff4906;
+    background: orange;
     display: flex;
     justify-content: space-around;
     align-items: center;

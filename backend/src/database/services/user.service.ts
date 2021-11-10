@@ -81,7 +81,7 @@ export const refreshMeService = async (cookie: string) => {
         if (!cookie) return {
             err: true,
             errStatus: 403,
-            errData: 'No cockie'
+            errData: 'No cookie'
         }
         else {
             const { id }: any = jwt.verify(cookie, process.env.ACCESS_TOKEN as string)

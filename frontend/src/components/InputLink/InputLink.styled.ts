@@ -46,6 +46,7 @@ export const Title = styled.div`
 export const Input = styled.input`
     height: 100%;
     width: 90%;
+    padding-left: 10px;
 `;
 
 export const SearchIconContainer = styled.div`

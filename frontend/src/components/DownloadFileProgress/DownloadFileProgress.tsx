@@ -6,6 +6,9 @@ interface Props {
 }
 
 const DownloadFileProgress: React.FC<Props> = ({ data }) => {
+
+    console.log(data);
+    
     return (
         <>
             <styled.Container>

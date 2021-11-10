@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { useScrollValue } from '../../hooks/useScrollValue';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 
+
 const Home: React.FC = () => {
 
     const { state } = useCurrentUser();

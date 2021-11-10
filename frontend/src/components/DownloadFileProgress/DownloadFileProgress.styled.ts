@@ -1,14 +1,21 @@
 import styled from 'styled-components';
+import { device } from '../../helper/deviceSize';
 
 export const Container = styled.div`
     position: fixed;
     bottom: 0px;
+    transform: translate(0, 50%);
     right: 60px;
     width: 400px;
     min-height: 200px;
     font-family: 'Roboto', sans-serif;
     z-index: 10;
-    /* border: 1px solid red; */
+
+    @media only screen and (${device.laptop}) {
+        width: 90%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+    }
 `;
 
 export const Item = styled.div`
@@ -17,6 +24,8 @@ export const Item = styled.div`
     background: white;
     margin: 5px 0;
     border-radius: 20px;
+    background: #1e1e1e;
+    border: 1px solid orange;
 `;
 
 export const DownloadFileTitle = styled.div`
@@ -25,6 +34,7 @@ export const DownloadFileTitle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: orange;
 `;
 
 export const ProgressBarContainer = styled.div`
@@ -38,7 +48,7 @@ export const ProgressBarContainer = styled.div`
 export const ProgressBarBackground = styled.div`
     width: 90%;
     height: 30px;
-    background: #e0e0de;
+    background: #616161;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -49,11 +59,11 @@ export const Percent = styled.span`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: red;
+    color: black;
 `;
 
 export const ProgressBarFiller = styled.div<{progress: number}>`
-    background: blue;
+    background: orange;
     height: 100%;
     width: ${props => props.progress}%;
 `;
