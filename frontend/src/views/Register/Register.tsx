@@ -3,6 +3,7 @@ import * as styled from './Register.styled';
 import { config } from '../../config';
 import { callApi, IErrorFetch } from '../../helper/callApi';
 import { useHistory } from 'react-router';
+import { passValidator } from '../../validators/passValidator';
 
 const Register: React.FC = () => {
     const { registerPath } = config.url.user;
@@ -18,10 +19,14 @@ const Register: React.FC = () => {
     const history = useHistory();
 
     const registerUser = async () => {
-        if (!(password === confirmPassword) || password === '' || confirmPassword === '' || email === '') {
+        if (!(passValidator.samePassword(password, confirmPassword) &&
+            passValidator.password(confirmPassword) &&
+            passValidator.password(password) &&
+            passValidator.email(email))
+        ) {
             setError({
                 err: true,
-                errData: 'Wrong pass'
+                errData: 'Invalid data'
             })
         } else {
             const { response, err } = await callApi(registerPath, 'POST', { email, password })
@@ -59,7 +64,7 @@ const Register: React.FC = () => {
                         <styled.InputLabel>Confirm password</styled.InputLabel>
                         <styled.Input onChange={e => setConfirmPassword(e.target.value)} />
                     </styled.InputContainer>
-                    <styled.Button onClick={registerUser} >Create account</styled.Button>
+                    <styled.Button onClick={() => registerUser()} >Create account</styled.Button>
                     {error && error.err && <styled.Error>{error.errData}</styled.Error>}
                     {isCreated && <styled.Info>Your account is <span style={{ color: 'orange' }}> created</span>. You must click in activation link. Go to your e-mail.</styled.Info>}
                 </styled.RegisterWindowContainer>

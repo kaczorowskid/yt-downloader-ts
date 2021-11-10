@@ -4,6 +4,7 @@ import { config } from '../../config';
 import { callApi } from '../../helper/callApi';
 import * as styled from './ResetPassword.styled';
 import { errorLogger } from '../../helper/errorLogger';
+import { passValidator } from '../../validators/passValidator';
 
 
 const ResetPassword: React.FC = () => {
@@ -19,7 +20,7 @@ const ResetPassword: React.FC = () => {
     const [isReset, setIsReset] = useState<boolean>(false);
 
     const handleResetPassword = async () => {
-        if (password === '' || confirmPassword === '' || password !== confirmPassword) setError(true);
+        if (!(passValidator.password(password) && passValidator.password(confirmPassword))) setError(true);
         else {
             const { response, err } = await callApi(resetPassword, 'POST', { oldPassword, password, token })
             if (response) setIsReset(true)

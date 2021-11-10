@@ -5,6 +5,7 @@ import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useHistory } from 'react-router-dom';
 import { loginReducerAction } from '../../reducers/loginReducer';
 import { callApi, IErrorFetch } from '../../helper/callApi';
+import { passValidator } from '../../validators/passValidator';
 
 const Login: React.FC = () => {
 
@@ -23,23 +24,37 @@ const Login: React.FC = () => {
     const [errorResetPassword, setErrorResetPassword] = useState<IErrorFetch>();
 
     const handleLoginButton = async () => {
-        const { response, err } = await callApi(loginPath, 'POST', { email, password })
-        if (response) {
-            dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
-            history.push('/')
-        }
-        if (err) {
-            setError(err.response.data)
+        if (!(passValidator.password(password) && passValidator.email(email))) {
+            setError({
+                err: true,
+                errData: 'Invalid data'
+            })
+        } else {
+            const { response, err } = await callApi(loginPath, 'POST', { email, password })
+            if (response) {
+                dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
+                history.push('/')
+            }
+            if (err) {
+                setError(err.response.data)
+            }
         }
     }
 
     const handleResetPassword = async () => {
-        const { response, err } = await callApi(generateResetLink, 'GET', { email: resetPasswordEmail })
-        if (response) {
-            setResetInfo(true);
-        }
-        if (err) {
-            setErrorResetPassword(err.response.data)
+        if (!(passValidator.email(resetPasswordEmail))) {
+            setErrorResetPassword({
+                err: true,
+                errData: 'Invalid data'
+            })
+        } else {
+            const { response, err } = await callApi(generateResetLink, 'GET', { email: resetPasswordEmail })
+            if (response) {
+                setResetInfo(true);
+            }
+            if (err) {
+                setErrorResetPassword(err.response.data)
+            }
         }
     }
 
