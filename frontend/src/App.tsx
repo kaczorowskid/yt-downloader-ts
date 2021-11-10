@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import React from 'react';
-import GlobalStyle from './GlobalSStyle';
+import GlobalStyle from './GlobalStyle';
 import Home from './views/Home/Home';
 import {
   BrowserRouter as Router,
