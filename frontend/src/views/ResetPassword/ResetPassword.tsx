@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import { config } from '../../config';
 import { callApi } from '../../helper/callApi';
 import * as styled from './ResetPassword.styled';
+import { errorLogger } from '../../helper/errorLogger';
+
 
 const ResetPassword: React.FC = () => {
     const { resetPassword } = config.url.user;
@@ -20,12 +22,8 @@ const ResetPassword: React.FC = () => {
         if (password === '' || confirmPassword === '' || password !== confirmPassword) setError(true);
         else {
             const { response, err } = await callApi(resetPassword, 'POST', { oldPassword, password, token })
-            if (response) {
-                setIsReset(true)
-            }
-            if (err) {
-                console.log(err.response.data)
-            }
+            if (response) setIsReset(true)
+            if (err) errorLogger(err);
         }
     }
 

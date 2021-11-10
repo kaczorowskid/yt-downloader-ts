@@ -4,6 +4,7 @@ import { loginReducer, initialState } from '../../reducers/loginReducer'
 import { config } from '../../config'
 import { loginReducerAction } from '../../reducers/loginReducer';
 import { callApi } from '../../helper/callApi';
+import { errorLogger } from '../../helper/errorLogger';
 
 interface Props {
     children: React.ReactNode
@@ -19,7 +20,7 @@ const CurrentUserContextProvider: React.FC<Props> = ({ children }) => {
         const fetchUser = async () => {
             const { response, err } = await callApi(meRefresh, 'GET', {});
             if (response) dispatch({ type: loginReducerAction.REFRESH, id: response.data.id, email: response.data.email, active: response.data.active })
-            if (err) console.log(err.response.data);
+            if (err) errorLogger(err);
         }
 
         fetchUser();

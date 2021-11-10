@@ -4,10 +4,12 @@ import { useLibraryData } from '../../hooks/useLibraryData';
 import * as styled from './FoldersCard.styled';
 import { callApi } from '../../helper/callApi';
 import { IFolder } from '../../types/IFolder';
+import { IYoutubeData } from '../../types/IYoutubeData';
+import { errorLogger } from '../../helper/errorLogger';
 
 interface Props {
     close: () => void,
-    youtubeData: any
+    youtubeData: IYoutubeData
 }
 
 const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
@@ -27,7 +29,7 @@ const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
             url: youtubeData.url
         })
 
-        if(err) console.log(err.response.data);
+        if (err) errorLogger(err);
 
         const timeout = setTimeout(() => {
             setIsAdded(false)
@@ -38,24 +40,22 @@ const FoldersCard: React.FC<Props> = ({ close, youtubeData }) => {
     }
 
     return (
-        <>
-            <styled.Container>
-                {isAdded ? (
-                    <styled.AddedIcon></styled.AddedIcon>
-                ) : (
-                    <>
-                        <styled.Title>Add music to folder</styled.Title>
-                        <styled.ItemsContainerWrapper>
-                            <styled.ItemsContainer>
-                                {libraryFolders.map((folder, i) => <styled.Item key={i} onClick={() => saveInFolder(folder)} >{folder.title}</styled.Item>)}
-                            </styled.ItemsContainer>
-                        </styled.ItemsContainerWrapper>
-                        <styled.ButtonContainer>
-                            <styled.Button onClick={close} >Close</styled.Button>
-                        </styled.ButtonContainer>
-                    </>)}
-            </styled.Container>
-        </>
+        <styled.Container>
+            {isAdded ? (
+                <styled.AddedIcon></styled.AddedIcon>
+            ) : (
+                <>
+                    <styled.Title>Add music to folder</styled.Title>
+                    <styled.ItemsContainerWrapper>
+                        <styled.ItemsContainer>
+                            {libraryFolders.map((folder, i) => <styled.Item key={i} onClick={() => saveInFolder(folder)} >{folder.title}</styled.Item>)}
+                        </styled.ItemsContainer>
+                    </styled.ItemsContainerWrapper>
+                    <styled.ButtonContainer>
+                        <styled.Button onClick={close} >Close</styled.Button>
+                    </styled.ButtonContainer>
+                </>)}
+        </styled.Container>
     )
 }
 

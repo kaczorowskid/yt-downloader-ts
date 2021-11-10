@@ -4,6 +4,7 @@ import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { LibraryContentContext } from './LibraryContentContext';
 import { IFolder } from '../../types/IFolder'
 import { callApi } from '../../helper/callApi';
+import { errorLogger } from '../../helper/errorLogger';
 
 interface Props {
     children: React.ReactNode
@@ -23,7 +24,7 @@ const LibraryContentContextProvider: React.FC<Props> = ({ children }) => {
             if (state.isLogged) {
                 const { response, err } = await callApi(getAllFoldersPath, 'GET', { id: state.userData.id })
                 if (response) setLibraryFolders(response.data.data)
-                if (err) console.log(err.response.data)
+                if (err) errorLogger(err);
             }
         })()
     }, [state, libraryChange])

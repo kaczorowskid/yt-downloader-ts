@@ -3,6 +3,7 @@ import * as styled from './Confirm.styled';
 import { useHistory, useParams } from 'react-router';
 import { callApi } from '../../helper/callApi';
 import { config } from '../../config';
+import { errorLogger } from '../../helper/errorLogger';
 
 const Confirm: React.FC = () => {
 
@@ -18,9 +19,7 @@ const Confirm: React.FC = () => {
         const fetchActivation = async () => {
             const { response, err } = await callApi(confirm, 'GET', { token: token })
             response.data.confirm ? setIsActivated(true) : setIsActivated(false)
-            if(err) {
-                console.log(err)
-            }
+            if(err) errorLogger(err);
         }
 
         fetchActivation();

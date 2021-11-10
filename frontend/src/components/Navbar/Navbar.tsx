@@ -9,6 +9,7 @@ import { callApi } from '../../helper/callApi';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import { useYouTubeData } from '../../hooks/useYouTubeData';
 import Loading from '../Loading/Loading';
+import { errorLogger } from '../../helper/errorLogger';
 
 interface Props {
     scrollValue: number
@@ -36,7 +37,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
             history.go(0);
             dispatch({ type: loginReducerAction.LOGOUT, id: 0, email: '', active: false })
         }
-        if (err) console.log(err.response.data)
+        if (err) errorLogger(err);
     }
 
     useEffect(() => {
@@ -57,7 +58,7 @@ const Navbar: React.FC<Props> = ({ scrollValue }) => {
             setFetchYouTubeData([...fetchYouTubeData, response.data])
             endFetch()
         }
-        if(err) console.log(err.response.data);
+        if (err) errorLogger(err);
     }
 
     return (

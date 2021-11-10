@@ -8,6 +8,7 @@ import { useCurrentFolder } from '../../hooks/useCurrentFolder';
 import { IYoutubeData } from '../../types/IYoutubeData';
 import { callApi } from '../../helper/callApi';
 import NoActiveAccount from '../NoActiveAccount/NoActiveAccount'
+import { errorLogger } from '../../helper/errorLogger';
 
 interface Props {
     id: string
@@ -33,7 +34,7 @@ const Library: React.FC<Props> = ({ id }) => {
             const { response, err } = await callApi(getAllDataPath, 'GET', { id: currentlyFolderView })
 
             if (response) setDataInFolder(response.data);
-            if (err) console.log(err.response.data)
+            if (err) errorLogger(err);
         }
 
         fetchData();
@@ -54,7 +55,7 @@ const Library: React.FC<Props> = ({ id }) => {
         })
 
         if (response) setLibraryChange(libraryFolders.filter(folder => folder.title !== folderTitle))
-        if (err) console.log(err.response.data);
+        if (err) errorLogger(err);
 
         const { err: errDelete } = await callApi(deleteDataPath, 'DELETE', {
             id: dataInFolder.map(i => i.id)
@@ -70,14 +71,14 @@ const Library: React.FC<Props> = ({ id }) => {
         })
 
         if (response) setLibraryChange([...libraryFolders, response.data])
-        if (err) console.log(err.response.data)
+        if (err) errorLogger(err);
     }
 
     const removeItemFromFolder = async (id: number) => {
         const { response, err } = await callApi(deleteDataPath, 'DELETE', { id })
 
         if (response) setDataInFolder(dataInFolder.filter(data => data.id !== id));
-        if (err) console.log(err.response.data);
+        if (err) errorLogger(err);
     }
 
     const handleClickFolderItem = (id: number, index: number) => {

@@ -5,6 +5,8 @@ import { useYouTubeData } from '../../hooks/useYouTubeData';
 import { useLeftColumn } from '../../hooks/useLeftColumn';
 import Loading from '../Loading/Loading';
 import { callApi } from '../../helper/callApi';
+import { errorLogger } from '../../helper/errorLogger';
+
 
 interface Props {
     id: string
@@ -34,7 +36,7 @@ const InputLink: React.FC<Props> = ({ id }) => {
             setFetchYouTubeData([...fetchYouTubeData, response.data])
             endFetch()
         }
-        if(err) console.log(err.response.data);
+        if(err) errorLogger(err);
     }
 
     return (

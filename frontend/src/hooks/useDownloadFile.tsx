@@ -10,7 +10,7 @@ export const useDownloadFile = () => {
     const { downloadOne } = config.url.download;
     const [percent, setPercent] = useState<number>(0);
     const [visible, setVisible] = useState<boolean>(false)
-    const [title, setTitle] = useState<string>()
+    const [title, setTitle] = useState<string>('')
 
     const download = (url: string, title: string) => {
         setVisible(true)

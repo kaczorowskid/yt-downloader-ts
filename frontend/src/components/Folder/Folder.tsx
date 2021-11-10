@@ -14,17 +14,14 @@ const Folder: React.FC<Props> = ({ folderName, removeFolder, param }) => {
     const { setCurentlyFolderViev } = useCurrentFolder();
 
     return (
-        <>
-            <styled.FolderContainer onClick = {() => setCurentlyFolderViev(param)} >
-                <styled.DataContainer>
-                    <styled.FolderName>{folderName}</styled.FolderName>
-                    <styled.ItemsCount onClick={() => removeFolder(folderName)} >
-                        <styled.RemoveIcon />
-                    </styled.ItemsCount>
-                </styled.DataContainer>
-            </styled.FolderContainer>
-           
-        </>
+        <styled.FolderContainer onClick={() => setCurentlyFolderViev(param)} >
+            <styled.DataContainer>
+                <styled.FolderName>{folderName}</styled.FolderName>
+                <styled.ItemsCount onClick={() => removeFolder(folderName)} >
+                    <styled.RemoveIcon />
+                </styled.ItemsCount>
+            </styled.DataContainer>
+        </styled.FolderContainer>
     )
 }
 
