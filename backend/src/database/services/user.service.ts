@@ -81,7 +81,7 @@ export const refreshMeService = async (cookie: string) => {
         if (!cookie) return {
             err: true,
             errStatus: 403,
-            errData: 'No cookie'
+            errData: 'No cookies'
         }
         else {
             const { id }: any = jwt.verify(cookie, process.env.ACCESS_TOKEN as string)
@@ -106,8 +106,9 @@ export const generateResetPasswordLinkService = async (email: string) => {
 
         if (user) {
             const passwordResetToken = tokenGenerator({ id: user.id! }, process.env.RESET_PASSWORD_TOKEN as string, 86400);
+
             sendMail(passwordResetToken, email, 'reset');
-            console.log(email, ' ', passwordResetToken)
+
             return {
                 err: false,
             }
@@ -139,8 +140,6 @@ export const resetPasswordService = async (token: string, password: string, oldP
         }
 
         const isFine = await brypt.compare(oldPassword, user.password)
-
-        console.log(isFine)
 
         if (isFine) {
             const hashPassword: string = await brypt.hash(password, 10);
