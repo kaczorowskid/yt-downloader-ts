@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IDataService } from '../../../types/IDataService';
+import { IDataService } from '../../types/IDataService';
 import { tokenGenerator } from '../../helper/tokenGenerator';
 import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService, resetPasswordService } from '../services/user.service';
 

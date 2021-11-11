@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IDataService } from '../../../types/IDataService';
+import { IDataService } from '../../types/IDataService';
 import { getFoldersService, deleteFolderService, addFolderService } from '../services/folder.service';
 
 export const getFolders = async (req: Request, res: Response) => {

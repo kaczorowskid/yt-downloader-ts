@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { getAllDataService, deleteItemService, addItemService } from '../services/data.service';
-import { IDataService } from '../../../types/IDataService';
+import { IDataService } from '../../types/IDataService';
 
 export const getAllData = async (req: Request, res: Response) => {
     const { id } = req.query;
