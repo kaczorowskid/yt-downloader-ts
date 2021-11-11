@@ -6,7 +6,7 @@ export const auth = (req: any, res: Response, next: NextFunction) => {
 
     if (token === null) return res.sendStatus(401)
 
-    jwt.verify(token, process.env.ACCESS_TOKEN as string, (err: any, user: any) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN as string, (err: any) => {
         if (err) return res.sendStatus(403);
 
         next()
