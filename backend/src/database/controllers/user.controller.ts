@@ -4,7 +4,7 @@ import { tokenGenerator } from '../../helper/tokenGenerator';
 import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService, resetPasswordService } from '../services/user.service';
 
 export const confirmAccount = async (req: Request, res: Response) => {
-    const { token }: any = req.query;
+    const { token }: any = req.body;
 
     const data: IDataService | undefined = await confirmAccountService(token);
 
@@ -15,7 +15,7 @@ export const confirmAccount = async (req: Request, res: Response) => {
 }
 
 export const register = async (req: Request, res: Response) => {
-    const { email, password }: any = req.query;
+    const { email, password }: any = req.body;
 
     const data: IDataService | undefined = await registerService(email, password);
 
@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password }: any = req.query;
+    const { email, password }: any = req.body;
 
     const data: IDataService | undefined = await loginService(email, password);
 
@@ -63,7 +63,7 @@ export const logout = (req: Request, res: Response) => {
 }
 
 export const generateResetPasswordLink = async (req: Request, res: Response) => {
-    const { email }: any = req.query;
+    const { email }: any = req.body;
 
     const data: IDataService | undefined = await generateResetPasswordLinkService(email);
 
@@ -74,12 +74,12 @@ export const generateResetPasswordLink = async (req: Request, res: Response) => 
 }
 
 export const resetPassword = async (req: Request, res: Response) => {
-    const { password, oldPassword, token }: any = req.query;
+    const { password, oldPassword, token }: any = req.body;
 
     const data: IDataService | undefined = await resetPasswordService(token, password, oldPassword);
 
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data!)
-        else res.status(data.succesStatus!).json(data.err!)
+        else res.status(data.succesStatus!).json(data.succesData!)
     }
 }

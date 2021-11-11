@@ -22,7 +22,7 @@ const ResetPassword: React.FC = () => {
     const handleResetPassword = async () => {
         if (!(passValidator.password(password) && passValidator.password(confirmPassword))) setError(true);
         else {
-            const { response, err } = await callApi(resetPassword, 'POST', { oldPassword, password, token })
+            const { response, err } = await callApi(resetPassword, 'POST', { oldPassword, password, token }, 'body')
             if (response) setIsReset(true)
             if (err) errorLogger(err);
         }

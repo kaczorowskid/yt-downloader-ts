@@ -17,7 +17,7 @@ const Confirm: React.FC = () => {
 
     useEffect(() => {
         const fetchActivation = async () => {
-            const { response, err } = await callApi(confirm, 'GET', { token: token })
+            const { response, err } = await callApi(confirm, 'POST', { token: token }, 'body')
             response.data.confirm ? setIsActivated(true) : setIsActivated(false)
             if(err) errorLogger(err);
         }

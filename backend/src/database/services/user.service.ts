@@ -95,7 +95,7 @@ export const resetPasswordService = async (token: string, password: string, oldP
         if (isFine) {
             const hashPassword: string = await brypt.hash(password, 10);
             await User.update({ password: hashPassword }, { where: { id } })
-            return succesLogger(false);
+            return succesLogger(false, 201, true);
 
         } else return errorLogger(true, 401, 'Wrong old password');
 

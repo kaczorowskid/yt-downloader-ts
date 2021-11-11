@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     const [errorResetPassword, setErrorResetPassword] = useState<IErrorFetch>();
 
     const handleLoginButton = async () => {
-        const { response, err } = await callApi(loginPath, 'POST', { email, password })
+        const { response, err } = await callApi(loginPath, 'POST', { email, password }, 'body')
         if (response) {
             dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
             history.push('/')
@@ -41,7 +41,7 @@ const Login: React.FC = () => {
                 errData: 'Invalid data'
             })
         } else {
-            const { response, err } = await callApi(generateResetLink, 'GET', { email: resetPasswordEmail })
+            const { response, err } = await callApi(generateResetLink, 'POST', { email: resetPasswordEmail }, 'body')
             if (response) {
                 setResetInfo(true);
             }

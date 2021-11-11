@@ -29,7 +29,7 @@ const Register: React.FC = () => {
                 errData: 'Invalid data'
             })
         } else {
-            const { response, err } = await callApi(registerPath, 'POST', { email, password })
+            const { response, err } = await callApi(registerPath, 'POST', { email, password }, 'body')
             if (response) {
                 setIsCreated(true)
             }

@@ -8,13 +8,13 @@ export interface IErrorFetch {
     errData?: string
 }
 
-export const callApi = async (url: string, method: Method, data: any) => {
+export const callApi = async (url: string, method: Method, data: any, type?: string) => {
     let response: any, err: any;
 
     response = await axios({
         url: url,
         method: method,
-        params: data
+        ...type !== 'body' ? {params: data} : {data: data}
     })
     .catch(e => {
         err = e;
