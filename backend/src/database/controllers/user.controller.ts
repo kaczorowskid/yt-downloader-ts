@@ -5,10 +5,12 @@ import { confirmAccountService, registerService, loginService, refreshMeService,
 
 export const confirmAccount = async (req: Request, res: Response) => {
     const { token }: any = req.query;
-    console.log(token)
-    const data = await confirmAccountService(token);
+    const data: IDataService | undefined = await confirmAccountService(token);
 
-    data ? res.json({ confirm: true }) : res.json({ confirm: false })
+    if(data) {
+        if(data.err!) res.json({confirm: false})
+        else res.json({confirm: true})
+    }
 }
 
 export const register = async (req: Request, res: Response) => {

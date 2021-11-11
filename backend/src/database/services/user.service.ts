@@ -9,9 +9,9 @@ export const confirmAccountService = async (token: string) => {
     try {
         const { id }: any = jwt.verify(token, process.env.EMAIL_TOKEN! as string)
         await User.update({ active: true }, { where: { id } })
-        return true
+        return succesLogger(false)
     } catch (e) {
-        return false
+        return errorLogger(true)
     }
 }
 
