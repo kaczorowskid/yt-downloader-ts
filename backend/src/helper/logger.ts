@@ -1,0 +1,2 @@
+export const errorLogger = (err: boolean, errStatus?: number, errData?: string) => ({err, errStatus, errData});
+export const succesLogger = (err: boolean, succesStatus?: number, succesData?: any) => ({err, succesStatus, succesData});

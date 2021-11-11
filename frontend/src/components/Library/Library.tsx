@@ -108,7 +108,7 @@ const Library: React.FC<Props> = ({ id }) => {
                             )}
                         </styled.AddFolderContainer>
                         <styled.ItemListContainer currentClick={currentFolderCheck}>
-                            {filterFolders.map((folder, i) => (
+                            {filterFolders && filterFolders.map((folder, i) => (
                                 <styled.FolderItem key={i} folderTitle={folder.title} onClick={() => handleClickFolderItem(folder.id, i)} >
                                     <styled.RemoveIcon onClick={() => removeFolder(folder.title)} />
                                 </styled.FolderItem>

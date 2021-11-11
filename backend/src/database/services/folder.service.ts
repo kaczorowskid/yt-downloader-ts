@@ -1,35 +1,23 @@
 import { Folders } from '../models/Folder';
+import { succesLogger } from '../../helper/logger';
 
 export const getFoldersService = async (id: string) => {
     try {
         const data = await Folders.findAll({where: {user_id: id}, attributes: ['title', 'id']});
-        return {
-            err: false,
-            data: data,
-            length: data.length
-        }
+        return succesLogger(false, 200, data)
+
     } catch(e) {
-        return {
-            err: true,
-            errStatus: e.response.status,
-            errData: e.response.data
-        }
+        console.log(e)
     }
 }
 
 export const deleteFolderService = async (id: string, title: string) => {
     try {
         const data = await Folders.destroy({where: {user_id: id, title: title}});
-        return {
-            err: false,
-            data: data
-        }
+        return succesLogger(false, 200, data);
+
     } catch(e) {
-        return {
-            err: true,
-            errStatus: e.response.status,
-            errData: e.response.data
-        }
+        console.log(e);
     }
 }
 
@@ -39,15 +27,9 @@ export const addFolderService = async (id: string, title: string) => {
             title: title as string, 
             user_id: id as string
         })
-        return {
-            err: false,
-            data: data
-        }
+        return succesLogger(false, 200, data);
+        
     } catch(e) {
-        return {
-            err: true,
-            errStatus: e.response.status,
-            errData: e.response.data
-        }
+        console.log(e)
     }
 }

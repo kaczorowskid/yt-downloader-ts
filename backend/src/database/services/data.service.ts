@@ -1,4 +1,5 @@
 import { Data } from '../models/Data';
+import { succesLogger } from '../../helper/logger';
 
 export const getAllDataService = async (id: string) => {
     try {
@@ -8,32 +9,20 @@ export const getAllDataService = async (id: string) => {
             },
             attributes: ['id', 'url', 'thumbnail', 'title', 'duration'],
         });
-        return {
-            err: false,
-            data: data
-        }
+        return succesLogger(false, 200, data);
+
     } catch(e) {
-        return {
-            err: true,
-            errStatus: e.response.status,
-            errData: e.response.data
-        }
+        console.log(e);
     }
 }
 
 export const deleteItemService = async (id: string) => {
     try {
         const data = await Data.destroy({where: {id: id}});
-        return {
-            err: false,
-            data: data
-        }
+        return succesLogger(false, 200, data);
+
     } catch(e) {
-        return {
-            err: true,
-            errStatus: e.response.status,
-            errData: e.response.data
-        }
+        console.log(e)
     }
 }
 
@@ -46,15 +35,9 @@ export const addItemService = async (folder_id: string, title: string, imageSrc:
             thumbnail: imageSrc as string,
             url: url as string
         })
-        return {
-            err: false,
-            data: data
-        }
+        return succesLogger(false, 200, data);
+
     } catch(e) {
-        return {
-            err: true,
-            errStatus: e.response.status,
-            errData: e.response.data
-        }
+        console.log(e)
     }
 }

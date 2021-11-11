@@ -24,20 +24,13 @@ const Login: React.FC = () => {
     const [errorResetPassword, setErrorResetPassword] = useState<IErrorFetch>();
 
     const handleLoginButton = async () => {
-        if (!(passValidator.password(password) && passValidator.email(email))) {
-            setError({
-                err: true,
-                errData: 'Invalid data'
-            })
-        } else {
-            const { response, err } = await callApi(loginPath, 'POST', { email, password })
-            if (response) {
-                dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
-                history.push('/')
-            }
-            if (err) {
-                setError(err.response.data)
-            }
+        const { response, err } = await callApi(loginPath, 'POST', { email, password })
+        if (response) {
+            dispatch({ type: loginReducerAction.LOGIN, id: response.data.id, email: response.data.email, active: response.data.active })
+            history.push('/')
+        }
+        if (err) {
+            setError(err.response.data)
         }
     }
 
