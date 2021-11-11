@@ -17,6 +17,7 @@ export const getAllDataService = async (id: string) => {
 }
 
 export const deleteItemService = async (id: string) => {
+
     try {
         const data = await Data.destroy({where: {id: id}});
         return succesLogger(false, 200, data);

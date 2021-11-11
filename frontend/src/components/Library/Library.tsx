@@ -57,11 +57,13 @@ const Library: React.FC<Props> = ({ id }) => {
         if (response) setLibraryChange(libraryFolders.filter(folder => folder.title !== folderTitle))
         if (err) errorLogger(err);
 
-        const { err: errDelete } = await callApi(deleteDataPath, 'DELETE', {
-            id: dataInFolder.map(i => i.id)
-        })
+        if (dataInFolder.length !== 0) {
+            const { err: errDelete } = await callApi(deleteDataPath, 'DELETE', {
+                id: dataInFolder.map(i => i.id)
+            })
 
-        if (errDelete) console.log(errDelete.response.data);
+            if (errDelete) errorLogger(errDelete);
+        }
     }
 
     const addFolder = async () => {

@@ -5,6 +5,7 @@ import { confirmAccountService, registerService, loginService, refreshMeService,
 
 export const confirmAccount = async (req: Request, res: Response) => {
     const { token }: any = req.query;
+
     const data: IDataService | undefined = await confirmAccountService(token);
 
     if(data) {
@@ -53,7 +54,7 @@ export const refreshMe = async (req: Request, res: Response) => {
 
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data!)
-        else res.status(data.succesStatus!).json(data.succesData.user!)
+        else res.status(data.succesStatus!).json(data.succesData!)
     }
 }
 

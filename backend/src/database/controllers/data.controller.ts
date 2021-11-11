@@ -3,9 +3,9 @@ import { getAllDataService, deleteItemService, addItemService } from '../service
 import { IDataService } from '../../types/IDataService';
 
 export const getAllData = async (req: Request, res: Response) => {
-    const { id } = req.query;
+    const { id }: any = req.query;
 
-    const data: IDataService | undefined = await getAllDataService(id as string)
+    const data: IDataService | undefined = await getAllDataService(id)
 
     if(data) {
         res.status(data.succesStatus!).json(data.succesData!)
@@ -13,9 +13,9 @@ export const getAllData = async (req: Request, res: Response) => {
 }
 
 export const deleteItem = async (req: Request, res: Response) => {
-    const { id } = req.query;
+    const { id }: any = req.query;
 
-    const data: IDataService | undefined = await deleteItemService(id as string)
+    const data: IDataService | undefined = await deleteItemService(id)
 
     if(data) {
         res.status(data.succesStatus!).json(data.succesData!)
