@@ -9,6 +9,6 @@ export const auth = (req: any, res: Response, next: NextFunction) => {
     jwt.verify(token, process.env.ACCESS_TOKEN as string, (err: any) => {
         if (err) return res.sendStatus(403);
 
-        next()
+        next();
     })
 }
