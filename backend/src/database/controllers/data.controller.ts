@@ -1,9 +1,15 @@
 import { Request, Response } from 'express';
 import { getAllDataService, deleteItemService, addItemService } from '../services/data.service';
 import { IDataService } from '../../types/IDataService';
+import { IExpressMiddleware } from '../../types/IExpressMiddleware';
 
-export const getAllData = async (req: Request, res: Response) => {
-    const { id }: any = req.query;
+
+interface IRqQuery {
+    id: any
+}
+
+export const getAllData: IExpressMiddleware<any, IRqQuery> = async (req, res) => {
+    const { id } = req.query;
 
     const data: IDataService | undefined = await getAllDataService(id)
 

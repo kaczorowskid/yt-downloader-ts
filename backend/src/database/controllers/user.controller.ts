@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 import { IDataService } from '../../types/IDataService';
 import { tokenGenerator } from '../../helper/tokenGenerator';
 import { confirmAccountService, registerService, loginService, refreshMeService, generateResetPasswordLinkService, resetPasswordService } from '../services/user.service';
+import { IExpressMiddleware } from '../../types/IExpressMiddleware';
+import { RequestBody } from '../../types/IExpressRequest';
 
-export const confirmAccount = async (req: Request, res: Response) => {
-    const { token }: any = req.body;
+export const confirmAccount: IExpressMiddleware<RequestBody, any> = async (req, res) => {
+    const { token } = req.body;
 
     const data: IDataService | undefined = await confirmAccountService(token);
 
@@ -14,8 +16,8 @@ export const confirmAccount = async (req: Request, res: Response) => {
     }
 }
 
-export const register = async (req: Request, res: Response) => {
-    const { email, password }: any = req.body;
+export const register: IExpressMiddleware<RequestBody, any> = async (req, res) => {
+    const { email, password } = req.body;
 
     const data: IDataService | undefined = await registerService(email, password);
 
@@ -25,8 +27,8 @@ export const register = async (req: Request, res: Response) => {
     }
 }
 
-export const login = async (req: Request, res: Response) => {
-    const { email, password }: any = req.body;
+export const login: IExpressMiddleware<RequestBody, any> = async (req, res) => {
+    const { email, password } = req.body;
 
     const data: IDataService | undefined = await loginService(email, password);
 
@@ -47,7 +49,7 @@ export const login = async (req: Request, res: Response) => {
 
 }
 
-export const refreshMe = async (req: Request, res: Response) => {
+export const refreshMe: IExpressMiddleware<RequestBody, any> = async (req, res) => {
     const cookie = req.cookies.JWT
 
     const data: IDataService | undefined = await refreshMeService(cookie);
@@ -62,8 +64,8 @@ export const logout = (req: Request, res: Response) => {
     res.clearCookie('JWT').json({ msg: 'logout' })
 }
 
-export const generateResetPasswordLink = async (req: Request, res: Response) => {
-    const { email }: any = req.body;
+export const generateResetPasswordLink: IExpressMiddleware<RequestBody, any> = async (req, res) => {
+    const { email } = req.body;
 
     const data: IDataService | undefined = await generateResetPasswordLinkService(email);
 
@@ -73,8 +75,8 @@ export const generateResetPasswordLink = async (req: Request, res: Response) => 
     }
 }
 
-export const resetPassword = async (req: Request, res: Response) => {
-    const { password, oldPassword, token }: any = req.body;
+export const resetPassword: IExpressMiddleware<RequestBody, any> = async (req, res) => {
+    const { password, oldPassword, token } = req.body;
 
     const data: IDataService | undefined = await resetPasswordService(token, password, oldPassword);
 
