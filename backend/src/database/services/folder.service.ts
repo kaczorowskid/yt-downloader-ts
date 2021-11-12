@@ -2,7 +2,6 @@ import { Folders } from '../models/Folder';
 import { succesLogger } from '../../helper/logger';
 
 export const getFoldersService = async (id: string) => {
-
     try {
         const data = await Folders.findAll({where: {user_id: id}, attributes: ['title', 'id']});
         return succesLogger(false, 200, data)

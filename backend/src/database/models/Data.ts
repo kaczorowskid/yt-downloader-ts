@@ -6,7 +6,6 @@ interface IDataDBModel {
     url: string;
     thumbnail: string;
     title: string;
-    duration: number;
     folder_id: number;
 }
 
@@ -28,7 +27,6 @@ export const Data = sequelize.define<DataInstance>('data', {
     url: Sequelize.STRING,
     thumbnail: Sequelize.STRING,
     title: Sequelize.STRING,
-    duration: Sequelize.NUMBER,
     folder_id: Sequelize.NUMBER
 }, {
     freezeTableName: true

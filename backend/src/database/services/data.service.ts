@@ -7,7 +7,7 @@ export const getAllDataService = async (id: string) => {
             where: {
                 folder_id: id
             },
-            attributes: ['id', 'url', 'thumbnail', 'title', 'duration'],
+            attributes: ['id', 'url', 'thumbnail', 'title'],
         });
         return succesLogger(false, 200, data);
 
@@ -17,7 +17,6 @@ export const getAllDataService = async (id: string) => {
 }
 
 export const deleteItemService = async (id: string) => {
-
     try {
         const data = await Data.destroy({where: {id: id}});
         return succesLogger(false, 200, data);
@@ -28,7 +27,6 @@ export const deleteItemService = async (id: string) => {
 }
 
 export const addItemService = async (folder_id: string, title: string, imageSrc: string, url: string) => {
-
     try {
         const data = await Data.create({
             folder_id: Number(folder_id),
