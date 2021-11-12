@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import { IDataService } from '../../types/IDataService';
 import { getFoldersService, deleteFolderService, addFolderService } from '../services/folder.service';
+import { IExpressMiddleware } from '../../types/IExpressMiddleware';
+import { RequestQuery } from '../../types/IExpressRequest';
 
-export const getFolders = async (req: Request, res: Response) => {
-    const { id }: any = req.query
+export const getFolders: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
+    const { id } = req.query
 
     const data: IDataService | undefined = await getFoldersService(id)
 
@@ -12,8 +14,8 @@ export const getFolders = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteFolder = async (req: Request, res: Response) => {
-    const { id, title }: any = req.query;
+export const deleteFolder: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
+    const { id, title } = req.query;
 
     const data: IDataService | undefined = await deleteFolderService(id, title)
 
@@ -22,8 +24,8 @@ export const deleteFolder = async (req: Request, res: Response) => {
     }
 }
 
-export const addFolder = async (req: Request, res: Response) => {
-    const { id, title }: any = req.query;
+export const addFolder: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
+    const { id, title } = req.query;
 
     const data: IDataService | undefined = await addFolderService(id , title)
 
