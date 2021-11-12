@@ -2,13 +2,9 @@ import { Request, Response } from 'express';
 import { getAllDataService, deleteItemService, addItemService } from '../services/data.service';
 import { IDataService } from '../../types/IDataService';
 import { IExpressMiddleware } from '../../types/IExpressMiddleware';
+import { RequestQuery } from '../../types/IExpressRequest';
 
-
-interface IRqQuery {
-    id: any
-}
-
-export const getAllData: IExpressMiddleware<any, IRqQuery> = async (req, res) => {
+export const getAllData: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
     const { id } = req.query;
 
     const data: IDataService | undefined = await getAllDataService(id)
@@ -18,8 +14,8 @@ export const getAllData: IExpressMiddleware<any, IRqQuery> = async (req, res) =>
     }
 }
 
-export const deleteItem = async (req: Request, res: Response) => {
-    const { id }: any = req.query;
+export const deleteItem: IExpressMiddleware<any, RequestQuery>  = async (req, res) => {
+    const { id } = req.query;
 
     const data: IDataService | undefined = await deleteItemService(id)
 
@@ -28,8 +24,8 @@ export const deleteItem = async (req: Request, res: Response) => {
     }
 }
 
-export const addItem = async (req: Request, res: Response) => {
-    const { folder_id, title, imageSrc, url }: any = req.query;
+export const addItem: IExpressMiddleware<any, RequestQuery>  = async (req, res) => {
+    const { folder_id, title, imageSrc, url } = req.query;
 
     const data: IDataService | undefined = await addItemService(folder_id, title, imageSrc, url)
 
