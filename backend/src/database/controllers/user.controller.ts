@@ -60,7 +60,7 @@ export const refreshMe: IExpressMiddleware<RequestBody, any> = async (req, res) 
     }
 }
 
-export const logout: IExpressMiddleware<any, any> = (req: Request, res: Response) => {
+export const logout: IExpressMiddleware<any, any> = (req, res) => {
     res.clearCookie('JWT').json({ msg: 'logout' })
 }
 
