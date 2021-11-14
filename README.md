@@ -36,9 +36,9 @@ In project used:
 	-REACT_APP_NODE_ENV = development
 	-REACT_APP_KEY -> pusher data
 	-REACT_APP_CLUSTER -> pusher data
-10. When install is done, type 'npm run dev'
+10. Type 'npm run dev'
 ```
 
-Now you can log in. 
+Now, you can log in. 
 Email is: admin@admin.com
 Password id: Admin!23
