@@ -1,11 +1,6 @@
+import FileSaver from 'file-saver';
+
 export const downloader = (response: any, title?: string, ) => {
-    const url = window.URL.createObjectURL(new Blob([response.data], {type: response.data.type}));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute(
-        "download",
-        `${title}`
-    );
-    document.body.appendChild(link);
-    link.click();
+    const blob = new File([response.data], `${title}.mp3`, {type: `${response.data.type};charset=utf-8`});
+    FileSaver.saveAs(blob)
 }
