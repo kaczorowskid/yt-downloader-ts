@@ -8,7 +8,6 @@ export const getVideoInfo = async (url: string): Promise<any> => {
         id: res.videoDetails.videoId,
         title: res.videoDetails.title,
         thumbnail: res.player_response.videoDetails.thumbnail.thumbnails[3].url,
-        duration: +res.player_response.videoDetails.lengthSeconds,
         url: url
     }
     return infoResponse;

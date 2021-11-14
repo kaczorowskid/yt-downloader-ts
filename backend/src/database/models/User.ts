@@ -6,7 +6,6 @@ interface IUserDBModel {
     email: string;
     password: string;
     active: boolean;
-    folder_id: number
 }
 
 interface IUser {
@@ -29,5 +28,4 @@ export const User = sequelize.define<UserInstance>('users', {
     },
     password: Sequelize.STRING,
     active: Sequelize.BOOLEAN,
-    folder_id: Sequelize.NUMBER
 })

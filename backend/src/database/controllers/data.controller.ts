@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { getAllDataService, deleteItemService, addItemService } from '../services/data.service';
 import { IDataService } from '../../types/IDataService';
 import { IExpressMiddleware } from '../../types/IExpressMiddleware';
