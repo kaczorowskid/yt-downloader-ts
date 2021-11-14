@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 import path from 'path'
 import { getInfoService, downloadOneService } from '../services/downloader.service';
 import { removeFolder } from '../../helper/musicFolder';
+import { IExpressMiddleware } from '../../types/IExpressMiddleware';
+import { RequestQuery } from '../../types/IExpressRequest';
 
-export const getInfo = async (req: Request, res: Response) => {
-    const { url }: any = req.query;
+export const getInfo: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
+    const { url } = req.query;
 
     const data = await getInfoService(url)
     removeFolder();
@@ -16,8 +18,8 @@ export const getInfo = async (req: Request, res: Response) => {
 }
 
 
-export const downloadOne = async (req: Request, res: Response) => {
-    const { url, title }: any = req.query;
+export const downloadOne: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
+    const { url, title } = req.query;
 
     const status = await downloadOneService(url, title);
     const filePath = path.join(__dirname, `../../music/${title}.mp3`)

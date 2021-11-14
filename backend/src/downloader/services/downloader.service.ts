@@ -13,16 +13,20 @@ export const getInfoService = async (videoUrl: string) => {
 }
 
 export const downloadOneService = async (url: string, title: string) => {
-    createFolder();
+    try {
+        createFolder();
 
-    const stream = await getStream(url as string);
-    stream.on('progress', (_, totalDownloaded, total) => {
-        let percentage: number = Math.trunc((totalDownloaded / total) * 100);
-
-        pusher.trigger('download', 'progress', {
-            percentage,
-        });
-    })
-    const status = await getMusic(stream, title as string)
-    return status;
+        const stream = await getStream(url as string);
+        stream.on('progress', (_, totalDownloaded, total) => {
+            let percentage: number = Math.trunc((totalDownloaded / total) * 100);
+    
+            pusher.trigger('download', 'progress', {
+                percentage,
+            });
+        })
+        const status = await getMusic(stream, title as string)
+        return status;
+    } catch (e) {
+        console.log(e);
+    }
 }
