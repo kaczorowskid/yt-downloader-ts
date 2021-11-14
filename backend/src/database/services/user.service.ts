@@ -3,13 +3,13 @@ import brypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { sendMail } from '../../helper/mailer';
 import { tokenGenerator } from '../../helper/tokenGenerator';
-import { errorLogger, succesLogger } from '../../helper/logger';
+import { errorLogger, successLogger } from '../../helper/logger';
 
 export const confirmAccountService = async (token: string) => {
     try {
         const { id }: any = jwt.verify(token, process.env.EMAIL_TOKEN! as string)
         await User.update({ active: true }, { where: { id } })
-        return succesLogger(false)
+        return successLogger(false)
     } catch (e) {
         return errorLogger(true)
     }
@@ -30,7 +30,7 @@ export const registerService = async (email: string, password: string) => {
             const emailToken = tokenGenerator({ id: user.id }, process.env.EMAIL_TOKEN as string, '1d');
             sendMail(emailToken, email, 'confirm');
 
-            return succesLogger(false, 201, 'User created!');
+            return successLogger(false, 201, 'User created!');
         }
         else return errorLogger(true, 409, 'User exist in database')
 
@@ -46,7 +46,7 @@ export const loginService = async (email: string, password: string) => {
 
         const isFine = await brypt.compare(password, user.password)
 
-        if (isFine) return succesLogger(false, 201, user)
+        if (isFine) return successLogger(false, 201, user)
         else return errorLogger(true, 409, 'Wrong pass');
 
     } catch (e) {
@@ -60,7 +60,7 @@ export const refreshMeService = async (cookie: string) => {
         else {
             const { id }: any = jwt.verify(cookie, process.env.ACCESS_TOKEN as string)
             const user: any = await User.findOne({ where: { id: id } });
-            return succesLogger(false, 201, user)
+            return successLogger(false, 201, user)
         }
 
     } catch (e) {
@@ -75,7 +75,7 @@ export const generateResetPasswordLinkService = async (email: string) => {
             const passwordResetToken = tokenGenerator({ id: user.id! }, process.env.RESET_PASSWORD_TOKEN as string, 86400);
             sendMail(passwordResetToken, email, 'reset');
 
-            return succesLogger(false, 200);
+            return successLogger(false, 200);
         } else return errorLogger(true, 403, 'No email in database');
 
     } catch (e) {
@@ -95,7 +95,7 @@ export const resetPasswordService = async (token: string, password: string, oldP
         if (isFine) {
             const hashPassword: string = await brypt.hash(password, 10);
             await User.update({ password: hashPassword }, { where: { id } })
-            return succesLogger(false, 201, true);
+            return successLogger(false, 201, true);
 
         } else return errorLogger(true, 409, 'Wrong old password');
 

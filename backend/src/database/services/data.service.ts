@@ -1,5 +1,5 @@
 import { Data } from '../models/Data';
-import { succesLogger } from '../../helper/logger';
+import { successLogger } from '../../helper/logger';
 
 export const getAllDataService = async (id: string) => {
     try {
@@ -9,7 +9,7 @@ export const getAllDataService = async (id: string) => {
             },
             attributes: ['id', 'url', 'thumbnail', 'title'],
         });
-        return succesLogger(false, 200, data);
+        return successLogger(false, 200, data);
 
     } catch(e) {
         console.log(e);
@@ -19,7 +19,7 @@ export const getAllDataService = async (id: string) => {
 export const deleteItemService = async (id: string) => {
     try {
         const data = await Data.destroy({where: {id: id}});
-        return succesLogger(false, 200, data);
+        return successLogger(false, 200, data);
 
     } catch(e) {
         console.log(e)
@@ -34,7 +34,7 @@ export const addItemService = async (folder_id: string, title: string, imageSrc:
             thumbnail: imageSrc as string,
             url: url as string
         })
-        return succesLogger(false, 200, data);
+        return successLogger(false, 200, data);
 
     } catch(e) {
         console.log(e)

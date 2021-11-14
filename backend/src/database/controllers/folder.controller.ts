@@ -9,7 +9,7 @@ export const getFolders: IExpressMiddleware<any, RequestQuery> = async (req, res
     const data: IDataService | undefined = await getFoldersService(id)
 
     if (data) {
-        res.status(data.succesStatus!).json(data.succesData!)
+        res.status(data.successStatus!).json(data.successData!)
     }
 }
 
@@ -19,7 +19,7 @@ export const deleteFolder: IExpressMiddleware<any, RequestQuery> = async (req, r
     const data: IDataService | undefined = await deleteFolderService(id, title)
 
     if (data) {
-        res.status(data.succesStatus!).json(data.succesData!)
+        res.status(data.successStatus!).json(data.successData!)
     }
 }
 
@@ -29,6 +29,6 @@ export const addFolder: IExpressMiddleware<any, RequestQuery> = async (req, res)
     const data: IDataService | undefined = await addFolderService(id , title)
 
     if (data) {
-        res.status(data.succesStatus!).json(data.succesData!)
+        res.status(data.successStatus!).json(data.successData!)
     }
 }

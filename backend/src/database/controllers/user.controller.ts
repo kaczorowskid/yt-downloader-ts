@@ -22,7 +22,7 @@ export const register: IExpressMiddleware<RequestBody, any> = async (req, res) =
 
     if (data) {
         if(data.err!) res.status(data.errStatus!).json(data!)
-        else res.status(data.succesStatus!).json(data!);
+        else res.status(data.successStatus!).json(data!);
     }
 }
 
@@ -34,14 +34,14 @@ export const login: IExpressMiddleware<RequestBody, any> = async (req, res) => {
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data!)
         else {
-            const accessToken = tokenGenerator({ id: data.succesData.id! }, process.env.ACCESS_TOKEN as string, 86400000);
-            res.status(data.succesStatus!).cookie('JWT', accessToken, {
+            const accessToken = tokenGenerator({ id: data.successData.id! }, process.env.ACCESS_TOKEN as string, 86400000);
+            res.status(data.successStatus!).cookie('JWT', accessToken, {
                 maxAge: 86400000,
                 httpOnly: true
             }).json({
-                id: data.succesData.id,
-                email: data.succesData.email,
-                active: data.succesData.active
+                id: data.successData.id,
+                email: data.successData.email,
+                active: data.successData.active
             })
         }
     }
@@ -55,7 +55,7 @@ export const refreshMe: IExpressMiddleware<RequestBody, any> = async (req, res) 
 
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data!)
-        else res.status(data.succesStatus!).json(data.succesData!)
+        else res.status(data.successStatus!).json(data.successData!)
     }
 }
 
@@ -70,7 +70,7 @@ export const generateResetPasswordLink: IExpressMiddleware<RequestBody, any> = a
 
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data!)
-        else res.status(data.succesStatus!).json(data.err!)
+        else res.status(data.successStatus!).json(data.err!)
     }
 }
 
@@ -81,6 +81,6 @@ export const resetPassword: IExpressMiddleware<RequestBody, any> = async (req, r
 
     if (data) {
         if (data.err!) res.status(data.errStatus!).json(data!)
-        else res.status(data.succesStatus!).json(data.succesData!)
+        else res.status(data.successStatus!).json(data.successData!)
     }
 }
