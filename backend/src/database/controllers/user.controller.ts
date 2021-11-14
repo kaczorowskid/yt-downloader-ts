@@ -10,7 +10,7 @@ export const confirmAccount: IExpressMiddleware<RequestBody, any> = async (req, 
     const data: IDataService | undefined = await confirmAccountService(token);
 
     if(data) {
-        if(data.err!) res.json({confirm: false})
+        if(data.err) res.json({confirm: false})
         else res.json({confirm: true})
     }
 }
