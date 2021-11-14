@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import path from 'path'
 import { getInfoService, downloadOneService } from '../services/downloader.service';
 import { removeFolder } from '../../helper/musicFolder';
@@ -16,7 +15,6 @@ export const getInfo: IExpressMiddleware<any, RequestQuery> = async (req, res) =
         res.json({ id: data.id, title: data.title, thumbnail: data.thumbnail, url: data.url })
     }
 }
-
 
 export const downloadOne: IExpressMiddleware<any, RequestQuery> = async (req, res) => {
     const { url, title } = req.query;
