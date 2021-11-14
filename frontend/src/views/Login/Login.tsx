@@ -70,7 +70,7 @@ const Login: React.FC = () => {
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Password</styled.InputLabel>
-                        <styled.Input onChange={e => setPassword(e.target.value)} />
+                        <styled.Input type = 'password' onChange={e => setPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.Button onClick={handleLoginButton} >Log in</styled.Button>
                     {(error && error.err) && <styled.Error>{error.errData}</styled.Error>}

@@ -58,11 +58,11 @@ const Register: React.FC = () => {
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Password</styled.InputLabel>
-                        <styled.Input onChange={e => setPassword(e.target.value)} />
+                        <styled.Input type = 'password' onChange={e => setPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Confirm password</styled.InputLabel>
-                        <styled.Input onChange={e => setConfirmPassword(e.target.value)} />
+                        <styled.Input type = 'password' onChange={e => setConfirmPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.Button onClick={() => registerUser()} >Create account</styled.Button>
                     {error && error.err && <styled.Error>{error.errData}</styled.Error>}

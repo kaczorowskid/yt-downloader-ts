@@ -44,15 +44,15 @@ const ResetPassword: React.FC = () => {
                 <styled.RegisterWindowContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Old password</styled.InputLabel>
-                        <styled.Input onChange={e => setOldPassword(e.target.value)} />
+                        <styled.Input type = 'password' onChange={e => setOldPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Password</styled.InputLabel>
-                        <styled.Input onChange={e => setPassword(e.target.value)} />
+                        <styled.Input type = 'password' onChange={e => setPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Confirm password</styled.InputLabel>
-                        <styled.Input onChange={e => setConfirmPassword(e.target.value)} />
+                        <styled.Input type = 'password' onChange={e => setConfirmPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.Button onClick={handleResetPassword} >Reset password</styled.Button>
                     {error && <styled.Error>Enter the data correctly</styled.Error>}
