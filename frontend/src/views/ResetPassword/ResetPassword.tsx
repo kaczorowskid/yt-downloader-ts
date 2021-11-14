@@ -31,7 +31,6 @@ const ResetPassword: React.FC = () => {
         }
     }
 
-
     return (
         <styled.Container>
             <styled.Column>
