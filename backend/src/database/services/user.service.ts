@@ -9,9 +9,9 @@ export const confirmAccountService = async (token: string) => {
     try {
         const { id }: any = jwt.verify(token, process.env.EMAIL_TOKEN! as string)
         await User.update({ active: true }, { where: { id } })
-        return successLogger(false)
+        return successLogger(false, 200, {})
     } catch (e) {
-        return errorLogger(true)
+        return errorLogger(true, 0, '')
     }
 }
 
@@ -75,7 +75,7 @@ export const generateResetPasswordLinkService = async (email: string) => {
             const passwordResetToken = tokenGenerator({ id: user.id! }, process.env.RESET_PASSWORD_TOKEN as string, 86400);
             sendMail(passwordResetToken, email, 'reset');
 
-            return successLogger(false, 200);
+            return successLogger(false, 200, {});
         } else return errorLogger(true, 403, 'No email in database');
 
     } catch (e) {

@@ -13,7 +13,7 @@ export interface IDataError {
 }
 
 export interface IDataSuccess {
-    err: boolean,
-    successStatus: number,
-    successData: any
+    successStatus: number
+    successData: any 
+    err?: boolean,
 }
