@@ -72,7 +72,10 @@ const Library: React.FC<Props> = ({ id }) => {
             title: folderNameInput
         })
 
-        if (response) setLibraryChange([...libraryFolders, response.data])
+        if (response) {
+            setLibraryChange([...libraryFolders, response.data])
+            setFolderNameInput('')
+        }
         if (err) errorLogger(err);
     }
 
@@ -110,11 +113,16 @@ const Library: React.FC<Props> = ({ id }) => {
                             )}
                         </styled.AddFolderContainer>
                         <styled.ItemListContainer currentClick={currentFolderCheck}>
-                            {filterFolders && filterFolders.map((folder, i) => (
-                                <styled.FolderItem key={i} folderTitle={folder.title} onClick={() => handleClickFolderItem(folder.id, i)} >
-                                    <styled.RemoveIcon onClick={() => removeFolder(folder.title)} />
-                                </styled.FolderItem>
-                            ))}
+                            {filterFolders.length !== 0 ?
+                                (
+                                    <>
+                                        {filterFolders && filterFolders.map((folder, i) => (
+                                            <styled.FolderItem key={i} folderTitle={folder.title} onClick={() => handleClickFolderItem(folder.id, i)} >
+                                                <styled.RemoveIcon onClick={() => removeFolder(folder.title)} />
+                                            </styled.FolderItem>
+                                        ))}
+                                    </>
+                                ) : <styled.NoFoldersInfo >No folders in library</styled.NoFoldersInfo>}
                         </styled.ItemListContainer>
                     </styled.FolderListContainer>
                 </styled.FolderListWrapper>

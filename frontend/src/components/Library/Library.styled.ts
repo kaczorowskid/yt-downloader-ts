@@ -27,6 +27,13 @@ export const Container = styled.div`
     }
 `;
 
+export const NoFoldersInfo = styled.div`
+    color: white;
+    width: 100%;
+    background: transparent;
+    text-align: center;
+`
+
 export const FolderListWrapper = styled.div`
     width: 25%;
     height: 100%;
