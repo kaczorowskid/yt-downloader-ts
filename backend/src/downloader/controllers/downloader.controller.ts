@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
-import Downloader from '../downloader';
+import * as downloader from '../downloader';
 import path from 'path'
 import fs from 'fs'
-import pusher from '../pusher'
+import pusher from '../../pusher'
+import { getInfoService } from '../services/downloader.service';
 
-const downloader = new Downloader();
+// const downloader = new Downloader();
 
 const createFolder = () => {
     const dir = path.join(__dirname, `../music`);
@@ -16,19 +17,13 @@ const removeFolder = () => {
 }
 
 export const getInfo = async (req: Request, res: Response) => {
-    const { url } = req.query;
+    const { url }: any = req.query;
 
-    downloader.getVideoInfo(url as string)
-        .then((info: any) => {
-            res.json({
-                id: info.id,
-                title: info.title,
-                thumbnail: info.thumbnail,
-                duration: info.duration,
-                url: url
-            })
-        })
-        .catch(e => console.log('videoInfoError ', e))
+    const data = await getInfoService(url)
+
+    if(data) {
+        res.json({ id: data.id, title: data.title, thumbnail: data.thumbnail, url: data.url })
+    }
 }
 
 

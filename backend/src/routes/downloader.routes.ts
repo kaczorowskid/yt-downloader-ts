@@ -1,4 +1,4 @@
-import * as downloaderController from '../controllers/downloader.controller';
+import * as downloaderController from '../downloader/controllers/downloader.controller';
 import { Router } from 'express';
 
 const downloaderRouter = Router();
