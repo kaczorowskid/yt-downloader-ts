@@ -4,7 +4,7 @@
 
 An application that allows to download music from YouTube.
 
-In project used:
+In project I used:
 - typescript
 - react
 - ytdl-core
