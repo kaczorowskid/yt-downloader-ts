@@ -20,9 +20,9 @@ export const downloadOneService = async (url: string, title: string) => {
         stream.on('progress', (_, totalDownloaded, total) => {
             let percentage: number = Math.trunc((totalDownloaded / total) * 100);
     
-            // pusher.trigger('download', 'progress', {
-            //     percentage,
-            // });
+            pusher.trigger('download', 'progress', {
+                percentage,
+            });
         })
         const status = await getMusic(stream, title)
         return status;
