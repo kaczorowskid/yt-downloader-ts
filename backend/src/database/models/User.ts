@@ -23,7 +23,10 @@ export const User = sequelize.define<UserInstance>('users', {
         autoIncrement: true,
         primaryKey: true
     },
-    email: Sequelize.STRING,
+    email: {
+        type: Sequelize.STRING,
+        unique: true
+    },
     password: Sequelize.STRING,
     active: Sequelize.BOOLEAN,
     folder_id: Sequelize.NUMBER
