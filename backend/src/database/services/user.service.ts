@@ -47,7 +47,7 @@ export const loginService = async (email: string, password: string) => {
         const isFine = await brypt.compare(password, user.password)
 
         if (isFine) return succesLogger(false, 201, user)
-        else return errorLogger(true, 400, 'Wrong pass');
+        else return errorLogger(true, 409, 'Wrong pass');
 
     } catch (e) {
         console.log(e)
@@ -88,7 +88,7 @@ export const resetPasswordService = async (token: string, password: string, oldP
         const { id }: any = jwt.verify(token, process.env.RESET_PASSWORD_TOKEN! as string)
 
         const user: any = await User.findOne({ where: { id: id } });
-        if (user === null) return errorLogger(true, 401, 'No user in database');
+        if (user === null) return errorLogger(true, 403, 'No user in database');
 
         const isFine = await brypt.compare(oldPassword, user.password)
 
@@ -97,7 +97,7 @@ export const resetPasswordService = async (token: string, password: string, oldP
             await User.update({ password: hashPassword }, { where: { id } })
             return succesLogger(false, 201, true);
 
-        } else return errorLogger(true, 401, 'Wrong old password');
+        } else return errorLogger(true, 409, 'Wrong old password');
 
     } catch (e) {
         console.log(e);
