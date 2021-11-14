@@ -2,7 +2,6 @@ import { ILoginReducerState } from '../types/ILoginReducerState'
 import { ILoginAction } from '../types/ILoginAction'
 
 export const initialState: ILoginReducerState = {
-    isLoading: true,
     isLogged: false,
     userData: {
         id: 0,
@@ -22,7 +21,6 @@ export const loginReducer = (state: any, action: ILoginAction) => {
         case loginReducerAction.LOGIN:
             return {
                 ...state,
-                isLoading: false,
                 isLogged: true,
                 userData: {
                     id: action.id,
@@ -34,7 +32,6 @@ export const loginReducer = (state: any, action: ILoginAction) => {
         case loginReducerAction.REFRESH:
             return {
                 ...state,
-                isLoading: false,
                 isLogged: true,
                 userData: {
                     id: action.id,

@@ -14,11 +14,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component, ...re
     const { state } = useCurrentUser();
 
     return (
-        <>
-            {< Route exact {...rest} render={(props) => (
-                state.isLogged ? <Redirect to={home} /> : <Component {...props} />
-            )} />}
-        </>
+        < Route exact {...rest} render={(props) => (
+            state.isLogged ? <Redirect to={home} /> : <Component {...props} />
+        )} />
     )
 
 };
