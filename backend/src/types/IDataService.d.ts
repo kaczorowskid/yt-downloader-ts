@@ -7,13 +7,13 @@ export interface IDataService {
 }
 
 export interface IDataError {
-    err?: boolean,
+    err: boolean,
     errStatus: number,
     errData: string
 }
 
 export interface IDataSuccess {
-    err?: boolean,
+    err: boolean,
     successStatus: number
     successData: any 
 }
