@@ -5,7 +5,7 @@ import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useHistory } from 'react-router-dom';
 import { loginReducerAction } from '../../reducers/loginReducer';
 import { callApi, IErrorFetch } from '../../helper/callApi';
-import { passValidator } from '../../validators/passValidator';
+import { Validator } from '../../validators/Validator';
 
 const Login: React.FC = () => {
 
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
     }
 
     const handleResetPassword = async () => {
-        if (!(passValidator.email(resetPasswordEmail))) {
+        if (!(Validator.email(resetPasswordEmail))) {
             setErrorResetPassword({
                 err: true,
                 errData: 'Invalid data'

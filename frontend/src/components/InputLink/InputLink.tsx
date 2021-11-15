@@ -6,6 +6,7 @@ import { useLeftColumn } from '../../hooks/useLeftColumn';
 import Loading from '../Loading/Loading';
 import { callApi } from '../../helper/callApi';
 import { errorLogger } from '../../helper/errorLogger';
+import { Validator } from '../../validators/Validator';
 
 
 interface Props {
@@ -21,6 +22,7 @@ const InputLink: React.FC<Props> = ({ id }) => {
 
     const [inputValue, setInputValue] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<boolean>(false);
 
     const endFetch = () => {
         setInputValue('')
@@ -29,14 +31,19 @@ const InputLink: React.FC<Props> = ({ id }) => {
     }
 
     const getYouTubeData = async () => {
-        setLoading(true)
-        const { response, err } = await callApi(getInfo, 'GET', { url: inputValue })
-        
-        if (response) {
-            setFetchYouTubeData([...fetchYouTubeData, response.data])
-            endFetch()
+        if(Validator.youtube(inputValue)) {
+            setLoading(true)
+            setError(false)
+            const { response, err } = await callApi(getInfo, 'GET', { url: inputValue })
+            
+            if (response) {
+                setFetchYouTubeData([...fetchYouTubeData, response.data])
+                endFetch()
+            }
+            if(err) errorLogger(err);
+        } else {
+            setError(true)
         }
-        if(err) errorLogger(err);
     }
 
     return (
@@ -44,12 +51,13 @@ const InputLink: React.FC<Props> = ({ id }) => {
             {loading && <Loading />}
             <styled.Container id={id}>
                 <styled.Header>Music from <span style={{ color: 'orange' }} >YouTube</span></styled.Header>
-                <styled.InputWrapper>
+                <styled.InputWrapper error = {error}>
                     <styled.Input placeholder='YouTube link' onChange={e => setInputValue(e.target.value)} value={inputValue} />
                     <styled.SearchIconContainer>
                         <styled.SearchIcon onClick={getYouTubeData} />
                     </styled.SearchIconContainer>
                 </styled.InputWrapper>
+                {error && <styled.Error>Url is invalid</styled.Error>}
             </styled.Container>
         </>
     )

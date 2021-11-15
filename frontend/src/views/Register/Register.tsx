@@ -3,7 +3,7 @@ import * as styled from './Register.styled';
 import { config } from '../../config';
 import { callApi, IErrorFetch } from '../../helper/callApi';
 import { useHistory } from 'react-router';
-import { passValidator } from '../../validators/passValidator';
+import { Validator } from '../../validators/Validator';
 
 const Register: React.FC = () => {
     const { registerPath } = config.url.user;
@@ -19,10 +19,10 @@ const Register: React.FC = () => {
     const history = useHistory();
 
     const registerUser = async () => {
-        if (!(passValidator.samePassword(password, confirmPassword) &&
-            passValidator.password(confirmPassword) &&
-            passValidator.password(password) &&
-            passValidator.email(email))
+        if (!(Validator.samePassword(password, confirmPassword) &&
+            Validator.password(confirmPassword) &&
+            Validator.password(password) &&
+            Validator.email(email))
         ) {
             setError({
                 err: true,
@@ -58,11 +58,11 @@ const Register: React.FC = () => {
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Password</styled.InputLabel>
-                        <styled.Input type = 'password' onChange={e => setPassword(e.target.value)} />
+                        <styled.Input type='password' onChange={e => setPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.InputContainer>
                         <styled.InputLabel>Confirm password</styled.InputLabel>
-                        <styled.Input type = 'password' onChange={e => setConfirmPassword(e.target.value)} />
+                        <styled.Input type='password' onChange={e => setConfirmPassword(e.target.value)} />
                     </styled.InputContainer>
                     <styled.Button onClick={() => registerUser()} >Create account</styled.Button>
                     {error && error.err && <styled.Error>{error.errData}</styled.Error>}

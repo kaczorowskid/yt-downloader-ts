@@ -23,14 +23,14 @@ export const Header = styled.div`
     text-align: center;
 `;
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<{error: boolean}>`
     position: absolute;
     top: 43%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 800px;
     height: 70px;
-    border: 1px solid orange;
+    border: ${props => props.error ? '3px solid red' : '1px solid orange'};
     display: flex;
 
     @media only screen and (${device.laptop}) {
@@ -66,4 +66,13 @@ export const SearchIcon = styled(Search)`
     color: orange;
     width: 35px;
     height: 35px;
+`;
+
+export const Error = styled.span`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    color: red;
+    font-size: 30px;
 `;
